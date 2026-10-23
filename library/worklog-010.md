@@ -31,3 +31,4 @@
 | 316 | 电内阁自由改革；令 GS-20261022-FED-FREE-REFORM W0–W2 落地 | 任务：执行自由改革 W0–W2。主代理：模式切换清态；gap 不着色；多节点份额「共载/未分摊」；F03 账户：—；BS 图例；现金键盘；侧栏 dirty；双 asOf；?v=13。美工：BS 图例 token 确认够用未再改。监理第1次送审通过。内阁谏言不发问、本周期收束。fund_flow F01–F09 / 环坐标未动。复杂度 7。执行 未提供。 |
 | 317 | 电内阁：PCT-RESTORE(a')已改正后，再仔细勾稽 Fed BS，并落实 BS 内橙外青双通道着色 | 任务：会话末记工作日志。主代理：勾稽笔记 library/…/20261023-fed-bs-correspond.md（无橙正式行 gold_certs/sdr_certs/tga/interest_payable；缺 map vie_nci）；BS 双通道着色落地；PCT∪INEXT 同包经监理部三监通过；内阁不发问收束。无子代理另行派记。复杂度 5。执行 未提供。 |
 | 318 | 电内阁按 BLS 强制实施四项。 | GS-20261023-FED-UI-API-LINKS 落地——左缘对齐、BS 侧栏收起、Fed+BLS 外链、/api/fed/omo\|fomc/minutes\|calendar fixture；三监通过；内阁不发问收束。复杂度 6。执行 未提供。 |
+| 319 | 电内阁把最近改动上传 GitHub。 | 令 GS-20261023-FED-PUSH-GITHUB（第5/5）；父代理提交 3611821（FREE-REFORM FED/C-FED 收口）并 push origin/main；Partner Work / ChartSpec / ICBC 等非本周期脏文件未入本次。无子代理。复杂度 3。执行 未提供。 |
