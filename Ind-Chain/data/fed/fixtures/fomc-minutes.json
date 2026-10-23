@@ -1,0 +1,29 @@
+{
+  "asOf": "2025-12-31",
+  "source": {
+    "org": "Federal Reserve Board",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "note": "SFC fixture: index pointers only. meeting_date values are placeholders for envelope demo — verify on Board calendars before any analytic use."
+  },
+  "status": "stub",
+  "items": [
+    {
+      "meeting_date": "2025-01-01",
+      "title": "FOMC materials index (Board calendars)",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "type": "other"
+    },
+    {
+      "meeting_date": "2025-01-01",
+      "title": "FOMC minutes archive landing",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes.htm",
+      "type": "minutes"
+    },
+    {
+      "meeting_date": "2025-01-01",
+      "title": "FOMC statements archive landing",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "type": "statement"
+    }
+  ]
+}

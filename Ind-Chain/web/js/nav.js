@@ -1,6 +1,6 @@
 /**
  * FE-NAV — Page routing, URL query helpers, and Backspace upward navigation across
- * `/` (FE-BOARD), `/list` (FE-LIST), and `/cube` (FE-OPENCUBE).
+ * `/` (FE-HUB), `/bics` (FE-BOARD), `/fed` (FE-FED-DRAW), `/list` (FE-LIST), and `/cube` (FE-OPENCUBE).
  */
 
 export function currentBics() {
@@ -20,7 +20,43 @@ export function gateHref(bics, country) {
   if (bics) p.set("bics", bics);
   if (country) p.set("listingCountry", country);
   const q = p.toString();
-  return q ? `/?${q}` : "/";
+  return q ? `/bics?${q}` : "/bics";
+}
+
+export function hubHref() {
+  return "/";
+}
+
+export function bicsHref(bics, country) {
+  return gateHref(bics, country);
+}
+
+export function fedHref() {
+  return "/fed";
+}
+
+function escapeTrail(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Breadcrumb with an SFC prefix back to `/`. Inner items stay separated by `/`. */
+export function trail(items) {
+  const body = (items || [])
+    .map((it, i) => {
+      const sep = i === 0 ? "" : `<span class="home-trail-sep">/</span>`;
+      const label = escapeTrail(it.label);
+      const inner =
+        it.href && !it.current
+          ? `<a href="${escapeTrail(it.href)}">${label}</a>`
+          : `<span class="home-trail-current">${label}</span>`;
+      return sep + inner;
+    })
+    .join("");
+  return `<a href="${hubHref()}">SFC</a><span class="home-trail-sep"> › </span>${body}`;
 }
 
 export function listHref(bics, country) {

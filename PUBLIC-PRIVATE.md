@@ -14,7 +14,7 @@
 
 | 路径 | 性质 |
 |------|------|
-| `Ind-Chain/`（含 `CONCEPTS.md`、网页、服务、原生壳源码 `shell/`、构建 / 打包 / 回归脚本、图标） | 工程 |
+| `Ind-Chain/`（含 `CONCEPTS.md`、`CONCEPTS-INDEX.md`、网页、服务、原生壳源码 `shell/`、构建 / 打包 / 回归脚本、图标） | 工程 |
 | `Ind-Chain/web/vendor/three/` | three.js 0.170.0 本地副本（MIT，含 `LICENSE` 与 SHA-256 清单），工程 |
 | `modules/` | 模块真源（`graph.json`）与静态投影，工程 |
 | `cabinet/` | 整理件、令文、规划。**业主 2026-10-15 已确认 `cabinet/` 进仓**（沿既有跟踪事实）。该目录含第三方研究报告板件与原件 PDF（版权归原出版方），仓库公开期间由业主知悉并承担；**自本日起 `cabinet/` 不再新增第三方研究原件 PDF，只增我们自己写的文件**。历史不改写 |
@@ -22,6 +22,7 @@
 | `BE-DATA/`（已跟踪的表与手册；`~$*`、实体 db 仍不跟踪） | 工程 |
 | `Standard-Financial-Charting.app`、根 `README.md` | 工程。`.app` 为通用二进制 + ad-hoc 签名（hardened runtime；无 Developer ID 前不公证），**仅在构建脚本或壳源码变化时才重建并提交**，避免无谓的二进制 diff |
 | `library/`：worklog、`showable-report/`、`bug-report/` | 队员读本与时间线，仍公开 |
+| `cabinet/agents-kit/` | 子代理组织的**泛化模板**与初始化脚本（已去除 SFC 专有内容，不含本仓 `agents/` 原件）。**业主 2026-10-18 确认可上传**；每次更新套件前先核对没有 SFC 专有内容带入 |
 | `agent_tasklist/DESIGN.md` | 产品三持，工程真源 |
 | `agent_tasklist/AESTHETIC.md` | 色板 / chrome / splash，工程真源 |
 | `agent_tasklist/INFORMATION.md` | 数据词条，工程真源 |
@@ -41,6 +42,7 @@
 | `~/Library/Application Support/Standard-Financial-Charting/`、`~/Library/Logs/Standard-Financial-Charting/` | 应用运行期用户数据与日志，不在仓内 |
 | 审查 / 验收截图（如 `cabinet/notes/p*-evidence/`、`/tmp` 下的取证 PNG） | **业主 2026-10-15 令：每次审完后即销毁**，不进仓、不留本机，免占空间；回报里写所见即可 |
 | `Partner Work/` | 本机合作方原件与副本，0 文件被跟踪，**不得 add** |
+| `SFC-VIS-FED/` | 第三方出版物原件与研读材料（The Fed Explained）。入仓只有 `Ind-Chain/data/fed/` 下自制 JSON、schema，以及 `Ind-Chain/scripts/check_fed_graph.py` |
 | `.vscode/` | 编辑器本机设置 |
 
 历史 commit 里曾经进过仓的 agent 文仍在旧版本里。不改写历史，不 force push。本机文件不删。

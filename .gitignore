@@ -21,6 +21,9 @@ cross-integration/
 .sfc-stage-*
 .sfc-old-*
 
+# 美联储研读原件不进仓（见 PUBLIC-PRIVATE.md）
+SFC-VIS-FED/
+
 # signing material: never commit
 *.p12
 *.p8

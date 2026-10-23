@@ -1,0 +1,320 @@
+{
+ "version": 1,
+ "asOf": "2025-12-31",
+ "claim_type": "bs_claim",
+ "note_zh": "bs_claim 为索取权索引，边不携带金额；金额仅在侧栏。",
+ "entries": [
+  {
+   "line_id": "gold_certs",
+   "side": "asset",
+   "node_ids": [
+    "TREASURY"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "sdr_certs",
+   "side": "asset",
+   "node_ids": [
+    "TREASURY"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "coin",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "loans_di",
+   "side": "asset",
+   "node_ids": [
+    "DEP-INST",
+    "RB-ALL"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "other_loans",
+   "side": "asset",
+   "node_ids": [
+    "DEP-INST"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "soma_resell",
+   "side": "asset",
+   "node_ids": [
+    "DESK",
+    "PRIM-DEALERS"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "soma_treasury",
+   "side": "asset",
+   "node_ids": [
+    "DESK",
+    "TREASURY"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "soma_mbs",
+   "side": "asset",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "soma_gse_debt",
+   "side": "asset",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "soma_fx",
+   "side": "asset",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "soma_swaps",
+   "side": "asset",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "soma_accrued_interest",
+   "side": "asset",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "vie_assets",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "prepaid_pension",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "other_accrued_interest",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "premises",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "collection_items",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "deferred_remittance",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL",
+    "TREASURY"
+   ],
+   "gap": false,
+   "special": true
+  },
+  {
+   "line_id": "other_assets",
+   "side": "asset",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "fr_notes",
+   "side": "liability",
+   "node_ids": [
+    "PUBLIC",
+    "RB-ALL"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "securities_sold_repo",
+   "side": "liability",
+   "node_ids": [
+    "DESK",
+    "NONBANK-CP"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "soma_other_liab",
+   "side": "liability",
+   "node_ids": [
+    "DESK"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "deposits_di",
+   "side": "liability",
+   "node_ids": [
+    "DEP-INST",
+    "RB-ALL"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "tga",
+   "side": "liability",
+   "node_ids": [
+    "TGA",
+    "TREASURY"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "other_deposits",
+   "side": "liability",
+   "node_ids": [],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "interest_payable",
+   "side": "liability",
+   "node_ids": [
+    "DEP-INST",
+    "NONBANK-CP"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "vie_liab",
+   "side": "liability",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "accrued_benefits",
+   "side": "liability",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "deferred_credit",
+   "side": "liability",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "other_liab",
+   "side": "liability",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": true,
+   "special": false,
+   "gap_reason_zh": "无独立节点，折叠至侧栏未投影或挂靠现有节点"
+  },
+  {
+   "line_id": "capital_paid_in",
+   "side": "capital",
+   "node_ids": [
+    "MEMBER-BANKS",
+    "RB-ALL"
+   ],
+   "gap": false,
+   "special": false
+  },
+  {
+   "line_id": "surplus",
+   "side": "capital",
+   "node_ids": [
+    "RB-ALL"
+   ],
+   "gap": false,
+   "special": false
+  }
+ ]
+}

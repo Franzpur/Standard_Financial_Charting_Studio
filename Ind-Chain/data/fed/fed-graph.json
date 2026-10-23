@@ -1,0 +1,4463 @@
+{
+ "$schema": "fed-graph.schema (draft, see report §A2.4)",
+ "version": 1,
+ "updated": "2026-10-22",
+ "title": "FED institutional graph",
+ "note": "Product source for /fed. Evidence pdf_pages refer to SFC-VIS-FED/Materials/the-fed-explained.pdf (The Fed Explained, 11th ed., August 2021, 135 PDF pages). status: verified | derived | external. Figures are not copied. asOf for PDF figures is 2021-08. Node dept groups are an SFC arrangement, not a classification in the PDF.",
+ "source_docs": [
+  {
+   "id": "fed-explained-2021",
+   "title": "The Fed Explained: What the Central Bank Does",
+   "publisher": "Board of Governors of the Federal Reserve System",
+   "edition": "Eleventh Edition, August 2021",
+   "path": "SFC-VIS-FED/Materials/the-fed-explained.pdf",
+   "pdf_pages": 135,
+   "page_offset": {
+    "pdf_p<=24": 8,
+    "pdf_p>=25": 4
+   }
+  }
+ ],
+ "edge_types": [
+  {
+   "key": "appoint",
+   "zh": "任命",
+   "meaning": "含提名、确认、选举、指定、批准；from=任命/选举方 → to=被任命机构或席位",
+   "core8": true
+  },
+  {
+   "key": "oversee",
+   "zh": "监督",
+   "meaning": "含法定授权（mandate）、预算审核、批准（approve）、指定（designate）；from=监督方 → to=被监督方",
+   "core8": true
+  },
+  {
+   "key": "report",
+   "zh": "汇报",
+   "meaning": "问责性汇报与披露（报告、作证）；from=汇报方 → to=受报方",
+   "core8": true
+  },
+  {
+   "key": "vote",
+   "zh": "投票",
+   "meaning": "席位成员 → 表决机构（vote=true）；非表决出席 vote=false",
+   "core8": true
+  },
+  {
+   "key": "transmit",
+   "zh": "政策传导",
+   "meaning": "货币政策立场沿工具、市场、实体经济的传导；from=上游 → to=下游",
+   "core8": true
+  },
+  {
+   "key": "fund_flow",
+   "zh": "资金流",
+   "meaning": "现金流向：from=付款方（义务）→ to=收款方（权利）。细分见 fund_flow_subtypes 与 attrs.account。",
+   "core8": true
+  },
+  {
+   "key": "regulate",
+   "zh": "监管",
+   "meaning": "制定规则与实施监管/检查；from=监管者 → to=被监管主体",
+   "core8": true
+  },
+  {
+   "key": "advise",
+   "zh": "咨询",
+   "meaning": "建议与意见；from=建议方 → to=被咨询方",
+   "core8": true
+  },
+  {
+   "key": "service",
+   "zh": "服务",
+   "meaning": "支付清算、账户、财政代理、信贷便利；from=服务提供方 → to=客户",
+   "core8": false
+  },
+  {
+   "key": "delegate",
+   "zh": "授权下放",
+   "meaning": "上级把权限下放给下级执行；from=授权方 → to=受托方",
+   "core8": false
+  },
+  {
+   "key": "inform",
+   "zh": "信息",
+   "meaning": "数据与沟通（Beige Book、统计、声明、纪要）；from=信息源 → to=受众",
+   "core8": false
+  },
+  {
+   "key": "coordinate",
+   "zh": "协作",
+   "meaning": "对等协调机制（FSOC、FFIEC、国际论坛）；双向，directed=false",
+   "core8": false
+  }
+ ],
+ "departments": [
+  {
+   "key": "board",
+   "zh": "理事会",
+   "en": "Board of Governors",
+   "order": 1
+  },
+  {
+   "key": "fomc",
+   "zh": "FOMC",
+   "en": "FOMC",
+   "order": 2
+  },
+  {
+   "key": "banks",
+   "zh": "储备银行",
+   "en": "Reserve Banks",
+   "order": 3
+  },
+  {
+   "key": "advisory",
+   "zh": "咨询委员会",
+   "en": "Advisory councils",
+   "order": 4
+  },
+  {
+   "key": "government",
+   "zh": "政府机构",
+   "en": "Government",
+   "order": 5
+  },
+  {
+   "key": "markets",
+   "zh": "市场、公众与国际",
+   "en": "Markets, public & international",
+   "order": 6
+  }
+ ],
+ "nodes": [
+  {
+   "id": "BOG",
+   "class": "governance",
+   "kind": "agency",
+   "label": {
+    "zh": "联邦储备委员会（理事会）",
+    "en": "Board of Governors"
+   },
+   "ring": 0,
+   "attrs": {
+    "seats": 7,
+    "location": "Washington, D.C.",
+    "independent_agency": true,
+    "accountable_to": "CONGRESS"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10,
+      15,
+      16
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-1",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "主席席（1/7）",
+    "en": "Governor seat 1/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "chair",
+    "term_years": 4,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-2",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "副主席席（2/7）",
+    "en": "Governor seat 2/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "vice_chair",
+    "term_years": 4,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-3",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "理事席（3/7）",
+    "en": "Governor seat 3/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "governor",
+    "term_years": 14,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-4",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "理事席（4/7）",
+    "en": "Governor seat 4/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "governor",
+    "term_years": 14,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-5",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "理事席（5/7）",
+    "en": "Governor seat 5/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "governor",
+    "term_years": 14,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-6",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "理事席（6/7）",
+    "en": "Governor seat 6/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "governor",
+    "term_years": 14,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "SEAT-BOG-7",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "理事席（7/7）",
+    "en": "Governor seat 7/7"
+   },
+   "ring": 1,
+   "attrs": {
+    "role": "governor",
+    "term_years": 14,
+    "board_term_years": 14,
+    "reappointable_after_full_term": false,
+    "fomc_vote": true,
+    "staggered": "one term expires Jan 31 of each even-numbered year"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16,
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "FOMC",
+   "class": "governance",
+   "kind": "committee",
+   "label": {
+    "zh": "联邦公开市场委员会",
+    "en": "Federal Open Market Committee"
+   },
+   "ring": 1,
+   "attrs": {
+    "voting_seats": 12,
+    "meetings_per_year": 8,
+    "created": "1933/1935",
+    "chair_by_tradition": "BOG chair",
+    "vice_by_tradition": "FRBNY president"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "SEAT-NY",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "纽约联储主席席（常任）",
+    "en": "New York Fed president seat (permanent)"
+   },
+   "ring": 1,
+   "attrs": {
+    "fomc_vote": true,
+    "permanent": true,
+    "role": "fomc_vice_chair_by_tradition"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "SEAT-ROT-1",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "轮值席 1/4（一年任期）",
+    "en": "Rotating seat 1/4 (one-year term)"
+   },
+   "ring": 1,
+   "attrs": {
+    "fomc_vote": true,
+    "term_years": 1,
+    "rotation_group": "ROT-1",
+    "rotation_members": [
+     "RB-01",
+     "RB-03",
+     "RB-05"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    },
+    {
+     "doc": "federalreserve.gov-fomc-rotation",
+     "pdf_pages": [],
+     "status": "external",
+     "note": "rotation groups not in the PDF; verify against the Board website"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "SEAT-ROT-2",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "轮值席 2/4（一年任期）",
+    "en": "Rotating seat 2/4 (one-year term)"
+   },
+   "ring": 1,
+   "attrs": {
+    "fomc_vote": true,
+    "term_years": 1,
+    "rotation_group": "ROT-2",
+    "rotation_members": [
+     "RB-04",
+     "RB-07"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    },
+    {
+     "doc": "federalreserve.gov-fomc-rotation",
+     "pdf_pages": [],
+     "status": "external",
+     "note": "rotation groups not in the PDF; verify against the Board website"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "SEAT-ROT-3",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "轮值席 3/4（一年任期）",
+    "en": "Rotating seat 3/4 (one-year term)"
+   },
+   "ring": 1,
+   "attrs": {
+    "fomc_vote": true,
+    "term_years": 1,
+    "rotation_group": "ROT-3",
+    "rotation_members": [
+     "RB-06",
+     "RB-08",
+     "RB-11"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    },
+    {
+     "doc": "federalreserve.gov-fomc-rotation",
+     "pdf_pages": [],
+     "status": "external",
+     "note": "rotation groups not in the PDF; verify against the Board website"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "SEAT-ROT-4",
+   "class": "governance",
+   "kind": "seat",
+   "label": {
+    "zh": "轮值席 4/4（一年任期）",
+    "en": "Rotating seat 4/4 (one-year term)"
+   },
+   "ring": 1,
+   "attrs": {
+    "fomc_vote": true,
+    "term_years": 1,
+    "rotation_group": "ROT-4",
+    "rotation_members": [
+     "RB-09",
+     "RB-10",
+     "RB-12"
+    ]
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    },
+    {
+     "doc": "federalreserve.gov-fomc-rotation",
+     "pdf_pages": [],
+     "status": "external",
+     "note": "rotation groups not in the PDF; verify against the Board website"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "DESK",
+   "class": "governance",
+   "kind": "unit",
+   "label": {
+    "zh": "公开市场操作台（纽约联储）",
+    "en": "System Open Market Desk @FRBNY"
+   },
+   "ring": 1,
+   "attrs": {
+    "host": "RB-02",
+    "counterparties": "primary dealers",
+    "acts_for": "FOMC"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      32,
+      40
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "fomc"
+  },
+  {
+   "id": "RB-ALL",
+   "class": "bank",
+   "kind": "group",
+   "label": {
+    "zh": "12 家地区联储银行（整体）",
+    "en": "The 12 Reserve Banks (system)"
+   },
+   "ring": 2,
+   "attrs": {
+    "count": 12,
+    "branches": 24,
+    "separately_incorporated": true
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10,
+      11,
+      16
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-01",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "波士顿联储银行（第1区）",
+    "en": "Federal Reserve Bank of Boston (District 1)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 1,
+    "city": "Boston",
+    "lat": 42.36,
+    "lon": -71.06,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-02",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "纽约联储银行（第2区）",
+    "en": "Federal Reserve Bank of New York (District 2)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 2,
+    "city": "New York",
+    "lat": 40.71,
+    "lon": -74.01,
+    "geo_status": "derived",
+    "fomc_seat": "permanent"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-03",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "费城联储银行（第3区）",
+    "en": "Federal Reserve Bank of Philadelphia (District 3)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 3,
+    "city": "Philadelphia",
+    "lat": 39.95,
+    "lon": -75.17,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-04",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "克利夫兰联储银行（第4区）",
+    "en": "Federal Reserve Bank of Cleveland (District 4)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 4,
+    "city": "Cleveland",
+    "lat": 41.5,
+    "lon": -81.69,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-05",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "里士满联储银行（第5区）",
+    "en": "Federal Reserve Bank of Richmond (District 5)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 5,
+    "city": "Richmond",
+    "lat": 37.54,
+    "lon": -77.44,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-06",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "亚特兰大联储银行（第6区）",
+    "en": "Federal Reserve Bank of Atlanta (District 6)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 6,
+    "city": "Atlanta",
+    "lat": 33.75,
+    "lon": -84.39,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-07",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "芝加哥联储银行（第7区）",
+    "en": "Federal Reserve Bank of Chicago (District 7)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 7,
+    "city": "Chicago",
+    "lat": 41.88,
+    "lon": -87.63,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-08",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "圣路易斯联储银行（第8区）",
+    "en": "Federal Reserve Bank of St. Louis (District 8)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 8,
+    "city": "St. Louis",
+    "lat": 38.63,
+    "lon": -90.2,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-09",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "明尼阿波利斯联储银行（第9区）",
+    "en": "Federal Reserve Bank of Minneapolis (District 9)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 9,
+    "city": "Minneapolis",
+    "lat": 44.98,
+    "lon": -93.27,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-10",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "堪萨斯城联储银行（第10区）",
+    "en": "Federal Reserve Bank of Kansas City (District 10)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 10,
+    "city": "Kansas City",
+    "lat": 39.1,
+    "lon": -94.58,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-11",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "达拉斯联储银行（第11区）",
+    "en": "Federal Reserve Bank of Dallas (District 11)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 11,
+    "city": "Dallas",
+    "lat": 32.78,
+    "lon": -96.8,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-12",
+   "class": "bank",
+   "kind": "reserve_bank",
+   "label": {
+    "zh": "旧金山联储银行（第12区）",
+    "en": "Federal Reserve Bank of San Francisco (District 12)"
+   },
+   "ring": 2,
+   "attrs": {
+    "district": 12,
+    "city": "San Francisco",
+    "lat": 37.77,
+    "lon": -122.42,
+    "geo_status": "derived",
+    "fomc_seat": "rotating"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      11
+     ],
+     "status": "verified",
+     "fig": "Fig 1.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-BOARD",
+   "class": "bank",
+   "kind": "board",
+   "label": {
+    "zh": "储备银行董事会（模板，每行 9 人）",
+    "en": "Reserve Bank board of directors (template, 9 per bank)"
+   },
+   "ring": 2,
+   "attrs": {
+    "directors": 9,
+    "instances": 12
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      17,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "DIR-A",
+   "class": "bank",
+   "kind": "director_class",
+   "label": {
+    "zh": "A 类董事（3，代表成员银行）",
+    "en": "Class A directors (3; member banks)"
+   },
+   "ring": 2,
+   "attrs": {
+    "count": 3,
+    "term_years": 3,
+    "elected_by": "MEMBER-BANKS"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "DIR-B",
+   "class": "bank",
+   "kind": "director_class",
+   "label": {
+    "zh": "B 类董事（3，代表公众）",
+    "en": "Class B directors (3; public)"
+   },
+   "ring": 2,
+   "attrs": {
+    "count": 3,
+    "term_years": 3,
+    "elected_by": "MEMBER-BANKS"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "DIR-C",
+   "class": "bank",
+   "kind": "director_class",
+   "label": {
+    "zh": "C 类董事（3，代表公众）",
+    "en": "Class C directors (3; public)"
+   },
+   "ring": 2,
+   "attrs": {
+    "count": 3,
+    "term_years": 3,
+    "appointed_by": "BOG",
+    "chair_pool": true
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      17,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-PRES",
+   "class": "bank",
+   "kind": "role",
+   "label": {
+    "zh": "储备银行行长（模板）",
+    "en": "Reserve Bank president (template)"
+   },
+   "ring": 2,
+   "attrs": {
+    "term_years": 5,
+    "nominated_by": [
+     "DIR-B",
+     "DIR-C"
+    ],
+    "approved_by": "BOG"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17,
+      18
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "BRANCH",
+   "class": "bank",
+   "kind": "branch",
+   "label": {
+    "zh": "分行及分行董事会（24 家）",
+    "en": "Branches and branch boards (24)"
+   },
+   "ring": 2,
+   "attrs": {
+    "branches": 24,
+    "board_size": [
+     5,
+     7
+    ],
+    "term_years": 3
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      16,
+      18
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "DFS",
+   "class": "governance",
+   "kind": "unit",
+   "label": {
+    "zh": "金融稳定司（理事会内设）",
+    "en": "Division of Financial Stability (Board)"
+   },
+   "ring": 3,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      61
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "DCCA",
+   "class": "governance",
+   "kind": "unit",
+   "label": {
+    "zh": "消费者与社区事务司（理事会内设）",
+    "en": "Division of Consumer and Community Affairs (Board)"
+   },
+   "ring": 3,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      119
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "LISCC",
+   "class": "governance",
+   "kind": "unit",
+   "label": {
+    "zh": "大型机构监管协调委员会",
+    "en": "Large Institution Supervision Coordinating Committee"
+   },
+   "ring": 3,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      74,
+      75
+     ],
+     "status": "verified",
+     "fig": "Fig 5.5"
+    }
+   ],
+   "dept": "board"
+  },
+  {
+   "id": "CD-DEPT",
+   "class": "bank",
+   "kind": "unit",
+   "label": {
+    "zh": "社区发展部门（理事会与各储备银行）",
+    "en": "Community development departments (Board + each RB)"
+   },
+   "ring": 3,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      129,
+      130,
+      131
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "banks"
+  },
+  {
+   "id": "RB-ADV",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "储备银行咨询委员会（农业/小企业/劳工）",
+    "en": "Reserve Bank advisory committees (agri / small business / labor)"
+   },
+   "ring": 3,
+   "attrs": {
+    "solicited": "biannually by the Board"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "FAC",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "联邦咨询委员会 FAC",
+    "en": "Federal Advisory Council"
+   },
+   "ring": 3,
+   "attrs": {
+    "members": 12,
+    "meetings_per_year": 4,
+    "term": "3 one-year terms",
+    "statutory": true,
+    "chosen_by": "each RB picks one"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "CDIAC",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "社区存款机构咨询委员会 CDIAC",
+    "en": "Community Depository Institutions Advisory Council"
+   },
+   "ring": 3,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "MVC",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "模型验证委员会 MVC",
+    "en": "Model Validation Council"
+   },
+   "ring": 3,
+   "attrs": {
+    "established": 2012
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "CAC",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "社区咨询委员会 CAC（旧称 Consumer）",
+    "en": "Community Advisory Council (Consumer)"
+   },
+   "ring": 3,
+   "attrs": {
+    "members": 15,
+    "term_years": 3,
+    "meetings": "semiannual",
+    "established": 2015,
+    "selected_by": "BOG (public nomination)",
+    "name_note": "用户称 Consumer Advisory Council；PDF 原名 Community Advisory Council"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22,
+      131
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "IPAC",
+   "class": "committee",
+   "kind": "advisory",
+   "label": {
+    "zh": "保险政策咨询委员会 IPAC",
+    "en": "Insurance Policy Advisory Committee"
+   },
+   "ring": 3,
+   "attrs": {
+    "established": 2018
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "advisory"
+  },
+  {
+   "id": "CONGRESS",
+   "class": "external",
+   "kind": "legislature",
+   "label": {
+    "zh": "国会",
+    "en": "Congress"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10,
+      25,
+      26
+     ],
+     "status": "verified",
+     "fig": "Fig 1.2"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "SBC",
+   "class": "external",
+   "kind": "legislature",
+   "label": {
+    "zh": "参议院银行委员会",
+    "en": "Senate Banking, Housing, and Urban Affairs Committee"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "HFSC",
+   "class": "external",
+   "kind": "legislature",
+   "label": {
+    "zh": "众议院金融服务委员会",
+    "en": "House Financial Services Committee"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "PRESIDENT",
+   "class": "external",
+   "kind": "executive",
+   "label": {
+    "zh": "总统",
+    "en": "President"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15
+     ],
+     "status": "verified",
+     "fig": "Fig 2.1"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "SENATE",
+   "class": "external",
+   "kind": "legislature",
+   "label": {
+    "zh": "参议院（确认）",
+    "en": "Senate (confirms)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15
+     ],
+     "status": "verified",
+     "fig": "Fig 2.1"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "TREASURY",
+   "class": "external",
+   "kind": "executive",
+   "label": {
+    "zh": "美国财政部",
+    "en": "U.S. Treasury"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      13,
+      58,
+      106,
+      107
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "TGA",
+   "class": "external",
+   "kind": "account",
+   "label": {
+    "zh": "财政部一般账户（TGA）",
+    "en": "Treasury General Account"
+   },
+   "ring": 4,
+   "attrs": {
+    "balance_2020_06_24_bn": 1587,
+    "asof": "2020-06-24"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      47,
+      107
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "FSOC",
+   "class": "external",
+   "kind": "council",
+   "label": {
+    "zh": "金融稳定监督委员会 FSOC",
+    "en": "Financial Stability Oversight Council"
+   },
+   "ring": 4,
+   "attrs": {
+    "chair": "Treasury Secretary",
+    "voting_members": 10,
+    "nonvoting_members": 5,
+    "count_status": "derived from Fig 4.5, re-check"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      61,
+      62
+     ],
+     "status": "verified",
+     "fig": "Fig 4.5"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "FFIEC",
+   "class": "external",
+   "kind": "council",
+   "label": {
+    "zh": "联邦金融机构检查委员会 FFIEC",
+    "en": "Federal Financial Institutions Examination Council"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      73
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "FIN-REGS",
+   "class": "external",
+   "kind": "agency",
+   "label": {
+    "zh": "其他金融监管者（OCC/FDIC/NCUA/SEC/CFTC/CFPB/各州）",
+    "en": "Other financial regulators (OCC, FDIC, NCUA, SEC, CFTC, CFPB, states)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      62,
+      69,
+      70,
+      108
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "government"
+  },
+  {
+   "id": "DEP-INST",
+   "class": "external",
+   "kind": "bank_system",
+   "label": {
+    "zh": "存款机构（银行、储蓄机构、信用社）",
+    "en": "Depository institutions"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      19,
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "MEMBER-BANKS",
+   "class": "external",
+   "kind": "bank_system",
+   "label": {
+    "zh": "成员银行（持股并选举 A/B 类董事）",
+    "en": "Member banks (stockholders)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets",
+   "note": "成员银行持股（PDF p.12）；股息细则 PDF 未写清 → external 待核。"
+  },
+  {
+   "id": "PRIM-DEALERS",
+   "class": "external",
+   "kind": "market",
+   "label": {
+    "zh": "一级交易商（公开市场操作对手）",
+    "en": "Primary dealers (OMO counterparties)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      41
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "NONBANK-CP",
+   "class": "external",
+   "kind": "market",
+   "label": {
+    "zh": "ON RRP 非银行对手方",
+    "en": "Nonbank ON RRP counterparties"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      41,
+      46
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "FMU",
+   "class": "external",
+   "kind": "market_infra",
+   "label": {
+    "zh": "金融市场基础设施 FMU",
+    "en": "Financial market utilities"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      68,
+      110,
+      111
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "SUPERVISED",
+   "class": "external",
+   "kind": "bank_system",
+   "label": {
+    "zh": "受监管主体（BHC/FHC/SLHC/州成员银行/外资银行/Edge/非银 SIFI）",
+    "en": "Supervised entities"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      68,
+      69
+     ],
+     "status": "verified",
+     "fig": "Fig 5.2/5.3"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "MARKETS",
+   "class": "external",
+   "kind": "market",
+   "label": {
+    "zh": "金融市场（短/长期利率、资产价格、美元）",
+    "en": "Financial markets (rates, assets, dollar)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      28,
+      29,
+      45
+     ],
+     "status": "verified",
+     "fig": "Fig 3.3"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "PUBLIC",
+   "class": "external",
+   "kind": "public",
+   "label": {
+    "zh": "公众（家庭与企业）",
+    "en": "Households and businesses (public)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      9,
+      28,
+      29
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "COMM-ORG",
+   "class": "external",
+   "kind": "public",
+   "label": {
+    "zh": "社区组织与中介机构",
+    "en": "Community organizations / intermediaries"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      130,
+      131
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "FOREIGN-CB",
+   "class": "external",
+   "kind": "intl",
+   "label": {
+    "zh": "外国央行与货币当局",
+    "en": "Foreign central banks / monetary authorities"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      63,
+      108
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  },
+  {
+   "id": "INTL",
+   "class": "external",
+   "kind": "intl",
+   "label": {
+    "zh": "国际机构（FSB/BIS/巴塞尔委员会/IMF/OECD/世行/G7·G20）",
+    "en": "International bodies (FSB, BIS, Basel Committee, IMF, OECD, World Bank, G7/G20)"
+   },
+   "ring": 4,
+   "attrs": {},
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      63,
+      64
+     ],
+     "status": "verified"
+    }
+   ],
+   "dept": "markets"
+  }
+ ],
+ "edges": [
+  {
+   "id": "A01",
+   "type": "appoint",
+   "subtype": "nominate",
+   "from": "PRESIDENT",
+   "to": "BOG",
+   "directed": true,
+   "label": "提名理事",
+   "meaning": "总统提名 7 名理事，并指定 1 名主席、1 名副主席（须已在理事会或同时被任命）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16
+     ],
+     "status": "verified",
+     "fig": "Fig 2.1"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {
+    "seats": 7
+   }
+  },
+  {
+   "id": "A02",
+   "type": "appoint",
+   "subtype": "confirm",
+   "from": "SENATE",
+   "to": "BOG",
+   "directed": true,
+   "label": "确认理事",
+   "meaning": "参议院确认理事任命及主席/副主席提名；理事 14 年交错任期，主席/副主席 4 年",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      15,
+      16
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "A03",
+   "type": "appoint",
+   "subtype": "elect",
+   "from": "MEMBER-BANKS",
+   "to": "DIR-A",
+   "directed": true,
+   "label": "选举 A 类董事",
+   "meaning": "成员银行持股并选举 3 名 A 类董事（代表成员银行）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A04",
+   "type": "appoint",
+   "subtype": "elect",
+   "from": "MEMBER-BANKS",
+   "to": "DIR-B",
+   "directed": true,
+   "label": "选举 B 类董事",
+   "meaning": "成员银行选举 3 名 B 类董事（代表公众）；成员银行共选 6 名",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A05",
+   "type": "appoint",
+   "subtype": "appoint",
+   "from": "BOG",
+   "to": "DIR-C",
+   "directed": true,
+   "label": "任命 C 类董事",
+   "meaning": "理事会任命 3 名 C 类董事（代表公众）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A06",
+   "type": "appoint",
+   "subtype": "designate",
+   "from": "BOG",
+   "to": "RB-BOARD",
+   "directed": true,
+   "label": "指定董事长/副董事长",
+   "meaning": "每年由理事会从 C 类董事中指定董事长与副董事长（须“tested banking experience”）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "A07",
+   "type": "appoint",
+   "subtype": "nominate",
+   "from": "DIR-B",
+   "to": "RB-PRES",
+   "directed": true,
+   "label": "提名行长",
+   "meaning": "B、C 类董事提名储备银行行长",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A08",
+   "type": "appoint",
+   "subtype": "nominate",
+   "from": "DIR-C",
+   "to": "RB-PRES",
+   "directed": true,
+   "label": "提名行长",
+   "meaning": "同上；六名代表公众的董事提名行长",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17,
+      18
+     ],
+     "status": "verified",
+     "fig": "Fig 2.3"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A09",
+   "type": "appoint",
+   "subtype": "approve",
+   "from": "BOG",
+   "to": "RB-PRES",
+   "directed": true,
+   "label": "批准行长",
+   "meaning": "理事会批准行长，任期 5 年",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S5"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "A10",
+   "type": "appoint",
+   "subtype": "appoint",
+   "from": "RB-ALL",
+   "to": "BRANCH",
+   "directed": true,
+   "label": "任命分行董事（多数）",
+   "meaning": "分行董事会 5 或 7 人；多数由储备银行任命",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      18
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "A11",
+   "type": "appoint",
+   "subtype": "appoint",
+   "from": "BOG",
+   "to": "BRANCH",
+   "directed": true,
+   "label": "任命分行董事（其余）",
+   "meaning": "其余分行董事由理事会任命；分行董事长从理事会任命者中选出",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      18
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "A12",
+   "type": "appoint",
+   "subtype": "designate",
+   "from": "RB-ALL",
+   "to": "FAC",
+   "directed": true,
+   "label": "各行遴选 1 名 FAC 代表",
+   "meaning": "每年每家储备银行选一人代表本区进入 FAC",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "A13",
+   "type": "appoint",
+   "subtype": "select",
+   "from": "BOG",
+   "to": "CAC",
+   "directed": true,
+   "label": "遴选 CAC 成员",
+   "meaning": "理事会经公开提名程序遴选 15 名成员，三年交错任期",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "O01",
+   "type": "oversee",
+   "subtype": "oversee",
+   "from": "CONGRESS",
+   "to": "BOG",
+   "directed": true,
+   "label": "国会监督",
+   "meaning": "国会监督联储体系及其机构；理事会直接对国会负责",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10
+     ],
+     "status": "verified",
+     "fig": "Fig 1.2"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "O02",
+   "type": "oversee",
+   "subtype": "mandate",
+   "from": "CONGRESS",
+   "to": "FOMC",
+   "directed": true,
+   "label": "法定双重使命",
+   "meaning": "国会通过《联邦储备法》（1977 修订）设定充分就业与物价稳定",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      25,
+      26
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "O03",
+   "type": "oversee",
+   "subtype": "oversee",
+   "from": "BOG",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "监督与预算审核",
+   "meaning": "理事会监督 12 家储备银行，审核批准各行预算，并监督其服务与检查",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10,
+      16
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "O04",
+   "type": "oversee",
+   "subtype": "oversee",
+   "from": "RB-BOARD",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "董事会监管本行",
+   "meaning": "每家储备银行受其董事会“supervision and control”，审查预算、审计与战略",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      17
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "O05",
+   "type": "oversee",
+   "subtype": "approve",
+   "from": "TREASURY",
+   "to": "BOG",
+   "directed": true,
+   "label": "批准 13(3) 紧急贷款",
+   "meaning": "13(3) 项目须经财政部长批准，须广泛适用并保护纳税人",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      58
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S3"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "O06",
+   "type": "oversee",
+   "subtype": "designate",
+   "from": "FSOC",
+   "to": "BOG",
+   "directed": true,
+   "label": "指定须受联储监管的非银/FMU",
+   "meaning": "FSOC 认定的非银金融公司与系统重要 FMU 交理事会监管",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      68,
+      73
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "O07",
+   "type": "oversee",
+   "subtype": "pricing",
+   "from": "BOG",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "服务定价与政策",
+   "meaning": "理事会按《货币控制法》设定服务费以回收成本，并设避免利益冲突政策",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      92
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "R01",
+   "type": "report",
+   "subtype": null,
+   "from": "BOG",
+   "to": "CONGRESS",
+   "directed": true,
+   "label": "对国会负责并披露",
+   "meaning": "理事会直接对国会负责；每半年提交《货币政策报告》",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      10,
+      34,
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "R02",
+   "type": "report",
+   "subtype": null,
+   "from": "BOG",
+   "to": "SBC",
+   "directed": true,
+   "label": "主席作证（参议院）",
+   "meaning": "每年两次，主席就经济与货币政策作证",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      34,
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "R03",
+   "type": "report",
+   "subtype": null,
+   "from": "BOG",
+   "to": "HFSC",
+   "directed": true,
+   "label": "主席作证（众议院）",
+   "meaning": "同上",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      34,
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "V01",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-1",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员；主席依惯例当选 FOMC 主席",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": "chair"
+   }
+  },
+  {
+   "id": "V02",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-2",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V03",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-3",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V04",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-4",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V05",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-5",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V06",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-6",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V07",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-BOG-7",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事席表决",
+   "meaning": "7 名理事全部是 FOMC 表决成员",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": null
+   }
+  },
+  {
+   "id": "V08",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-NY",
+   "to": "FOMC",
+   "directed": true,
+   "label": "纽约联储主席表决",
+   "meaning": "纽约联储主席是常任表决成员，依惯例任 FOMC 副主席",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      21
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "role": "vice_chair_by_tradition"
+   }
+  },
+  {
+   "id": "V09",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-ROT-1",
+   "to": "FOMC",
+   "directed": true,
+   "label": "轮值席表决",
+   "meaning": "其余 11 家储备银行行长中 4 人，一年任期、轮换表决",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "term_years": 1
+   }
+  },
+  {
+   "id": "V10",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-ROT-2",
+   "to": "FOMC",
+   "directed": true,
+   "label": "轮值席表决",
+   "meaning": "其余 11 家储备银行行长中 4 人，一年任期、轮换表决",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "term_years": 1
+   }
+  },
+  {
+   "id": "V11",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-ROT-3",
+   "to": "FOMC",
+   "directed": true,
+   "label": "轮值席表决",
+   "meaning": "其余 11 家储备银行行长中 4 人，一年任期、轮换表决",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "term_years": 1
+   }
+  },
+  {
+   "id": "V12",
+   "type": "vote",
+   "subtype": null,
+   "from": "SEAT-ROT-4",
+   "to": "FOMC",
+   "directed": true,
+   "label": "轮值席表决",
+   "meaning": "其余 11 家储备银行行长中 4 人，一年任期、轮换表决",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": true,
+    "term_years": 1
+   }
+  },
+  {
+   "id": "V13",
+   "type": "vote",
+   "subtype": "participate",
+   "from": "RB-ALL",
+   "to": "FOMC",
+   "directed": true,
+   "label": "全部行长出席并参与讨论",
+   "meaning": "12 位行长均出席并参与讨论，但只有当年表决成员可投票",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      32
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "vote": false
+   }
+  },
+  {
+   "id": "T01",
+   "type": "transmit",
+   "subtype": null,
+   "from": "FOMC",
+   "to": "BOG",
+   "directed": true,
+   "label": "目标区间 → 管理利率",
+   "meaning": "FOMC 定联邦基金利率目标区间；理事会据此设置 IORB 等管理利率（2020 起准备金率为零）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      20,
+      24,
+      39,
+      43
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T02",
+   "type": "transmit",
+   "subtype": null,
+   "from": "FOMC",
+   "to": "DESK",
+   "directed": true,
+   "label": "指示公开市场操作",
+   "meaning": "FOMC 确定立场并确保传导；公开市场操作台在纽约联储执行买卖",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      40,
+      42
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T03",
+   "type": "transmit",
+   "subtype": null,
+   "from": "DESK",
+   "to": "PRIM-DEALERS",
+   "directed": true,
+   "label": "买卖证券、注入/回收准备金",
+   "meaning": "公开市场操作台执行 FOMC 指示：向一级交易商买卖合格证券，并借此注入或回收准备金（传导描述；价款交割见 fund_flow desk_omo）",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      40,
+      41
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T04",
+   "type": "transmit",
+   "subtype": null,
+   "from": "BOG",
+   "to": "DEP-INST",
+   "directed": true,
+   "label": "IORB：准备金利率",
+   "meaning": "理事会设定 IORB（准备金余额利率）；2020 起准备金要求为零；2021-07-29 起统一称 IORB。实际付息见 fund_flow iorb",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      39,
+      40,
+      46
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T05",
+   "type": "transmit",
+   "subtype": null,
+   "from": "FOMC",
+   "to": "NONBANK-CP",
+   "directed": true,
+   "label": "ON RRP 利率",
+   "meaning": "FOMC 设定隔夜逆回购（ON RRP）报出价，作为联邦基金利率目标区间的补充下限工具。实际现金端与付息见 fund_flow onrrp",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      41,
+      46
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T06",
+   "type": "transmit",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "DEP-INST",
+   "directed": true,
+   "label": "贴现窗口",
+   "meaning": "贴现窗口作为存款机构流动性后备工具；贴现率经行董事会建议、理事会审定，构成联邦基金利率上限角色。放贷本金见 fund_flow discount_loan",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      19,
+      42,
+      46
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T07",
+   "type": "transmit",
+   "subtype": null,
+   "from": "DEP-INST",
+   "to": "MARKETS",
+   "directed": true,
+   "label": "联邦基金与短期利率",
+   "meaning": "银行比较管理利率与市场利率，短期利率进入目标区间",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      28,
+      45
+     ],
+     "status": "verified",
+     "fig": "Fig 3.3"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "T08",
+   "type": "transmit",
+   "subtype": null,
+   "from": "MARKETS",
+   "to": "PUBLIC",
+   "directed": true,
+   "label": "长期利率、资产价格 → 支出",
+   "meaning": "长期利率、股价、汇率变动影响家庭与企业支出，进而影响就业与通胀",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      25,
+      28,
+      29,
+      45
+     ],
+     "status": "verified",
+     "fig": "Fig 3.1"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I01",
+   "type": "inform",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "FOMC",
+   "directed": true,
+   "label": "各区经济信息",
+   "meaning": "储备银行汇总辖区信息；行长在会上陈述；Beige Book 会前两周公开",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      16,
+      19,
+      32
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I02",
+   "type": "inform",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "PUBLIC",
+   "directed": true,
+   "label": "Beige Book 公开",
+   "meaning": "辖区信息汇总在 FOMC 会议前两周向公众发布",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      19,
+      32
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I03",
+   "type": "inform",
+   "subtype": null,
+   "from": "FOMC",
+   "to": "PUBLIC",
+   "directed": true,
+   "label": "声明、记者会、纪要、SEP",
+   "meaning": "每次会后声明；主席记者会（2019 起每次）；纪要 3 周后；SEP 每年 4 次；逐字稿 5 年后",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      33,
+      34,
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I04",
+   "type": "inform",
+   "subtype": null,
+   "from": "PUBLIC",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "辖区联系人与调查",
+   "meaning": "行长会前与辖区联系人交流；联储做区域/全国调查",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      35
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I05",
+   "type": "inform",
+   "subtype": null,
+   "from": "BOG",
+   "to": "FOMC",
+   "directed": true,
+   "label": "理事会幕僚分析与政策选项",
+   "meaning": "理事会幕僚向全体参会者提供经济分析、预测与多个政策选项",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      32
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "I06",
+   "type": "inform",
+   "subtype": null,
+   "from": "DFS",
+   "to": "FOMC",
+   "directed": true,
+   "label": "金融稳定脆弱性评估",
+   "meaning": "脆弱性评估同时服务宏观审慎监管与货币政策",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      54,
+      61
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "I07",
+   "type": "inform",
+   "subtype": null,
+   "from": "CD-DEPT",
+   "to": "COMM-ORG",
+   "directed": true,
+   "label": "社区发展协作与研究",
+   "meaning": "通过中介机构而非直接服务消费者；召集与研究",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      129,
+      130,
+      131
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD01",
+   "type": "advise",
+   "subtype": null,
+   "from": "FAC",
+   "to": "BOG",
+   "directed": true,
+   "label": "FAC 咨询",
+   "meaning": "12 名银行业代表；依法通常每年与理事会会面 4 次；成员惯常任 3 个一年任期",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD02",
+   "type": "advise",
+   "subtype": null,
+   "from": "CDIAC",
+   "to": "BOG",
+   "directed": true,
+   "label": "CDIAC 咨询",
+   "meaning": "来自储蓄机构、信用社、社区银行的一线信息",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD03",
+   "type": "advise",
+   "subtype": null,
+   "from": "MVC",
+   "to": "BOG",
+   "directed": true,
+   "label": "模型验证咨询",
+   "meaning": "对压力测试模型评估流程提供独立建议",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD04",
+   "type": "advise",
+   "subtype": null,
+   "from": "CAC",
+   "to": "BOG",
+   "directed": true,
+   "label": "社区与消费者视角",
+   "meaning": "每半年会见理事，关注中低收入群体",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22,
+      131
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD05",
+   "type": "advise",
+   "subtype": null,
+   "from": "IPAC",
+   "to": "BOG",
+   "directed": true,
+   "label": "保险政策咨询",
+   "meaning": "国际保险资本标准等",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD06",
+   "type": "advise",
+   "subtype": null,
+   "from": "RB-ADV",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "储备银行咨询委员会",
+   "meaning": "农业、小企业、劳工委员会；理事会每半年征询意见",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      22
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "AD07",
+   "type": "advise",
+   "subtype": "recommend",
+   "from": "RB-BOARD",
+   "to": "BOG",
+   "directed": true,
+   "label": "建议贴现率",
+   "meaning": "每两周由各行董事会建议贴现率，理事会审查决定",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      19
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S1"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "F01",
+   "type": "fund_flow",
+   "subtype": "interest",
+   "from": "TREASURY",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "证券利息收入",
+   "meaning": "运营主要靠持有证券（公开市场操作取得）的利息，不靠国会拨款",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "account": "soma",
+    "obligation_zh": "财政部证券向联储付息（机制：联储持券收息）",
+    "right_zh": "联储收取所持证券利息"
+   }
+  },
+  {
+   "id": "F02",
+   "type": "fund_flow",
+   "subtype": "priced_service",
+   "from": "DEP-INST",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "收费服务收入",
+   "meaning": "支票清算、资金转账、ACH 等有偿服务，收入用于覆盖这些服务成本",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      92
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "account": "priced_services",
+    "obligation_zh": "存款机构支付有偿服务费",
+    "right_zh": "联储收取有偿服务费"
+   }
+  },
+  {
+   "id": "F03",
+   "type": "fund_flow",
+   "subtype": "remittance",
+   "from": "RB-ALL",
+   "to": "TREASURY",
+   "directed": true,
+   "label": "净收益上缴财政部",
+   "meaning": "扣除费用与转入盈余（合计上限 $6.785B）后，净收益全部上缴；2011–2020 年度见 Fig 1.4",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      12,
+      13
+     ],
+     "status": "verified",
+     "fig": "Fig 1.4"
+    }
+   ],
+   "scenarios": [
+    "S2"
+   ],
+   "attrs": {
+    "series_bn_2011_2020": [
+     75.4,
+     88.4,
+     79.6,
+     96.9,
+     97.7,
+     91.5,
+     80.6,
+     62.1,
+     54.9,
+     86.9
+    ],
+    "asOf": "2021-08",
+    "surplus_cap_bn": 6.785,
+    "obligation_zh": "联储上缴净收益",
+    "right_zh": "财政部收取联储净收益上缴",
+    "account": null,
+    "account_note_zh": "上缴无单独账户枚举；对财政部（机制边）。"
+   }
+  },
+  {
+   "id": "F04",
+   "type": "fund_flow",
+   "subtype": "fiscal_reimburse",
+   "from": "TREASURY",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "财政代理成本报销",
+   "meaning": "财政代理服务约占联储总运营成本的 13%，由财政部与各机构报销",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      106
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {
+    "account": "fiscal_agency",
+    "approx_share_of_operating_cost": 0.13,
+    "asOf": "2021-08",
+    "obligation_zh": "财政部等报销财政代理成本",
+    "right_zh": "联储获得财政代理成本报销"
+   }
+  },
+  {
+   "id": "S01",
+   "type": "service",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "DEP-INST",
+   "directed": true,
+   "label": "账户、Fedwire、ACH、支票、现金",
+   "meaning": "“银行的银行”：准备金账户、转账、清算、通货供应、日间信用",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      19,
+      90,
+      91,
+      112
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "S02",
+   "type": "service",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "TREASURY",
+   "directed": true,
+   "label": "财政代理",
+   "meaning": "维护财政部运营账户、收付款、国债拍卖与登记赎回",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      91,
+      106,
+      107
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S2"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "S03",
+   "type": "service",
+   "subtype": null,
+   "from": "RB-02",
+   "to": "FOREIGN-CB",
+   "directed": true,
+   "label": "外国央行代理服务",
+   "meaning": "纽约联储为外国央行与国际组织提供美元账户、证券保管、回购投资",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      108
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "S04",
+   "type": "service",
+   "subtype": null,
+   "from": "TREASURY",
+   "to": "TGA",
+   "directed": true,
+   "label": "TGA 开立于联储",
+   "meaning": "财政部运营账户设在联储；联储负债端含 TGA",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      47,
+      107
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "G01",
+   "type": "regulate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "SUPERVISED",
+   "directed": true,
+   "label": "制定规则",
+   "meaning": "理事会发布 Regulation 系列（如 Reg Y）；监管 BHC/FHC/SLHC/州成员银行/外资银行等",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      67,
+      68,
+      69,
+      83
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S4"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "G02",
+   "type": "regulate",
+   "subtype": null,
+   "from": "RB-ALL",
+   "to": "SUPERVISED",
+   "directed": true,
+   "label": "检查与监督",
+   "meaning": "检查员在地方储备银行工作，执行检查、持续监测与评级",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      18,
+      19,
+      74,
+      76
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S4"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "G03",
+   "type": "delegate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "检查权下放",
+   "meaning": "理事会把消费者合规等检查权下放给 12 家储备银行；DCCA 监督其项目",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      119
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S4"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "G04",
+   "type": "regulate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "FMU",
+   "directed": true,
+   "label": "FMU 监管（Reg HH）",
+   "meaning": "对 FSOC 指定的系统重要 FMU 监管或参与检查",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      110,
+      111
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "G05",
+   "type": "oversee",
+   "subtype": "mandate",
+   "from": "CONGRESS",
+   "to": "BOG",
+   "directed": true,
+   "label": "立法 → 规则",
+   "meaning": "国会立法后，联储常与其他机构共同发布实施规则",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      67
+     ],
+     "status": "verified",
+     "fig": "Fig 5.1"
+    }
+   ],
+   "scenarios": [
+    "S4"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "G06",
+   "type": "regulate",
+   "subtype": null,
+   "from": "LISCC",
+   "to": "SUPERVISED",
+   "directed": true,
+   "label": "大型机构监管",
+   "meaning": "对系统性风险较高的银行组织与 FSOC 指定非银实施横向与逐家监管",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      74,
+      75
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [
+    "S4"
+   ],
+   "attrs": {}
+  },
+  {
+   "id": "G07",
+   "type": "oversee",
+   "subtype": null,
+   "from": "DCCA",
+   "to": "RB-ALL",
+   "directed": true,
+   "label": "消费者合规项目监督",
+   "meaning": "DCCA 评估各储备银行消费者合规监管项目",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      119
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C01",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "FSOC",
+   "directed": false,
+   "label": "FSOC 成员",
+   "meaning": "理事会主席为 FSOC 成员；FSOC 由财政部长主持",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      61,
+      62,
+      63
+     ],
+     "status": "verified",
+     "fig": "Fig 4.5"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C02",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "TREASURY",
+   "to": "FSOC",
+   "directed": false,
+   "label": "财政部长任主席",
+   "meaning": "FSOC 2010 年依 Dodd-Frank 设立，财政部长主持",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      61,
+      62
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C03",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "FFIEC",
+   "directed": false,
+   "label": "FFIEC 成员",
+   "meaning": "含理事会、FDIC、OCC、CFPB、NCUA、州联络委员会",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      73
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C04",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "FIN-REGS",
+   "directed": false,
+   "label": "与其他监管者协调",
+   "meaning": "共享数据与检查结果；CFPB 与理事会在个别规则上共享制定权",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      69,
+      70,
+      73,
+      108
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C05",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "INTL",
+   "directed": false,
+   "label": "国际论坛",
+   "meaning": "参与巴塞尔委员会、FSB、BIS、G7/G20、IMF 国际货币与金融委员会、OECD",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      63,
+      64
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C06",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "FOMC",
+   "to": "FOREIGN-CB",
+   "directed": false,
+   "label": "外汇与货币互换",
+   "meaning": "FOMC 指示外汇操作并授权与外国央行的货币互换",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      21,
+      32
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "C07",
+   "type": "coordinate",
+   "subtype": null,
+   "from": "BOG",
+   "to": "TREASURY",
+   "directed": false,
+   "label": "通货设计与反假币",
+   "meaning": "理事会为联储券发行机关，与财政部、BEP、特勤局协作",
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "pdf_pages": [
+      103
+     ],
+     "status": "verified"
+    }
+   ],
+   "scenarios": [],
+   "attrs": {}
+  },
+  {
+   "id": "F05",
+   "type": "fund_flow",
+   "subtype": "iorb",
+   "from": "RB-ALL",
+   "to": "DEP-INST",
+   "directed": true,
+   "label": "IORB：准备金付息",
+   "meaning": "联储对存款机构在地区联储准备金账户中的余额支付利息（IORB），为联邦基金利率提供地板。",
+   "attrs": {
+    "account": "reserve_balance",
+    "obligation_zh": "联储支付准备金利息",
+    "right_zh": "存款机构收取准备金利息"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "status": "verified",
+     "pdf_pages": [
+      39,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F06",
+   "type": "fund_flow",
+   "subtype": "desk_omo",
+   "from": "DESK",
+   "to": "PRIM-DEALERS",
+   "directed": true,
+   "label": "永久公开市场买卖",
+   "meaning": "操作台向一级交易商竞价买卖国债/机构担保证券。买券：联储付价款并贷记交易商往来行准备金账户；卖券：联储收款并借记准备金。买卖两种模式分列，无分端金额。",
+   "attrs": {
+    "account": "soma",
+    "direction_modes": [
+     "buy",
+     "sell"
+    ],
+    "ops_group": "desk",
+    "obligation_zh": "买券时联储支付证券价款",
+    "right_zh": "卖券时联储收取证券价款"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "status": "verified",
+     "pdf_pages": [
+      40,
+      41
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F07",
+   "type": "fund_flow",
+   "subtype": "desk_repo",
+   "from": "DESK",
+   "to": "PRIM-DEALERS",
+   "directed": true,
+   "label": "临时回购（repo）",
+   "meaning": "操作台买入证券并约定在指定时点以指定价格卖回（临时注入准备金）。起始端与到期端为机制描述，PDF 无分端金额。",
+   "attrs": {
+    "account": "soma",
+    "legs": [
+     "start",
+     "unwind"
+    ],
+    "ops_group": "desk",
+    "obligation_zh": "起始端：联储支付买券款",
+    "right_zh": "到期端：联储收回本息价款"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "status": "verified",
+     "pdf_pages": [
+      41
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F08",
+   "type": "fund_flow",
+   "subtype": "onrrp",
+   "from": "DESK",
+   "to": "NONBANK-CP",
+   "directed": true,
+   "label": "ON RRP：隔夜逆回购付息",
+   "meaning": "对手方隔夜向联储存放现金并获国债抵押，次日到期回转；联储按竞价结果支付利息（报出价为上限）。规模受组合国债库存约束。",
+   "attrs": {
+    "account": "on_rrp",
+    "ops_group": "desk",
+    "obligation_zh": "联储支付 ON RRP 利息",
+    "right_zh": "合格非银对手方收取隔夜利息"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "status": "verified",
+     "pdf_pages": [
+      41,
+      46
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F09",
+   "type": "fund_flow",
+   "subtype": "discount_loan",
+   "from": "RB-ALL",
+   "to": "DEP-INST",
+   "directed": true,
+   "label": "贴现窗口放贷",
+   "meaning": "储备银行向存款机构提供有抵押的贴现窗口贷款；利率一般略高于市。本边表示放贷本金自联储流向借款人（机制边，无金额）。",
+   "attrs": {
+    "account": "discount_window",
+    "obligation_zh": "联储贷出贴现窗口本金",
+    "right_zh": "存款机构获得贴现窗口资金"
+   },
+   "evidence": [
+    {
+     "doc": "fed-explained-2021",
+     "status": "verified",
+     "pdf_pages": [
+      42
+     ]
+    }
+   ]
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "S1",
+   "zh": "一次加息决定的传导链",
+   "pdf_pages": [
+    19,
+    24,
+    25,
+    28,
+    29,
+    32,
+    33,
+    34,
+    35,
+    39,
+    40,
+    41,
+    42,
+    45,
+    46
+   ],
+   "steps": [
+    {
+     "order": 1,
+     "caption": "储备银行收集辖区信息、联系人与调查",
+     "nodes": [
+      "PUBLIC",
+      "RB-ALL"
+     ],
+     "edges": [
+      "I04"
+     ],
+     "pdf_pages": [
+      16,
+      35
+     ]
+    },
+    {
+     "order": 2,
+     "caption": "Beige Book 会前两周公开；理事会幕僚发分析与政策选项",
+     "nodes": [
+      "RB-ALL",
+      "PUBLIC",
+      "BOG",
+      "FOMC"
+     ],
+     "edges": [
+      "I01",
+      "I02",
+      "I05"
+     ],
+     "pdf_pages": [
+      19,
+      32
+     ]
+    },
+    {
+     "order": 3,
+     "caption": "FOMC 会议（年 8 次）：行长陈述，12 票表决",
+     "nodes": [
+      "SEAT-BOG-1",
+      "SEAT-NY",
+      "SEAT-ROT-1",
+      "FOMC"
+     ],
+     "edges": [
+      "V01",
+      "V08",
+      "V09",
+      "V13"
+     ],
+     "pdf_pages": [
+      20,
+      21,
+      32
+     ]
+    },
+    {
+     "order": 4,
+     "caption": "决定上调联邦基金利率目标区间",
+     "nodes": [
+      "FOMC"
+     ],
+     "edges": [
+      "O02"
+     ],
+     "pdf_pages": [
+      20,
+      24,
+      25
+     ]
+    },
+    {
+     "order": 5,
+     "caption": "声明 + 主席记者会，纪要三周后",
+     "nodes": [
+      "FOMC",
+      "PUBLIC"
+     ],
+     "edges": [
+      "I03"
+     ],
+     "pdf_pages": [
+      33,
+      34
+     ]
+    },
+    {
+     "order": 6,
+     "caption": "理事会上调 IORB；FOMC 调 ON RRP；贴现率经行董事会建议、理事会审定",
+     "nodes": [
+      "FOMC",
+      "BOG",
+      "DEP-INST",
+      "NONBANK-CP",
+      "RB-BOARD"
+     ],
+     "edges": [
+      "T01",
+      "T04",
+      "T05",
+      "T06",
+      "AD07"
+     ],
+     "pdf_pages": [
+      19,
+      39,
+      41,
+      46
+     ]
+    },
+    {
+     "order": 7,
+     "caption": "公开市场操作台维持充足准备金（一级交易商）",
+     "nodes": [
+      "DESK",
+      "PRIM-DEALERS"
+     ],
+     "edges": [
+      "T02",
+      "T03"
+     ],
+     "pdf_pages": [
+      40,
+      41,
+      42
+     ]
+    },
+    {
+     "order": 8,
+     "caption": "联邦基金与短期利率进入新区间",
+     "nodes": [
+      "DEP-INST",
+      "MARKETS"
+     ],
+     "edges": [
+      "T07"
+     ],
+     "pdf_pages": [
+      28,
+      45
+     ]
+    },
+    {
+     "order": 9,
+     "caption": "长期利率、资产价格、美元变化，家庭与企业支出调整",
+     "nodes": [
+      "MARKETS",
+      "PUBLIC"
+     ],
+     "edges": [
+      "T08"
+     ],
+     "pdf_pages": [
+      25,
+      28,
+      29
+     ]
+    },
+    {
+     "order": 10,
+     "caption": "就业与通胀变化 → 回到下一次会议的数据；主席半年向国会作证",
+     "nodes": [
+      "PUBLIC",
+      "BOG",
+      "SBC",
+      "HFSC"
+     ],
+     "edges": [
+      "I04",
+      "R01",
+      "R02",
+      "R03"
+     ],
+     "pdf_pages": [
+      34,
+      35
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S2",
+   "zh": "联储利润上缴财政部",
+   "pdf_pages": [
+    12,
+    13,
+    106
+   ],
+   "steps": [
+    {
+     "order": 1,
+     "caption": "持有证券的利息（及有偿服务收入）",
+     "nodes": [
+      "TREASURY",
+      "DEP-INST",
+      "RB-ALL"
+     ],
+     "edges": [
+      "F01",
+      "F02"
+     ],
+     "pdf_pages": [
+      12
+     ]
+    },
+    {
+     "order": 2,
+     "caption": "支付运营费用；转入盈余（合计上限 $6.785B，出版时）",
+     "nodes": [
+      "RB-ALL"
+     ],
+     "edges": [],
+     "pdf_pages": [
+      12
+     ]
+    },
+    {
+     "order": 3,
+     "caption": "净收益全部上缴财政部（Fig 1.4：2011–2020 年度 $54.9B–$97.7B）",
+     "nodes": [
+      "RB-ALL",
+      "TREASURY"
+     ],
+     "edges": [
+      "F03"
+     ],
+     "pdf_pages": [
+      12,
+      13
+     ]
+    },
+    {
+     "order": 4,
+     "caption": "财政部经储备银行财政代理收付，并报销代理成本",
+     "nodes": [
+      "RB-ALL",
+      "TREASURY"
+     ],
+     "edges": [
+      "S02",
+      "F04"
+     ],
+     "pdf_pages": [
+      106,
+      107
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S3",
+   "zh": "13(3) 紧急贷款",
+   "pdf_pages": [
+    43,
+    58
+   ],
+   "steps": [
+    {
+     "order": 1,
+     "caption": "严重冲击，常规工具（OMO、贴现窗口）先上",
+     "nodes": [
+      "RB-ALL",
+      "DEP-INST"
+     ],
+     "edges": [
+      "T06"
+     ],
+     "pdf_pages": [
+      58
+     ]
+    },
+    {
+     "order": 2,
+     "caption": "“unusual and exigent”情形下对非存款机构放贷",
+     "nodes": [
+      "BOG"
+     ],
+     "edges": [],
+     "pdf_pages": [
+      58
+     ]
+    },
+    {
+     "order": 3,
+     "caption": "须财政部长批准、须广泛适用、保护纳税人",
+     "nodes": [
+      "TREASURY",
+      "BOG"
+     ],
+     "edges": [
+      "O05"
+     ],
+     "pdf_pages": [
+      58
+     ]
+    },
+    {
+     "order": 4,
+     "caption": "2020 年 COVID 专项工具；资产负债表扩张至约 $7.2T",
+     "nodes": [
+      "BOG",
+      "RB-ALL"
+     ],
+     "edges": [],
+     "pdf_pages": [
+      38,
+      39,
+      58
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S4",
+   "zh": "监管循环：立法 → 规则 → 检查",
+   "pdf_pages": [
+    67,
+    74,
+    76,
+    119
+   ],
+   "steps": [
+    {
+     "order": 1,
+     "caption": "国会立法",
+     "nodes": [
+      "CONGRESS",
+      "BOG"
+     ],
+     "edges": [
+      "G05"
+     ],
+     "pdf_pages": [
+      67
+     ]
+    },
+    {
+     "order": 2,
+     "caption": "理事会发布规则（Regulation 系列）",
+     "nodes": [
+      "BOG",
+      "SUPERVISED"
+     ],
+     "edges": [
+      "G01"
+     ],
+     "pdf_pages": [
+      67,
+      83
+     ]
+    },
+    {
+     "order": 3,
+     "caption": "检查权下放，储备银行检查员执行",
+     "nodes": [
+      "BOG",
+      "RB-ALL",
+      "SUPERVISED"
+     ],
+     "edges": [
+      "G03",
+      "G02"
+     ],
+     "pdf_pages": [
+      74,
+      119
+     ]
+    },
+    {
+     "order": 4,
+     "caption": "大型机构由 LISCC 横向+逐家监管；评级反馈",
+     "nodes": [
+      "LISCC",
+      "SUPERVISED"
+     ],
+     "edges": [
+      "G06"
+     ],
+     "pdf_pages": [
+      74,
+      75,
+      76
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S5",
+   "zh": "储备银行行长的产生",
+   "pdf_pages": [
+    12,
+    17,
+    18
+   ],
+   "steps": [
+    {
+     "order": 1,
+     "caption": "成员银行选举 A、B 类董事",
+     "nodes": [
+      "MEMBER-BANKS",
+      "DIR-A",
+      "DIR-B"
+     ],
+     "edges": [
+      "A03",
+      "A04"
+     ],
+     "pdf_pages": [
+      12,
+      18
+     ]
+    },
+    {
+     "order": 2,
+     "caption": "理事会任命 C 类董事",
+     "nodes": [
+      "BOG",
+      "DIR-C"
+     ],
+     "edges": [
+      "A05"
+     ],
+     "pdf_pages": [
+      12,
+      18
+     ]
+    },
+    {
+     "order": 3,
+     "caption": "B、C 类董事（六名公众代表）提名行长",
+     "nodes": [
+      "DIR-B",
+      "DIR-C",
+      "RB-PRES"
+     ],
+     "edges": [
+      "A07",
+      "A08"
+     ],
+     "pdf_pages": [
+      17,
+      18
+     ]
+    },
+    {
+     "order": 4,
+     "caption": "理事会批准，任期 5 年；之后按规则轮流或常任参与 FOMC",
+     "nodes": [
+      "BOG",
+      "RB-PRES"
+     ],
+     "edges": [
+      "A09"
+     ],
+     "pdf_pages": [
+      17,
+      20
+     ]
+    }
+   ]
+  }
+ ],
+ "fund_flow_subtypes": [
+  {
+   "key": "interest",
+   "zh": "证券利息",
+   "en": "Securities interest"
+  },
+  {
+   "key": "priced_service",
+   "zh": "有偿服务",
+   "en": "Priced services"
+  },
+  {
+   "key": "remittance",
+   "zh": "净收益上缴",
+   "en": "Remittance of net earnings"
+  },
+  {
+   "key": "fiscal_reimburse",
+   "zh": "财政代理报销",
+   "en": "Fiscal agency reimbursement"
+  },
+  {
+   "key": "iorb",
+   "zh": "准备金付息",
+   "en": "Interest on reserve balances"
+  },
+  {
+   "key": "onrrp",
+   "zh": "隔夜逆回购",
+   "en": "Overnight reverse repo"
+  },
+  {
+   "key": "desk_omo",
+   "zh": "永久公开市场",
+   "en": "Outright open market"
+  },
+  {
+   "key": "desk_repo",
+   "zh": "临时回购",
+   "en": "Repurchase agreement"
+  },
+  {
+   "key": "discount_loan",
+   "zh": "贴现窗口放贷",
+   "en": "Discount window loan"
+  }
+ ],
+ "account_types": [
+  {
+   "key": "reserve_balance",
+   "zh": "准备金账户",
+   "en": "Reserve balance account"
+  },
+  {
+   "key": "soma",
+   "zh": "公开市场组合（SOMA）",
+   "en": "System Open Market Account"
+  },
+  {
+   "key": "on_rrp",
+   "zh": "隔夜逆回购",
+   "en": "Overnight RRP"
+  },
+  {
+   "key": "discount_window",
+   "zh": "贴现窗口",
+   "en": "Discount window"
+  },
+  {
+   "key": "tga",
+   "zh": "财政部一般账户",
+   "en": "Treasury General Account"
+  },
+  {
+   "key": "fiscal_agency",
+   "zh": "财政代理",
+   "en": "Fiscal agency"
+  },
+  {
+   "key": "priced_services",
+   "zh": "有偿支付服务",
+   "en": "Priced payment services"
+  }
+ ]
+}

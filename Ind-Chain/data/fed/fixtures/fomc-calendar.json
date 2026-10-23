@@ -1,0 +1,17 @@
+{
+  "asOf": "2025-12-31",
+  "source": {
+    "org": "Federal Reserve Board",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+    "note": "SFC fixture: do not treat placeholder meeting_date as official schedule; open source.url for the live calendar."
+  },
+  "status": "stub",
+  "items": [
+    {
+      "meeting_date": "2025-01-01",
+      "title": "Official FOMC calendars (Board)",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "type": "other"
+    }
+  ]
+}

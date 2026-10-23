@@ -1,0 +1,716 @@
+{
+ "meta": {
+  "asOf": "2025-12-31",
+  "auditOpinionDate": "2026-03-12",
+  "unit": "USD millions",
+  "entity": "Federal Reserve Banks combined",
+  "basis": "FAM (Board of Governors), not US GAAP",
+  "source": "SFC-VIS-FED/Materials/combinedfinstmt2025.pdf"
+ },
+ "lines": [
+  {
+   "id": "gold_certs",
+   "label_en": "Gold certificates",
+   "label_zh": "黄金证书",
+   "side": "asset",
+   "amount_2025": 11037,
+   "amount_2024": 11037,
+   "delta": 0,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "sdr_certs",
+   "label_en": "Special drawing rights certificates",
+   "label_zh": "特别提款权证书",
+   "side": "asset",
+   "amount_2025": 15200,
+   "amount_2024": 15200,
+   "delta": 0,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "coin",
+   "label_en": "Coin",
+   "label_zh": "硬币",
+   "side": "asset",
+   "amount_2025": 1481,
+   "amount_2024": 1478,
+   "delta": 3,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "loans_di",
+   "label_en": "Loans to depository institutions",
+   "label_zh": "对存款机构贷款",
+   "side": "asset",
+   "amount_2025": 9677,
+   "amount_2024": 3255,
+   "delta": 6422,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "other_loans",
+   "label_en": "Other loans",
+   "label_zh": "其他贷款",
+   "side": "asset",
+   "amount_2025": 63,
+   "amount_2024": 6373,
+   "delta": -6310,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_resell",
+   "label_en": "SOMA: Securities purchased under agreements to resell",
+   "label_zh": "SOMA：正回购（买入返售）",
+   "side": "asset",
+   "amount_2025": 74600,
+   "amount_2024": 0,
+   "delta": 74600,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_treasury",
+   "label_en": "SOMA: Treasury securities, net",
+   "label_zh": "SOMA：国债（净）",
+   "side": "asset",
+   "amount_2025": 4390203,
+   "amount_2024": 4473035,
+   "delta": -82832,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_mbs",
+   "label_en": "SOMA: Agency/GSE MBS, net",
+   "label_zh": "SOMA：机构/GSE MBS（净）",
+   "side": "asset",
+   "amount_2025": 2077623,
+   "amount_2024": 2277127,
+   "delta": -199504,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_gse_debt",
+   "label_en": "SOMA: GSE debt securities, net",
+   "label_zh": "SOMA：GSE 债券（净）",
+   "side": "asset",
+   "amount_2025": 2499,
+   "amount_2024": 2529,
+   "delta": -30,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_fx",
+   "label_en": "SOMA: Foreign currency denominated investments, net",
+   "label_zh": "SOMA：外币投资（净）",
+   "side": "asset",
+   "amount_2025": 19211,
+   "amount_2024": 17422,
+   "delta": 1789,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_swaps",
+   "label_en": "SOMA: Central bank liquidity swaps",
+   "label_zh": "SOMA：央行流动性互换",
+   "side": "asset",
+   "amount_2025": 481,
+   "amount_2024": 1120,
+   "delta": -639,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_accrued_interest",
+   "label_en": "SOMA: Accrued interest receivable",
+   "label_zh": "SOMA：应计利息应收",
+   "side": "asset",
+   "amount_2025": 30677,
+   "amount_2024": 29941,
+   "delta": 736,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "vie_assets",
+   "label_en": "Consolidated VIE: Assets held, net",
+   "label_zh": "并表 VIE 持有资产（净）",
+   "side": "asset",
+   "amount_2025": 1368,
+   "amount_2024": 7996,
+   "delta": -6628,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "prepaid_pension",
+   "label_en": "Prepaid pension benefit costs",
+   "label_zh": "预付养老金",
+   "side": "asset",
+   "amount_2025": 1119,
+   "amount_2024": 1269,
+   "delta": -150,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "other_accrued_interest",
+   "label_en": "Other accrued interest receivable",
+   "label_zh": "其他应计利息应收",
+   "side": "asset",
+   "amount_2025": 13,
+   "amount_2024": 231,
+   "delta": -218,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "premises",
+   "label_en": "Bank premises and equipment, net",
+   "label_zh": "行屋与设备（净）",
+   "side": "asset",
+   "amount_2025": 3360,
+   "amount_2024": 3168,
+   "delta": 192,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "collection_items",
+   "label_en": "Items in process of collection",
+   "label_zh": "托收在途",
+   "side": "asset",
+   "amount_2025": 92,
+   "amount_2024": 88,
+   "delta": 4,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "deferred_remittance",
+   "label_en": "Deferred asset—remittances to the Treasury",
+   "label_zh": "递延上缴资产（对财政部）",
+   "side": "asset",
+   "amount_2025": 243481,
+   "amount_2024": 215955,
+   "delta": 27526,
+   "special_flag": true,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   },
+   "special_note_zh": "暂停周度上缴后的累计缺口记账，非传统对财政部债权；与 fund_flow 上缴机制边（F03）交叉引用，不可合并。"
+  },
+  {
+   "id": "other_assets",
+   "label_en": "Other assets",
+   "label_zh": "其他资产",
+   "side": "asset",
+   "amount_2025": 1706,
+   "amount_2024": 1489,
+   "delta": 217,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "total_assets",
+   "label_en": "Total assets",
+   "label_zh": "资产合计",
+   "side": "asset",
+   "amount_2025": 6883891,
+   "amount_2024": 7068713,
+   "delta": -184822,
+   "special_flag": false,
+   "is_total": true,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "fr_notes",
+   "label_en": "Federal Reserve notes outstanding, net",
+   "label_zh": "联邦储备券（净流通）",
+   "side": "liability",
+   "amount_2025": 2394465,
+   "amount_2024": 2322532,
+   "delta": 71933,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "securities_sold_repo",
+   "label_en": "SOMA: Securities sold under agreements to repurchase",
+   "label_zh": "SOMA：逆回购（卖出回购）",
+   "side": "liability",
+   "amount_2025": 462198,
+   "amount_2024": 888395,
+   "delta": -426197,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "soma_other_liab",
+   "label_en": "SOMA: Other liabilities",
+   "label_zh": "SOMA：其他负债",
+   "side": "liability",
+   "amount_2025": 45,
+   "amount_2024": 105,
+   "delta": -60,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "deposits_di",
+   "label_en": "Deposits: Depository institutions",
+   "label_zh": "存款：存款机构（准备金）",
+   "side": "liability",
+   "amount_2025": 2853441,
+   "amount_2024": 2892363,
+   "delta": -38922,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "tga",
+   "label_en": "Deposits: Treasury, general account",
+   "label_zh": "存款：财政部一般账户（TGA）",
+   "side": "liability",
+   "amount_2025": 872853,
+   "amount_2024": 721892,
+   "delta": 150961,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "other_deposits",
+   "label_en": "Deposits: Other deposits",
+   "label_zh": "存款：其他",
+   "side": "liability",
+   "amount_2025": 246378,
+   "amount_2024": 188599,
+   "delta": 57779,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "interest_payable",
+   "label_en": "Interest payable to depository institutions and others",
+   "label_zh": "应付存款机构及其他利息",
+   "side": "liability",
+   "amount_2025": 2259,
+   "amount_2024": 2416,
+   "delta": -157,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "vie_liab",
+   "label_en": "Consolidated VIE: Other liabilities",
+   "label_zh": "并表 VIE 其他负债",
+   "side": "liability",
+   "amount_2025": 12,
+   "amount_2024": 28,
+   "delta": -16,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "accrued_benefits",
+   "label_en": "Accrued benefit costs",
+   "label_zh": "应计福利负债",
+   "side": "liability",
+   "amount_2025": 3321,
+   "amount_2024": 2359,
+   "delta": 962,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "deferred_credit",
+   "label_en": "Deferred credit items",
+   "label_zh": "递延贷项",
+   "side": "liability",
+   "amount_2025": 1186,
+   "amount_2024": 1178,
+   "delta": 8,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "other_liab",
+   "label_en": "Other liabilities",
+   "label_zh": "其他负债",
+   "side": "liability",
+   "amount_2025": 484,
+   "amount_2024": 524,
+   "delta": -40,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "total_liabilities",
+   "label_en": "Total liabilities",
+   "label_zh": "负债合计",
+   "side": "liability",
+   "amount_2025": 6836642,
+   "amount_2024": 7020391,
+   "delta": -183749,
+   "special_flag": false,
+   "is_total": true,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "capital_paid_in",
+   "label_en": "Capital paid-in",
+   "label_zh": "实缴股本",
+   "side": "capital",
+   "amount_2025": 39152,
+   "amount_2024": 37182,
+   "delta": 1970,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "surplus",
+   "label_en": "Surplus",
+   "label_zh": "盈余",
+   "side": "capital",
+   "amount_2025": 6785,
+   "amount_2024": 6785,
+   "delta": 0,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "total_rb_capital",
+   "label_en": "Total Reserve Bank capital",
+   "label_zh": "储备银行资本合计",
+   "side": "capital",
+   "amount_2025": 45937,
+   "amount_2024": 43967,
+   "delta": 1970,
+   "special_flag": false,
+   "is_total": true,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "vie_nci",
+   "label_en": "VIE non-controlling interest",
+   "label_zh": "VIE 非控制权益",
+   "side": "capital",
+   "amount_2025": 1312,
+   "amount_2024": 4355,
+   "delta": -3043,
+   "special_flag": false,
+   "is_total": false,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  },
+  {
+   "id": "total_capital_nci",
+   "label_en": "Total capital and NCI",
+   "label_zh": "资本与 NCI 合计",
+   "side": "capital",
+   "amount_2025": 47249,
+   "amount_2024": 48322,
+   "delta": -1073,
+   "special_flag": false,
+   "is_total": true,
+   "asOf": "2025-12-31",
+   "evidence": {
+    "doc": "combinedfinstmt2025.pdf",
+    "pdf_pages": [
+     6
+    ],
+    "note": "Combined Statements of Condition"
+   }
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sfc-fed-bs-condition",
+  "type": "object",
+  "required": ["meta", "lines"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["asOf", "unit", "entity"],
+      "properties": {
+        "asOf": { "const": "2025-12-31" },
+        "unit": { "type": "string" },
+        "entity": { "type": "string" },
+        "auditOpinionDate": { "type": "string" },
+        "basis": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label_en",
+          "label_zh",
+          "side",
+          "amount_2025",
+          "amount_2024",
+          "delta",
+          "special_flag",
+          "asOf"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "label_en": { "type": "string" },
+          "label_zh": { "type": "string" },
+          "side": { "enum": ["asset", "liability", "capital"] },
+          "amount_2025": { "type": "integer" },
+          "amount_2024": { "type": "integer" },
+          "delta": { "type": "integer" },
+          "special_flag": { "type": "boolean" },
+          "is_total": { "type": "boolean" },
+          "asOf": { "const": "2025-12-31" },
+          "special_note_zh": { "type": "string" },
+          "evidence": { "type": "object" }
+        }
+      }
+    }
+  }
+}

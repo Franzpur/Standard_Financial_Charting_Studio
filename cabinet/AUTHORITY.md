@@ -78,19 +78,6 @@
 
 ## 相关落盘
 
-- 模块化纲：`cabinet/reports/SFC-modularization-plan-v2.html`（文首「宪制」节 + §10.3 定夺）
-- 前一任务周期总参令：`cabinet/orders/GS-20261014-modularization-M1-M4.md`（M1–M4；该周期计数已结）
-- W1 总参令（第 1 次 / 至多 5 · **已结**）：`cabinet/orders/GS-20261014-W1-modules-track.md`（W1 打开权 + 仓根 `modules/`；原「动态跟踪」已由业主改静态，见该令旁注与上节义务）
-- 名单勿借闸门下级整板（第 1 次 / 至多 5 · **已结**）：`cabinet/orders/GS-20261014-list-board-not-children.md`（`list_bics_entities` 不再调用 `bics_children`；三监第 1 次通过后不再令；余 4 次作废）
-- 模块与代码 1:1 结合（第 1 次 / 至多 5 · **已结**）：`cabinet/orders/GS-20261015-MOD-COMPLETE.md`（后端 `bics_hier`/`bics_entity`/`db_shadow`/`nvda_links` 四模块独立成文、`app.py` 瘦身至 352 行、前端 `nav.js` 独立与 `bondChart.js`/`scene.js` 职责归位；三监第 1 次全票通过后不再加令；余 4 次作废）
-- 总项目名称 FIDV → SFC 改名（第 1 次 / 至多 5 · **已结**）：`cabinet/orders/GS-20261015-RENAME-FIDV-SFC.md`（活文档/活配置/角色定义/运行期提示中总项目名称 `FIDV` → `SFC`、全称 `Standard-Financial-Charting`；`modules/graph.json` title 改 `SFC` 并重烘 `modules/index.html`，26/35 节点边不变；三监第 1 次全票通过后不再加令；余 4 次作废）
-- 总项目名称 FIDV → SFC 改名第二轮：保留项全改（第 1 次 / 至多 5 · **已结**）：`cabinet/orders/GS-20261015-RENAME-FIDV-SFC-R2.md`（`companies.json` 演示 `note`、`fidv-launcher*` / `FIDV-*` 报告与问题手册文件名及全仓现存文件链接、`local.fidv.Standard-Financial-Charting` Bundle ID、`fidvSplashSeen` 全部改为 `SFC`/`sfc`，重采 Golden 并重建 `.app`；三监第 3 次送审通过后不再加令；余 4 次作废）
+- 内阁历次令文与周期计数账本：[`orders/INDEX.md`](orders/INDEX.md)
 - 模块真源 / 静态页：`modules/graph.json` · `modules/index.html` · `modules/bake_static.py`
-- 二重映射 · GOOGL 季度偿债压力图（周期内第 1 次 / 至多 5）：`cabinet/orders/GS-20261016-DMAP-GOOGL-LADDER-Q.md`（定点切片；其 D1「落点放大舞台、不做 dock」已被下条撤销）
-- 二重映射纠偏：恢复方案 §7.1 `Map ▾` + dock，并立独立纸面皮（周期内第 2 次 / 至多 5；谏言「不发问」）：`cabinet/orders/GS-20261016-DMAP-UI-PAPER.md`（设计真源 `cabinet/reports/figures/googl-ladder-paper-reference.png`）
-- Map 导出 / 整台收展 / 拉长 / 窄窗 + 非 NVDA 白球 / GOOGL 文件环（周期内第 3 次 / 至多 5；业主令按建议默认直接报文）：`cabinet/orders/GS-20261016-MAP-EXPORT-SPHERE.md`（旁注 `cabinet/notes/20261016-map-export-shell-sphere-taskpack.md`；草稿任务单 `…-tasklist.md`）
-- GOOGL 悬停文件卡：球心 5 UNIT 折线引线 + 改 cube 暗底亮线框（周期内第 4 次 / 至多 5；谏言「不发问」）：`cabinet/orders/GS-20261016-GOOGL-HOVER-CARD.md`（旁注 `cabinet/notes/20261016-googl-hover-card-cube.md`）
-- GOOGL 悬停卡仅悬停显示 + 白球公司名暗玻璃框（球心正上方 0.5 UNIT、长边 ∥ x、不 billboard；周期内第 5 次 / 至多 5，**末次**；谏言「不发问」）：`cabinet/orders/GS-20261016-GOOGL-HOVER-LABEL.md`（旁注 `cabinet/notes/20261016-googl-hover-label.md`）
-- NVDA 链三色小球 / 可点收入线 / 现造来源 Excel / map 关系纸面（新周期第 1 次 / 至多 5；谏言「不发问」；两问收口）：`cabinet/orders/GS-20261016-NVDA-SPHERE-LINK.md`（旁注 `cabinet/notes/20261016-nvda-sphere-link-intent.md`）
-- NVDA Shape Two 美国地图体空间 + `PM-US-MAP` 映射（新周期第 1 次 / 至多 5；谏言「不发问」；业主全权）：`cabinet/orders/GS-20261016-NVDA-SHAPE2-USMAP.md`（旁注 `cabinet/notes/20261016-nvda-shape2-usmap-intent.md`）
 - 公开流程措辞：`POWER-KNOWLEDGE.md` §3

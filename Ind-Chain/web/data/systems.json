@@ -1,0 +1,42 @@
+[
+  {
+    "id": "bics",
+    "order": 1,
+    "status": "live",
+    "label": "BICS · 行业坐标",
+    "tagline": "Class-3 industry coordinates",
+    "route": "/bics",
+    "entry": "/bics",
+    "thumb": "bics"
+  },
+  {
+    "id": "fed",
+    "order": 2,
+    "status": "live",
+    "label": "FED · 美联储制度图",
+    "tagline": "Organisation & interactions",
+    "route": "/fed",
+    "entry": "/fed",
+    "thumb": "fed"
+  },
+  {
+    "id": "reserved-1",
+    "order": 3,
+    "status": "reserved",
+    "label": "Reserved",
+    "tagline": "",
+    "route": "",
+    "entry": "",
+    "thumb": ""
+  },
+  {
+    "id": "reserved-2",
+    "order": 4,
+    "status": "reserved",
+    "label": "Reserved",
+    "tagline": "",
+    "route": "",
+    "entry": "",
+    "thumb": ""
+  }
+]

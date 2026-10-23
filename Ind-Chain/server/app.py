@@ -23,12 +23,34 @@ from bics_entity import (  # noqa: E402
     list_bics_entities,
     locate_bics,
     peer_l4_key,
+    peers_same_primary_l4,
     primary_entity_for_ticker,
     primary_listings_count,
     resolve_entity_ticker,
 )
 from bics_hier import bics_ancestors, bics_children, bics_node, list_bics_l1  # noqa: E402
+from fed_graph import (  # noqa: E402
+    bs_payload,
+    fomc_calendar_payload,
+    fomc_minutes_payload,
+    graph_payload,
+    omo_payload,
+)
 from bundle_dispatch import build_bundle, register_chain, set_shell_builder  # noqa: E402
+from chart_spec import (  # noqa: E402
+    apply_ops,
+    blank_anchor_spec,
+    compile_chart_spec,
+    configure_chart_entity_lookup,
+    configure_cohort_peers,
+    delete_chart,
+    list_saved_charts,
+    load_chart,
+    parse_command,
+    save_chart,
+    table_to_ops,
+    validate_spec,
+)
 from debt_ladder import ladder_for  # noqa: E402
 from db import connect, ensure_demo_db, get_company, list_companies, list_layers, meta  # noqa: E402
 from db_shadow import bundle_shell_ticker, configure_shadow_lookup  # noqa: E402
@@ -64,8 +86,22 @@ class Handler(BaseHTTPRequestHandler):
 
     def _cors(self) -> None:
         self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
+    def _read_json_body(self) -> dict:
+        length = int(self.headers.get("Content-Length") or 0)
+        if length <= 0:
+            return {}
+        if length > 2_000_000:
+            raise ValueError("body too large")
+        raw = self.rfile.read(length)
+        if not raw:
+            return {}
+        data = json.loads(raw.decode("utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError("JSON body must be an object")
+        return data
 
     def _send_json(self, code: int, obj) -> None:
         body = json_bytes(obj)
@@ -131,12 +167,36 @@ class Handler(BaseHTTPRequestHandler):
             traceback.print_exc()
             self._send_json(500, {"error": "internal error"})  # W1 A2: never leak paths in JSON.
 
+    def do_POST(self) -> None:  # noqa: N802
+        try:
+            self._route_write("POST")
+        except ValueError as exc:
+            self._send_json(400, {"error": str(exc)})
+        except Exception:  # noqa: BLE001
+            traceback.print_exc()
+            self._send_json(500, {"error": "internal error"})
+
+    def do_DELETE(self) -> None:  # noqa: N802
+        try:
+            self._route_write("DELETE")
+        except ValueError as exc:
+            self._send_json(400, {"error": str(exc)})
+        except Exception:  # noqa: BLE001
+            traceback.print_exc()
+            self._send_json(500, {"error": "internal error"})
+
     def _route(self) -> None:
         parsed = urlparse(self.path)
         path = parsed.path
         qs = parse_qs(parsed.query)
         if path in ("/", "/index.html"):
             self._send_file(WEB_ROOT / "index.html")
+            return
+        if path in ("/bics", "/bics/", "/bics.html"):
+            self._send_file(WEB_ROOT / "bics.html")
+            return
+        if path in ("/fed", "/fed/", "/fed.html"):
+            self._send_file(WEB_ROOT / "fed.html")
             return
         if path in ("/cube", "/cube/", "/cube.html"):
             self._send_file(WEB_ROOT / "cube.html")
@@ -231,14 +291,185 @@ class Handler(BaseHTTPRequestHandler):
         ticker = self._qs0(qs, "ticker")
         self._send_json(200, build_bundle(ticker))
 
+    def _api_charts_get(self, path: str, qs: dict) -> bool:
+        """GET /api/charts[/:id] · /api/charts/blank?ticker=."""
+        if path == "/api/charts":
+            self._send_json(200, {"charts": list_saved_charts()})
+            return True
+        if path == "/api/charts/blank":
+            ticker = self._qs0(qs, "ticker")
+            if not ticker:
+                self._send_json(400, {"error": "ticker required"})
+                return True
+            spec = blank_anchor_spec(ticker)
+            bundle = compile_chart_spec(spec, meta_extra={"shell": True, "blankStage": True, "ticker": ticker})
+            self._send_json(200, {"spec": spec, "bundle": bundle})
+            return True
+        if path.startswith("/api/charts/"):
+            rid = path[len("/api/charts/") :].strip("/")
+            if not rid or "/" in rid:
+                return False
+            row = load_chart(rid)
+            if not row:
+                self._send_json(404, {"error": "chart not found"})
+                return True
+            try:
+                bundle = compile_chart_spec(row["spec"])
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc)})
+                return True
+            self._send_json(200, {**row, "bundle": bundle})
+            return True
+        return False
+
+    def _api_charts_write(self, method: str, path: str) -> bool:
+        """POST/DELETE chart authoring endpoints."""
+        if method == "DELETE" and path.startswith("/api/charts/"):
+            rid = path[len("/api/charts/") :].strip("/")
+            if not rid or "/" in rid:
+                return False
+            ok = delete_chart(rid)
+            self._send_json(200 if ok else 404, {"ok": ok} if ok else {"error": "chart not found"})
+            return True
+        if method != "POST":
+            return False
+        body = self._read_json_body()
+
+        if path == "/api/charts":
+            spec = body.get("spec")
+            if not isinstance(spec, dict):
+                self._send_json(400, {"error": "spec required"})
+                return True
+            try:
+                saved = save_chart(spec, row_id=body.get("id"))
+            except (ValueError, RuntimeError) as exc:
+                self._send_json(400, {"error": str(exc)})
+                return True
+            bundle = compile_chart_spec(saved["spec"])
+            self._send_json(200, {**saved, "bundle": bundle})
+            return True
+
+        if path == "/api/charts/compile":
+            spec = body.get("spec")
+            if not isinstance(spec, dict):
+                self._send_json(400, {"error": "spec required"})
+                return True
+            ok, err = validate_spec(spec)
+            if not ok:
+                self._send_json(400, {"error": err})
+                return True
+            try:
+                bundle = compile_chart_spec(spec, meta_extra=body.get("meta") if isinstance(body.get("meta"), dict) else None)
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc)})
+                return True
+            self._send_json(200, {"spec": spec, "bundle": bundle})
+            return True
+
+        if path == "/api/charts/apply":
+            spec = body.get("spec")
+            ops = body.get("ops")
+            if not isinstance(spec, dict):
+                self._send_json(400, {"error": "spec required"})
+                return True
+            if not isinstance(ops, list):
+                self._send_json(400, {"error": "ops required"})
+                return True
+            try:
+                new_spec = apply_ops(spec, ops)
+                bundle = compile_chart_spec(new_spec)
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc)})
+                return True
+            self._send_json(200, {"spec": new_spec, "bundle": bundle})
+            return True
+
+        if path == "/api/charts/import-table":
+            text = body.get("text") or body.get("csv") or ""
+            spec = body.get("spec")
+            if not isinstance(spec, dict):
+                self._send_json(400, {"error": "spec required"})
+                return True
+            anchor = str((spec.get("workingSet") or {}).get("anchorTicker") or "")
+            template = str(body.get("template") or body.get("tableTemplate") or "relation")
+            ops, missing = table_to_ops(str(text), anchor_ticker=anchor, template=template)
+            try:
+                new_spec = apply_ops(spec, ops) if ops else spec
+                bundle = compile_chart_spec(new_spec)
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc), "missing": missing})
+                return True
+            self._send_json(
+                200,
+                {"spec": new_spec, "bundle": bundle, "ops": ops, "missing": missing},
+            )
+            return True
+
+        if path == "/api/charts/cmd":
+            text = str(body.get("text") or body.get("command") or "")
+            spec = body.get("spec")
+            anchor = ""
+            if isinstance(spec, dict):
+                anchor = str((spec.get("workingSet") or {}).get("anchorTicker") or "")
+            parsed = parse_command(text, anchor_ticker=anchor)
+            if not parsed.get("ok"):
+                self._send_json(400, parsed)
+                return True
+            if parsed.get("class") == "B":
+                self._send_json(200, parsed)
+                return True
+            if not isinstance(spec, dict):
+                self._send_json(200, parsed)
+                return True
+            try:
+                new_spec = apply_ops(spec, parsed.get("ops") or [])
+                bundle = compile_chart_spec(new_spec)
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc), **{k: v for k, v in parsed.items() if k != "ok"}})
+                return True
+            self._send_json(200, {"ok": True, "class": "A", "spec": new_spec, "bundle": bundle, "ops": parsed.get("ops")})
+            return True
+
+        return False
+
+    def _route_write(self, method: str) -> None:
+        parsed = urlparse(self.path)
+        path = parsed.path
+        if not path.startswith("/api/"):
+            self._send_json(404, {"error": "unknown api route", "path": path})
+            return
+        if self._api_charts_write(method, path):
+            return
+        self._send_json(404, {"error": "unknown api route", "path": path})
+
     def _api(self, path: str, qs: dict) -> None:
         if path.startswith("/api/bics/") and self._api_bics(path, qs):
             return
+        if path == "/api/fed/graph":
+            self._send_json(200, graph_payload())
+            return
+        if path == "/api/fed/bs":
+            self._send_json(200, bs_payload())
+            return
+        if path == "/api/fed/omo":
+            doc = omo_payload()
+            self._send_json(500 if doc.get("status") == "error" else 200, doc)
+            return
+        if path == "/api/fed/fomc/minutes":
+            doc = fomc_minutes_payload()
+            self._send_json(500 if doc.get("status") == "error" else 200, doc)
+            return
+        if path == "/api/fed/fomc/calendar":
+            doc = fomc_calendar_payload()
+            self._send_json(500 if doc.get("status") == "error" else 200, doc)
+            return
         if path == "/api/health":
-            self._send_json(200, {"ok": True})
+            self._send_json(200, {"ok": True, "charts": True})
             return
         if path == "/api/bundle":
             self._api_bundle(qs)
+            return
+        if path.startswith("/api/charts") and self._api_charts_get(path, qs):
             return
         if path == "/api/debt/ladder":
             doc = ladder_for(self._qs0(qs, "ticker"), self._qs0(qs, "name"))
@@ -267,6 +498,8 @@ def _register_bundle_builders() -> None:
     """Wire BE-BUNDLE registry and entity lookup callbacks once modules are loaded."""
     configure_shadow_lookup(resolve_entity_ticker, primary_entity_for_ticker)
     configure_nvda_entity_lookup(entity_by_member_ticker, peer_l4_key)
+    configure_chart_entity_lookup(entity_by_member_ticker, peer_l4_key)
+    configure_cohort_peers(peers_same_primary_l4)
     set_shell_builder(bundle_shell_ticker)
     register_chain("nvda", lambda key: key.split(" ", 1)[0] == "NVDA", bundle_nvda_chain)
 
@@ -348,8 +581,12 @@ def main() -> None:
     httpd = ThreadingHTTPServer((HOST, port), Handler)
     if from_env:
         print(f"[Ind-Chain] port {port}", flush=True)
-    print(f"[Ind-Chain] homepage http://{HOST}:{port}/ · list /list · cube /cube · modules /modules/", flush=True)
-    print("[Ind-Chain] API: /api/bundle  /api/bics/children  /api/bics/entities  /api/bics/locate  /api/bics/node  /api/debt/ladder  /api/health", flush=True)
+        print(f"[Ind-Chain] homepage http://{HOST}:{port}/ · bics /bics · fed /fed · list /list · cube /cube · modules /modules/", flush=True)
+    print(
+        "[Ind-Chain] API: /api/bundle  /api/charts  /api/bics/children  /api/bics/entities  "
+        "/api/bics/locate  /api/bics/node  /api/debt/ladder  /api/health",
+        flush=True,
+    )
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

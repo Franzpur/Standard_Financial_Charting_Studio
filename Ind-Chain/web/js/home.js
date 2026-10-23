@@ -1,4 +1,4 @@
-/** [C-HOME] + [C-SPLASH] BICS L1–L7 gate; splash only on cold `/`. */
+/** [C-HOME] BICS L1–L3 board on `/bics`. Splash lives on `/` (hub.js). */
 
 import { renderNations } from "./nations.js?v=33";
 import { displayIndustryCoord } from "./coords.js?v=35";
@@ -11,49 +11,13 @@ import {
   listLocateHref,
   cubeHref,
   isDemoCubeQuery,
+  trail,
   wireBackspaceNav,
-} from "./nav.js?v=1";
+} from "./nav.js?v=2";
 
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
-const splash = document.getElementById("splash");
 const home = document.getElementById("home");
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function waitTwoFrames() {
-  return new Promise((resolve) => {
-    requestAnimationFrame(() => requestAnimationFrame(resolve));
-  });
-}
-
-function skipSplash() {
-  return Boolean(currentBics()) || sessionStorage.getItem("sfcSplashSeen") === "1";
-}
-
-/** Fade out splash (~4s); remove when done. */
-function dismissSplash() {
-  return new Promise((resolve) => {
-    if (!splash || !splash.isConnected) {
-      resolve();
-      return;
-    }
-    let settled = false;
-    const finish = () => {
-      if (settled) return;
-      settled = true;
-      splash.remove();
-      resolve();
-    };
-    splash.classList.add("splash-out");
-    splash.addEventListener("transitionend", (e) => {
-      if (e.propertyName === "opacity") finish();
-    });
-    setTimeout(finish, 4200);
-  });
-}
 
 function revealHome() {
   if (!home) return;
@@ -233,23 +197,10 @@ function escapeHtml(s) {
 }
 
 function trailHtml(ancestors, node, country) {
-  const bits = [];
-  if (node) {
-    bits.push(`<a href="${escapeHtml(gateHref("", country))}">All</a>`);
-  } else {
-    bits.push(`<span class="home-trail-current">All</span>`);
-  }
-  for (const a of ancestors) {
-    bits.push(`<span class="home-trail-sep">/</span>`);
-    bits.push(
-      `<a href="${escapeHtml(gateHref(a.bicsCode, country))}">${escapeHtml(a.name)}</a>`,
-    );
-  }
-  if (node) {
-    bits.push(`<span class="home-trail-sep">/</span>`);
-    bits.push(`<span class="home-trail-current">${escapeHtml(node.name)}</span>`);
-  }
-  return bits.join("");
+  const items = [{ label: "All", href: gateHref("", country), current: !node }];
+  for (const a of ancestors) items.push({ label: a.name, href: gateHref(a.bicsCode, country) });
+  if (node) items.push({ label: node.name, current: true });
+  return trail(items);
 }
 
 function cellHref(node, country) {
@@ -377,21 +328,9 @@ async function loadBoard() {
 
 async function bootHome() {
   try {
-    const loadPromise = loadBoard();
-    if (skipSplash()) {
-      if (splash?.isConnected) splash.remove();
-      revealHome();
-      await loadPromise;
-      return;
-    }
-    await waitTwoFrames();
-    await sleep(2000);
-    await dismissSplash();
-    sessionStorage.setItem("sfcSplashSeen", "1");
     revealHome();
-    await loadPromise;
+    await loadBoard();
   } catch (err) {
-    if (splash?.isConnected) splash.remove();
     revealHome();
     throw err;
   }

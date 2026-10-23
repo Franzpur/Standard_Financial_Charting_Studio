@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SFC — 美联储制度图</title>
+<link rel="stylesheet" href="/css/app.css?v=44" />
+<link rel="stylesheet" href="/css/fed.css?v=17" />
+</head>
+<body class="fed-page">
+  <svg class="sfc-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="sfc-mark">
+        <g class="sfc-frames">
+          <rect x="8" y="14" width="18" height="44" rx="1.5" opacity="0.95"/>
+          <rect x="22" y="14" width="18" height="44" rx="1.5" opacity="0.55"/>
+          <rect x="36" y="14" width="18" height="44" rx="1.5" opacity="0.28"/>
+        </g>
+        <g transform="translate(72 14) scale(0.338462)">
+          <path class="sfc-word" d="M22 0H145V30H35L30 35V45L35 50H123L145 72V108L123 130H0V100H110L115 95V85L110 80H22L0 58V22Z"/>
+          <path class="sfc-word" d="M165 0H291V30H195Z M165 30H195V50H288V80H195V130H165Z"/>
+          <path class="sfc-facet" d="M165 0V30H195Z"/>
+          <path class="sfc-word" d="M338 0H439V30H348L338 40V90L348 100H439L424 130H338L308 100V30Z"/>
+          <path class="sfc-facet-dim" d="M439 100V130H424Z"/>
+        </g>
+        <line class="sfc-rule" x1="8" y1="66" x2="220.6" y2="66"/>
+      </g>
+    </defs>
+  </svg>
+  <nav class="fed-trail home-trail-fixed" id="fedTrail" aria-label="Path"></nav>
+  <main>
+    <header class="home-brand">
+      <a href="/" class="home-logo-link" aria-label="Home">
+        <svg class="splash-logo home-logo" viewBox="0 6 229 61" width="130" height="35" aria-hidden="true"><use href="#sfc-mark"/></svg>
+      </a>
+    </header>
+    <div id="fedLegend" class="fed-legend" aria-label="图例"></div>
+    <div id="fedModePick" class="fed-mode-pick" aria-label="视图模式"></div>
+    <nav class="fed-ext-links" aria-label="官方站点">
+      <a href="https://www.federalreserve.gov/" target="_blank" rel="noopener noreferrer">美联储</a>
+      <a href="https://www.bls.gov/" target="_blank" rel="noopener noreferrer" title="Bureau of Labor Statistics">劳工统计（BLS）</a>
+      <button type="button" id="fedDataBtn" class="fed-data-btn">公开数据</button>
+    </nav>
+    <div id="fedDataPanel" class="fed-data-panel" hidden></div>
+    <div class="fed-stage" id="fedStage">
+      <svg id="fedSvg" class="fed-svg" role="img" aria-label="美联储制度图"></svg>
+      <div id="fedFomc" class="fed-fomc" hidden></div>
+      <aside id="fedCard" class="fed-card" hidden></aside>
+      <aside id="fedBsPanel" class="fed-bs-panel" hidden></aside>
+    </div>
+    <div id="fedFloat" class="fed-float" hidden></div>
+    <div class="fed-dock">
+      <div id="fedScenePick" class="fed-scene-pick" aria-label="情景"></div>
+      <div id="fedHud" class="fed-hud">
+        <button type="button" id="fedPrev">上一步</button>
+        <button type="button" id="fedPlay">播放</button>
+        <button type="button" id="fedNext">下一步</button>
+        <button type="button" id="fedSpeed">倍速</button>
+        <p id="fedCaption"></p>
+      </div>
+      <p class="fed-footer">制度材料 asOf 2021-08（《The Fed Explained》）；资产负债存量 asOf 2025-12-31（合并状况表）<br />据 Board of Governors《The Fed Explained》(11th ed., 2021)，图为 SFC 自绘，非美联储作品</p>
+    </div>
+  </main>
+  <script type="module" src="/js/fed/interact.js?v=16"></script>
+</body>
+</html>

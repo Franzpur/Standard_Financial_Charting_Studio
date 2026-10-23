@@ -43,7 +43,7 @@ bash Ind-Chain/scripts/regress_all.sh quick
 bash Ind-Chain/scripts/regress_all.sh full    # also tests the packages found in dist/
 ```
 
-App data: `~/Library/Application Support/Standard-Financial-Charting/`; log: `~/Library/Logs/Standard-Financial-Charting/backend.log`. Homepage `/`, cube `/cube`. The `.app` is a universal binary (arm64 + x86_64) with the hardened runtime on.
+App data: `~/Library/Application Support/Standard-Financial-Charting/`; log: `~/Library/Logs/Standard-Financial-Charting/backend.log`. Personal home `/`, BICS board `/bics`, Fed institutional graph `/fed`, cube `/cube`. The `.app` is a universal binary (arm64 + x86_64) with the hardened runtime on. A rebuild is required before the packaged app serves `/bics` and `/fed`; this tree’s acceptance path is the dev server.
 
 ### Signing and notarization
 

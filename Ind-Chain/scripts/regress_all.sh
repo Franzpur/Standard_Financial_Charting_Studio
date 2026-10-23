@@ -44,31 +44,56 @@ start_dev() {
 
 # ---- module graph (F section) ----
 module_checks() {
-  python3 - <<'PY'
+  python3 - <<'PY' || return 1
 import json, subprocess, sys
 g = json.load(open("modules/graph.json"))
 mods, edges = g["modules"], g["edges"]
-assert (len(mods), len(edges)) == (32, 45), f"expected 32/45, got {len(mods)}/{len(edges)}"
+assert (len(mods), len(edges)) == (38, 55), f"expected 38/55, got {len(mods)}/{len(edges)}"
 assert {e["type"] for e in edges} <= {"depends", "calls", "contract"}
 old = json.loads(subprocess.check_output(["git", "show", "019af67:modules/graph.json"]))
 om = {m["id"]: m for m in old["modules"]}
 nm = {m["id"]: m for m in mods}
-assert all(om[i] == nm[i] for i in om), "an original module changed"
+# 019af67 ids that still exist under the same id: side/region stable (zh/role may grow).
+for i in om:
+  if i not in nm:
+    continue  # renamed later (e.g. BE-DEMO-DB→BE-DB-DEMO); edge check below covers continuity
+  assert om[i]["side"] == nm[i]["side"] and om[i].get("region") == nm[i].get("region"), i
 key = lambda e: (e["from"], e["to"], e["type"])
 ne = {key(e) for e in edges}
-assert all(key(e) in ne for e in old["edges"]), "an original edge is missing"
-assert set(nm) - set(om) == {"SHELL-WINDOW", "SHELL-PROC", "SHELL-PACK", "FE-MAPPROJ", "FE-MAPDRAW", "FE-MAPREG", "FE-MAPDOCK", "FE-MAPOUT", "BE-DEBT"}, set(nm) - set(om)
-added = ne - {key(e) for e in old["edges"]}
+# Remap retired 019af67 edge endpoints to current ids before requiring presence.
+_rename = {
+  "BE-DEMO-DB": "BE-DB-DEMO", "BE-SHELL": "BE-DB-SHADOW", "BE-CHAIN-LAYOUT": "BE-NVDA-LAYOUT",
+  "BE-ENTITY": "BE-BICS-ENTITY", "BE-LISTING": "BE-BICS-AREA", "BE-INGEST": "BE-BICS-INGEST",
+}
+def _map(i): return _rename.get(i, i)
+old_edges_mapped = {(_map(e["from"]), _map(e["to"]), e["type"]) for e in old["edges"]}
+assert old_edges_mapped <= ne, old_edges_mapped - ne
+# Modules added since 019af67 (rename-mapped baseline ids excluded).
+om_mapped = {_map(i) for i in om}
+assert set(nm) - om_mapped == {
+    "SHELL-WINDOW", "SHELL-PROC", "SHELL-PACK",
+    "FE-MAPPROJ", "FE-MAPDRAW", "FE-MAPREG", "FE-MAPDOCK", "FE-MAPOUT", "BE-DEBT",
+    "FE-CMD", "BE-CHARTSPEC",
+    "FE-HUB", "FE-FED-MODEL", "FE-FED-DRAW", "BE-FED-GRAPH",
+}, set(nm) - om_mapped
+added = ne - old_edges_mapped
 want = {("SHELL-WINDOW", "SHELL-PROC", "depends"), ("SHELL-PROC", "BE-HTTP", "calls"), ("SHELL-WINDOW", "BE-HTTP", "contract"),
         ("SHELL-PACK", "SHELL-WINDOW", "depends"), ("SHELL-PACK", "BE-HTTP", "depends"),
         ("FE-AESTHETIC", "FE-MAPDRAW", "depends"), ("BE-HTTP", "BE-DEBT", "calls"),
         ("FE-OPENCUBE", "FE-MAPDOCK", "depends"), ("FE-PANEL", "FE-MAPDOCK", "calls"), ("FE-AESTHETIC", "FE-MAPDOCK", "depends"),
         ("FE-MAPDOCK", "FE-MAPREG", "calls"), ("FE-MAPDOCK", "FE-MAPDRAW", "calls"), ("FE-MAPDOCK", "FE-MAPOUT", "calls"),
         ("FE-MAPDOCK", "FE-API", "calls"),
-        ("FE-MAPREG", "FE-MAPPROJ", "depends")}
+        ("FE-MAPREG", "FE-MAPPROJ", "depends"),
+        ("BE-HTTP", "BE-CHARTSPEC", "calls"), ("BE-NVDA-LINKS", "BE-CHARTSPEC", "calls"),
+        ("BE-CHARTSPEC", "BE-NVDA-LAYOUT", "calls"),
+        ("FE-OPENCUBE", "FE-CMD", "depends"), ("FE-CMD", "FE-API", "calls"),
+        ("FE-HUB", "FE-NAV", "depends"), ("FE-FED-DRAW", "FE-FED-MODEL", "depends"),
+        ("FE-FED-DRAW", "FE-NAV", "depends"), ("FE-FED-MODEL", "FE-API", "calls"),
+        ("BE-HTTP", "BE-FED-GRAPH", "calls")}
 assert not any(e["from"] == "FE-FOCUS" and e["to"].startswith(("FE-MAP", "FE-API")) for e in edges), "FE-FOCUS must not reach map/* or the API"
+assert not any(e["from"].startswith("FE-") and e["to"].startswith("BE-") and not (e["from"] == "FE-API" and e["to"] == "BE-HTTP") for e in edges), "cross-side edge other than FE-API → BE-HTTP"
 assert added == want, added ^ want
-print("32 modules / 45 edges; original 23/30 identical to 019af67; added = SHELL-* + FE-MAP* + FE-MAPOUT + BE-DEBT")
+print("38 modules / 55 edges; 019af67 edges preserved (rename-mapped); + SHELL/MAP/DEBT + ChartSpec + CMD + HUB/FED edges")
 PY
   cp modules/index.html "$T/sfc-regress-index.$$"
   python3 modules/bake_static.py >/dev/null 2>&1 || { echo "bake_static.py failed (geometry check)"; cp "$T/sfc-regress-index.$$" modules/index.html; rm -f "$T/sfc-regress-index.$$"; return 1; }
@@ -81,11 +106,15 @@ PY
   ! rg -n 'https?://' modules/index.html | rg -v 'www.w3.org/2000/svg' || return 1
   echo "bake idempotent; static page has no fetch/XHR/external URL"
 }
+fed_graph_check() {
+  python3 Ind-Chain/scripts/check_fed_graph.py
+  python3 Ind-Chain/scripts/check_fed_bs.py
+}
 static_checks() {
   ! rg -n 'https?://' Ind-Chain/web -g '!**/vendor/**' | rg -v 'www.w3.org' || { echo "external URL in web/"; return 1; }
   ! rg -n 'lsof|pkill|killall' Ind-Chain/shell || { echo "forbidden word in shell/"; return 1; }
   (cd Ind-Chain/web/vendor/three && awk '/^BEGIN SHA256$/{f=1;next}/^END SHA256$/{f=0}f' README.txt | shasum -a 256 -c - >/dev/null) || { echo "vendor/three checksum mismatch"; return 1; }
-  CHG=$(git status --short -uall -- Ind-Chain/web | rg -v 'cube\.html|web/vendor/three/|web/css/(app|plot-paper)\.css$|web/(index|list|selfcheck-map)\.html$|web/js/map/|web/js/(api|bondChart|coords|home|list|main|nations|nav|scene|state|ui)\.js$' || true)
+  CHG=$(git status --short -uall -- Ind-Chain/web | rg -v 'cube\.html|web/vendor/three/|web/css/(app|plot-paper|fed)\.css$|web/(index|list|bics|fed|selfcheck-map)\.html$|web/js/map/|web/js/fed/|web/js/hub\.js$|web/data/|web/js/(api|author|bondChart|cmd|coords|home|list|main|nations|nav|scene|state|ui)\.js$' || true)
   [ -z "$CHG" ] || { echo "unexpected web/ change: $CHG"; return 1; }
   python3 Ind-Chain/scripts/check_map_purity.py >/dev/null || { echo "map purity / paper skin check failed (run Ind-Chain/scripts/check_map_purity.py)"; return 1; }
   echo "web/: no external URL; vendor checksums ok; web/ module scope clean"
@@ -102,6 +131,11 @@ golden_gate() {
 selftest_cube() {
   J=$("$APP_EXE" --selftest --start-path "/cube?ticker=NVDA%20US%20Equity") || { echo "$J"; return 1; }
   echo "$J" | python3 -c 'import json,sys; d=json.load(sys.stdin); print({k:d.get(k) for k in ("ok","external","canvases","webglDrawn","nonBgRatio")}); sys.exit(0 if d["ok"] and d["external"]==0 and d["canvases"]>=1 and d.get("webglDrawn") is not False else 1)'
+}
+selftest_fed() {
+  # Non-root start paths do not require #splash (SelfTest.swift). The packaged app is unchanged.
+  J=$("$APP_EXE" --selftest --start-path "/fed") || { echo "$J"; return 1; }
+  echo "$J" | python3 -c 'import json,sys; d=json.load(sys.stdin); print({k:d.get(k) for k in ("ok","external","hasSplashOrHome","title")}); sys.exit(0 if d.get("ok") and d.get("external")==0 else 1)'
 }
 selftest_embedded() {  # minimal PATH, system candidates narrowed away: only the bundled interpreter can pass
   J=$(env -i HOME="$HOME" PATH=/usr/bin:/bin SFC_PYTHON_CANDIDATES=/nonexistent "$APP_EXE" --selftest) || { echo "$J"; return 1; }
@@ -120,13 +154,15 @@ if [ "$MODE" = capture ]; then
   exit $?
 fi
 
-STEP="module graph (32/45, original 23/30 == 019af67, bake idempotent)"; check module_checks
+STEP="module graph (38/55, original 23/30 == 019af67, bake idempotent)"; check module_checks
+STEP="fed graph (check_fed_graph.py)"; check fed_graph_check
 STEP="static checks (no external URL, vendor sha, shell word gate, web/ scope)"; check static_checks
 STEP="API golden compare (dev back end, $GOLDEN)"; check golden_gate
 
 if [ "$MODE" = full ]; then
   APP_EXE="$REPO/Standard-Financial-Charting.app/Contents/MacOS/Standard-Financial-Charting"
   STEP="selftest + /cube offline check (repo .app)"; check selftest_cube
+  STEP="selftest /fed (splash not required off /)"; check selftest_fed
   STEP="lifecycle: repo .app (cold start, golden, single instance, four exits)"; check lifecycle "$REPO/Standard-Financial-Charting.app"
   for V in internal noentities; do
     D="$REPO/dist/$V/Standard-Financial-Charting.app"

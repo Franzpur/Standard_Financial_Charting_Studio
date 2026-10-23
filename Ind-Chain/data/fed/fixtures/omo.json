@@ -1,0 +1,32 @@
+{
+  "asOf": "2025-12-31",
+  "source": {
+    "org": "NY Fed Markets",
+    "url": "https://www.newyorkfed.org/markets",
+    "note": "SFC local fixture for demo; not a live Markets scrape."
+  },
+  "status": "stub",
+  "items": [
+    {
+      "date": "2025-12-30",
+      "op_type": "rrp",
+      "amount": null,
+      "unit": "USD billions",
+      "note": "Overnight RRP — amount left null in stub (fill via optional live pull)."
+    },
+    {
+      "date": "2025-12-30",
+      "op_type": "repo",
+      "amount": null,
+      "unit": "USD billions",
+      "note": "Overnight repo — stub row."
+    },
+    {
+      "date": "2025-12-15",
+      "op_type": "outright",
+      "amount": null,
+      "unit": "USD millions",
+      "note": "SOMA outright orientation stub; see Combined Financial Statements for stocks."
+    }
+  ]
+}

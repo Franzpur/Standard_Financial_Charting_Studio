@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated": "2026-10-16",
+  "updated": "2026-10-22",
   "title": "SFC module graph (W1 track)",
-  "note": "Machine source of truth for module inventory and edges. Edit this file, then run python3 modules/bake_static.py to refresh modules/index.html (static; file:// OK; no fetch). Architecture: FE two modules (fe-decision 决策路径 · fe-cube 立方体面) + BE one module; FE-API (region fe-api) sits outside both FE frames as contract hub. Optional module.region is consumed by bake with fallback. Edge colors by side pair (FE内翠绿 #00a86b / BE内天青 #5dade2 / 跨侧亮红 #e02020); dash by type. Routing: channel + edge-slot orthogonal polylines (no cross / no coincide). Cross-side data contract is only FE-API→BE-HTTP (plus BE-HTTP→MODULES-TRACK narrow mouth). Direct page→data-module contract edges (BOARD→BICS-HIER, LIST→ENTITY, OPENCUBE→BUNDLE) removed 2026-10-14: they duplicated the API path and read as if the browser opened library modules. Shell layer (2026-10-14, local app): SHELL-WINDOW + SHELL-PROC sit below both sides in their own zone; shell-internal edges use graphite; SHELL→BE-HTTP is cross-side (red). P2: SHELL-PACK (build-time packaging) joins the shell zone with two depends edges. Original 23 modules and 30 edges are unchanged. Second-mapping spot slice (2026-10-16, GS-20261016-DMAP-GOOGL-LADDER-Q): new region fe-map (平面映射) with FE-MAPPROJ and FE-MAPDRAW, plus BE-DEBT; Revised 2026-10-16 (GS-20261016-DMAP-UI-PAPER): the Map desk replaces the company-stage figure; fe-map now holds FE-MAPREG and FE-MAPDOCK too (31 modules / 44 edges). FE-FOCUS no longer reaches map/* or the API (its three edges removed), so FE-SCENE→FE-FOCUS no longer brings map/* into the scene. Added: OPENCUBE→MAPDOCK depends, PANEL→MAPDOCK calls (detail chip), AESTHETIC→MAPDOCK depends, MAPDOCK→MAPREG / MAPDRAW / API calls, MAPREG→MAPPROJ depends; kept AESTHETIC→MAPDRAW depends and HTTP→DEBT calls.",
+  "note": "Machine source of truth for module inventory and edges. Edit this file, then run python3 modules/bake_static.py to refresh modules/index.html (static; file:// OK; no fetch). Architecture: FE two modules (fe-decision 决策路径 · fe-cube 立方体面) + BE one module; FE-API (region fe-api) sits outside both FE frames as contract hub. Optional module.region is consumed by bake with fallback. Edge colors by side pair (FE内翠绿 #00a86b / BE内天青 #5dade2 / 跨侧亮红 #e02020); dash by type. Routing: channel + edge-slot orthogonal polylines (no cross / no coincide). Cross-side data contract is only FE-API→BE-HTTP (plus BE-HTTP→MODULES-TRACK narrow mouth). Direct page→data-module contract edges (BOARD→BICS-HIER, LIST→ENTITY, OPENCUBE→BUNDLE) removed 2026-10-14: they duplicated the API path and read as if the browser opened library modules. Shell layer (2026-10-14, local app): SHELL-WINDOW + SHELL-PROC sit below both sides in their own zone; shell-internal edges use graphite; SHELL→BE-HTTP is cross-side (red). P2: SHELL-PACK (build-time packaging) joins the shell zone with two depends edges. Second-mapping spot slice (2026-10-16): fe-map + BE-DEBT + Map desk. Interactive ChartSpec reform (2026-10-21, GS-20261021-IX-CHARTSPEC): BE-CHARTSPEC (compile/OPS/persist) + FE-CMD (deterministic command bar); shell blank stage via ChartSpec; NVDA chain adapts doc→Spec→compile; edges BUNDLE→CHARTSPEC, HTTP→CHARTSPEC, NVDA-LINKS→CHARTSPEC, CHARTSPEC→NVDA-LAYOUT, OPENCUBE→CMD, CMD→API, PANEL→API. Personal home and Fed chart (2026-10-22, GS-20261022-FED-HUB-P1): FE-HUB, FE-FED-MODEL, FE-FED-DRAW, BE-FED-GRAPH.",
   "modules": [
     {
       "id": "FE-NAV",
       "zh": "导航",
       "side": "FE",
       "region": "fe-decision",
-      "role": "Route assignment across home / list / cube"
+      "role": "Route assignment across home, bics, fed, list, and cube"
     },
     {
       "id": "FE-BOARD",
@@ -124,6 +124,13 @@
       "role": "PNG export of the paper root (.pm-sheet.pm-skin-paper); Blob download; no redaction"
     },
     {
+      "id": "FE-CMD",
+      "zh": "命令栏",
+      "side": "FE",
+      "region": "fe-map",
+      "role": "Deterministic ZH/EN command bar → ChartOps (no LLM). Booted by FE-OPENCUBE; HTTP via FE-API."
+    },
+    {
       "id": "SHELL-WINDOW",
       "zh": "壳窗口",
       "side": "SHELL",
@@ -170,6 +177,13 @@
       "side": "BE",
       "region": "be",
       "role": "Empty-wall shell for non-chain ticker"
+    },
+    {
+      "id": "BE-CHARTSPEC",
+      "zh": "图方案",
+      "side": "BE",
+      "region": "be",
+      "role": "ChartSpec v1 schema, OPS apply, compile → Bundle, local SQLite persist"
     },
     {
       "id": "BE-NVDA-LAYOUT",
@@ -226,6 +240,34 @@
       "side": "other",
       "region": "be",
       "role": "Repo-root modules graph + paper HTML"
+    },
+    {
+      "id": "FE-HUB",
+      "zh": "个人主页",
+      "side": "FE",
+      "region": "fe-fed",
+      "role": "Home grid on / ; splash; system registry"
+    },
+    {
+      "id": "FE-FED-MODEL",
+      "zh": "制度图数据",
+      "side": "FE",
+      "region": "fe-fed",
+      "role": "Index the Fed institutional graph from FE-API"
+    },
+    {
+      "id": "FE-FED-DRAW",
+      "zh": "制度图",
+      "side": "FE",
+      "region": "fe-fed",
+      "role": "Ring drawing, FOMC circle, scenarios S1/S2, balance-sheet mode layer"
+    },
+    {
+      "id": "BE-FED-GRAPH",
+      "zh": "制度图库",
+      "side": "BE",
+      "region": "be",
+      "role": "fed-graph + /api/fed graph|bs|omo|fomc/minutes|fomc/calendar"
     }
   ],
   "edges": [
@@ -356,12 +398,12 @@
     },
     {
       "from": "BE-BUNDLE",
-      "to": "BE-NVDA-LAYOUT",
+      "to": "BE-NVDA-LINKS",
       "type": "calls"
     },
     {
       "from": "BE-BUNDLE",
-      "to": "BE-NVDA-LINKS",
+      "to": "BE-NVDA-LAYOUT",
       "type": "calls"
     },
     {
@@ -453,6 +495,56 @@
       "from": "FE-MAPREG",
       "to": "FE-MAPPROJ",
       "type": "depends"
+    },
+    {
+      "from": "BE-HTTP",
+      "to": "BE-CHARTSPEC",
+      "type": "calls"
+    },
+    {
+      "from": "BE-NVDA-LINKS",
+      "to": "BE-CHARTSPEC",
+      "type": "calls"
+    },
+    {
+      "from": "BE-CHARTSPEC",
+      "to": "BE-NVDA-LAYOUT",
+      "type": "calls"
+    },
+    {
+      "from": "FE-OPENCUBE",
+      "to": "FE-CMD",
+      "type": "depends"
+    },
+    {
+      "from": "FE-CMD",
+      "to": "FE-API",
+      "type": "calls"
+    },
+    {
+      "from": "FE-HUB",
+      "to": "FE-NAV",
+      "type": "depends"
+    },
+    {
+      "from": "FE-FED-DRAW",
+      "to": "FE-FED-MODEL",
+      "type": "depends"
+    },
+    {
+      "from": "FE-FED-DRAW",
+      "to": "FE-NAV",
+      "type": "depends"
+    },
+    {
+      "from": "FE-FED-MODEL",
+      "to": "FE-API",
+      "type": "calls"
+    },
+    {
+      "from": "BE-HTTP",
+      "to": "BE-FED-GRAPH",
+      "type": "calls"
     }
   ]
 }

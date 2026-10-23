@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>2025 美联储合并财务报表分析 · 资产负债层方案</title>
+<style>
+:root {
+  --paper: #f7f5f0;
+  --ink: #1a1f26;
+  --muted: #4a5560;
+  --rule: #c5ccd4;
+  --fill: #ece8e0;
+}
+@page { size: A4; margin: 14mm 14mm 16mm; }
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  padding: 16mm 16mm 22mm;
+  max-width: 180mm;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", serif;
+  font-size: 11pt;
+  line-height: 1.45;
+}
+h1 { font-size: 17pt; font-weight: 600; letter-spacing: 0.04em; margin: 0.2em 0 0.3em; }
+.brand { letter-spacing: 0.07em; font-size: 13pt; margin: 0; }
+h2 { font-size: 12.5pt; border-bottom: 1px solid var(--rule); padding-bottom: 0.15em; margin-top: 1.35em; page-break-after: avoid; }
+h3 { font-size: 11.5pt; font-weight: 600; margin: 1.05em 0 0.25em; page-break-after: avoid; }
+h4 { font-size: 10.5pt; font-weight: 600; margin: 0.85em 0 0.2em; page-break-after: avoid; }
+p { margin: 0.45em 0; }
+.cover-meta, .lede { color: var(--muted); font-size: 10pt; }
+.muted { color: var(--muted); }
+.no-print { font-size: 10pt; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 0.6em; margin-bottom: 1em; }
+ul, ol { margin: 0.35em 0 0.7em; padding-left: 1.3em; }
+li { margin: 0.22em 0; }
+table { width: 100%; border-collapse: collapse; font-size: 9pt; margin: 0.6em 0 1em; }
+table.s { font-size: 8.2pt; }
+table.nobreak { page-break-inside: avoid; }
+tr { page-break-inside: avoid; }
+th, td { border: 1px solid var(--rule); padding: 0.28em 0.4em; text-align: left; vertical-align: top; }
+th { background: var(--fill); font-weight: 600; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.neg { color: #6b2a2a; }
+code, pre { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
+code { font-size: 0.86em; }
+pre {
+  background: #efece6;
+  border: 1px solid var(--rule);
+  padding: 0.55em 0.7em;
+  font-size: 8pt;
+  line-height: 1.35;
+  page-break-inside: avoid;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.toc ol { list-style: none; padding-left: 0; }
+.toc li { margin: 0.18em 0; }
+.toc a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--rule); }
+.fig {
+  margin: 0.8em 0 1.1em;
+  page-break-inside: avoid;
+  border: 1px solid var(--rule);
+  background: #faf8f4;
+  padding: 0.55em 0.5em 0.4em;
+}
+.fig svg { display: block; width: 100%; height: auto; }
+.fig-cap { font-size: 9pt; color: var(--muted); margin: 0.35em 0 0; }
+.note { font-size: 9.5pt; color: var(--muted); border-left: 2px solid var(--rule); padding-left: 0.65em; margin: 0.6em 0; }
+.callout { background: var(--fill); border: 1px solid var(--rule); padding: 0.45em 0.65em; margin: 0.7em 0; font-size: 10pt; page-break-inside: avoid; }
+.callout.warn { border-left: 3px solid var(--ink); }
+.badge { display: inline-block; border: 1px solid var(--rule); background: var(--fill); padding: 0.02em 0.35em; font-size: 8pt; letter-spacing: 0.02em; }
+.swatch { display: inline-block; width: 0.85em; height: 0.85em; border: 1px solid var(--rule); vertical-align: -0.1em; margin-right: 0.2em; }
+.swatch.g { background: #c8e6c9; }
+.swatch.r { background: #ffcdd2; }
+.swatch.n { background: #e0e0e0; }
+.swatch.x { background: repeating-linear-gradient(45deg, #c8e6c9, #c8e6c9 3px, #fff 3px, #fff 6px); }
+@media print {
+  body { background: white; }
+  .no-print { display: none; }
+  a { color: inherit; text-decoration: none; }
+  .fig { background: white; }
+}
+</style>
+</head>
+<body>
+<p class="no-print">浏览器打开 → 打印 → 存 PDF → 关掉页眉网址。纸面 token：<code>--paper / --ink / --muted / --rule / --fill</code>。本件为内阁分析+方案，<strong>非令</strong>；勿改 Ind-Chain 产品码。</p>
+<p class="brand">SFC</p>
+<h1>2025 美联储合并财务报表分析<br>与制度图「资产负债层」方案</h1>
+<p class="cover-meta">内阁读本 · <span class="badge">电内阁 mode=write</span> · 2026-10-22 · 业主 Purkniv · <strong>规划件，非令</strong>（本轮不签发 order；开场谏言已「不发问」）</p>
+<p class="lede">真源：Federal Reserve Banks Combined Financial Statements As of and for the Years Ended December 31, 2025 and 2024；KPMG 审计意见日 March 12, 2026；会计基础 Board FAM（非 US GAAP）。PDF：<code>SFC-VIS-FED/Materials/combinedfinstmt2025.pdf</code>（63 页）。状况表手工 CSV：<code>cabinet/inbox/combinedfinstmt2025-condition.csv</code>（百万美元）。全文抽取：<code>cabinet/inbox/combinedfinstmt2025-extract.txt</code>。制度图对照：<code>Ind-Chain/data/fed/fed-graph.json</code>（65 节点、fund_flow F01–F09、部门六色、环投影）。</p>
+
+<div class="callout">
+<strong>一句话结论。</strong> 2025 年末合并状况表总资产约 <strong>6.88 万亿美元</strong>（较 2024 缩减约 <strong>1,848 亿美元</strong>），主因 SOMA 国债与机构/GSE MBS 净额下降（QT 叙事对齐），负债侧同步收缩，但结构剧烈：ON RRP/回购负债大减、TGA 大增、流通中联储券增加。净利息支出收窄，递延上缴资产继续累积。要把「资产绿、负债红」放进现行制度图，<strong>必须新增独立资产负债表层（模式/第二环/侧栏桑基）</strong>，严禁覆盖部门六色、严禁把存量金额编进旧 fund_flow 义务边。本报告只交分析与方案；是否开工待业主裁断。
+</div>
+<div class="callout warn">
+<strong>三处硬边界。</strong>（1）合并主体是 12 家 Reserve Banks combined，不是 Board 自身；Board 费用经 assessment 计入运营费用。（2）Deferred asset—remittances to the Treasury 是暂停周度上缴后的累计缺口记账，绿色资产着色时必须加「待核/特殊」标记。（3）本轮<strong>不下令</strong>总参谋部开工；分波 W0–W3 仅为建议路线。
+</div>
+
+<nav class="toc">
+<h2>目录</h2>
+<ol>
+  <li><a href="#s0">0. 范围与读法</a></li>
+  <li><a href="#s1">1. 七条逻辑澄清（必读）</a></li>
+  <li><a href="#s2">2. 状况表分析：资产 · 负债 · 资本与 Δ</a></li>
+  <li><a href="#s3">3. 运营与上缴：流量侧要点</a></li>
+  <li><a href="#s4">4. 会计恒等式与扩表/缩表机制</a></li>
+  <li><a href="#s5">5. 递延上缴资产：构造、误读与着色规则</a></li>
+  <li><a href="#s6">6. 报表行 → 制度图节点映射表</a></li>
+  <li><a href="#s7">7. 与现行 fund_flow / 部门色的冲突处理</a></li>
+  <li><a href="#s8">8. 可视化方案：资产负债层</a></li>
+  <li><a href="#s9">9. 分波建议 W0–W3（非令）</a></li>
+  <li><a href="#s10">10. 待业主裁断的开放题</a></li>
+  <li><a href="#s11">11. 模块清单与关系（汇报义务）</a></li>
+  <li><a href="#app">附录 · 一页纸摘要</a></li>
+</ol>
+</nav>
+
+<h2 id="s0">0. 范围与读法</h2>
+<p><strong>本件做什么。</strong>充分分析 2025 审计后合并财务报表；提出把资产负债的来源、方向、增减含义放入 FED 制度图的方案；理清存量 vs 流量、部门色 vs 资产负债色。</p>
+<p><strong>本件不做什么。</strong>不改 <code>Ind-Chain</code> 产品码；不签发 <code>cabinet/orders/</code>；不指挥监理部/档案部；不替代美工落地绿红 token（方案只命名 <code>--fed-bs-asset</code> / <code>--fed-bs-liab</code>）。</p>
+<p><strong>数字口径。</strong>除特别说明外，金额单位均为<strong>百万美元</strong>，取自 Statements of Condition（及运营表摘录）。Δ = 2025 − 2024。CSV 真源见 inbox；与 PDF 不一致时以 PDF 为准并在修订中标注。</p>
+
+<h2 id="s1">1. 七条逻辑澄清（必读）</h2>
+<ol>
+  <li><strong>合并主体</strong>：报表是 <strong>12 家 Reserve Banks combined</strong>。Board of Governors 不是合并主体；Board 与 Bureau 费用通过 assessment 进入地区联储运营费用。制度图上 BOG 仍是治理节点，但其「费用」不直接等于状况表一行资产。</li>
+  <li><strong>会计恒等式</strong>：Assets = Liabilities + Capital（含 consolidated VIE 的非控制权益 NCI）。验算：6,883,891 = 6,836,642 + 47,249。</li>
+  <li><strong>央行 BS 与商业银行不同</strong>：Federal Reserve notes、存款机构准备金余额、TGA 等是<strong>负债</strong>；SOMA 证券、贷款、回购买入等是<strong>资产</strong>。扩表时资产与负债通常同向增加；缩表（QT）通常同向减少——但结构可剧烈重配（见 §2 TGA / ON RRP）。</li>
+  <li><strong>Deferred remittance asset</strong>：不是「对财政部的传统债权资产」叙事；是盈利不足以覆盖运营/股息/维持盈余上限时<strong>暂停周度上缴</strong>后的累计缺口记账，未来需先赚回才恢复上缴，并定期测减值。绿着色必须加特殊标记（§5）。</li>
+  <li><strong>存量 vs 流量</strong>：状况表是时点存量；fund_flow F01–F09 与损益表是义务/流量。方案分层：禁止把金额编进旧 fund_flow 当义务边。</li>
+  <li><strong>映射三元组</strong>：每条主要资产负债 = 报表行 → 制度图对手方节点 → 来源/方向一句话 → Δ 含义（与 QT、TGA、ON RRP、贴现/应急贷款收缩等对齐；无证据不编）。</li>
+  <li><strong>颜色互斥</strong>：资产 <code>--fed-bs-asset</code>（绿系）、负债 <code>--fed-bs-liab</code>（红系）、资本中性；与部门六色互斥——用<strong>模式切换</strong>或<strong>描边/底纹</strong>，不替换节点 fill。美工后做。</li>
+</ol>
+
+<h2 id="s2">2. 状况表分析：资产 · 负债 · 资本与 Δ</h2>
+
+<h3>2.1 总览</h3>
+<table class="nobreak">
+  <thead>
+    <tr><th>项目</th><th class="n">2025</th><th class="n">2024</th><th class="n">Δ</th><th>含义（一句）</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Total assets</td><td class="n">6,883,891</td><td class="n">7,068,713</td><td class="n neg">−184,822</td><td>缩表约 1,848 亿；主因 SOMA 证券净额下降</td></tr>
+    <tr><td>Total liabilities</td><td class="n">6,836,642</td><td class="n">7,020,391</td><td class="n neg">−183,749</td><td>负债同步收缩，但结构重配剧烈</td></tr>
+    <tr><td>Total capital + VIE NCI</td><td class="n">47,249</td><td class="n">48,322</td><td class="n neg">−1,073</td><td>实收资本升、NCI 降；盈余钉住上限</td></tr>
+  </tbody>
+</table>
+<p class="note">恒等式：6,883,891 − 6,836,642 = 47,249。Δ 资产与 Δ 负债几乎同幅（−184,822 vs −183,749），差额由资本侧吸收——符合「资产与负债同向变动」的央行表机制。</p>
+
+<h3>2.2 资产明细与 Δ</h3>
+<table class="s">
+  <thead>
+    <tr><th>报表行</th><th class="n">2025</th><th class="n">2024</th><th class="n">Δ</th><th>读法</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Gold certificates</td><td class="n">11,037</td><td class="n">11,037</td><td class="n">0</td><td>法定/证书存量；制度展示可钉 TREASURY/财政代理语境，非交易驱动</td></tr>
+    <tr><td>SDR certificates</td><td class="n">15,200</td><td class="n">15,200</td><td class="n">0</td><td>同上，稳定项</td></tr>
+    <tr><td>Coin</td><td class="n">1,481</td><td class="n">1,478</td><td class="n">+3</td><td>可忽略噪声</td></tr>
+    <tr><td>Loans to depository institutions</td><td class="n">9,677</td><td class="n">3,255</td><td class="n">+6,422</td><td>对 DI 贷款上升（贴现窗口等）；与「应急设施收缩」并行，勿混为一谈</td></tr>
+    <tr><td>Other loans</td><td class="n">63</td><td class="n">6,373</td><td class="n neg">−6,310</td><td>应急/特殊贷款大幅回落（BTFP 等收缩叙事对齐；具体设施名以 Note 4 为准）</td></tr>
+    <tr><td>SOMA: Securities purchased under agreements to resell</td><td class="n">74,600</td><td class="n">0</td><td class="n">+74,600</td><td>正回购买入（资产）：向对手方提供短期融资、换取证券抵押；年末从零跃升</td></tr>
+    <tr><td>SOMA: Treasury securities, net</td><td class="n">4,390,203</td><td class="n">4,473,035</td><td class="n neg">−82,832</td><td>QT：国债净持仓下降约 828 亿</td></tr>
+    <tr><td>SOMA: Agency/GSE MBS, net</td><td class="n">2,077,623</td><td class="n">2,277,127</td><td class="n neg">−199,504</td><td>QT 主发动机：MBS 净额下降约 1,995 亿</td></tr>
+    <tr><td>SOMA: GSE debt, net</td><td class="n">2,499</td><td class="n">2,529</td><td class="n neg">−30</td><td>微小</td></tr>
+    <tr><td>SOMA: FX investments, net</td><td class="n">19,211</td><td class="n">17,422</td><td class="n">+1,789</td><td>外币投资净增（含估值/交易；见运营表外币折算）</td></tr>
+    <tr><td>SOMA: Central bank liquidity swaps</td><td class="n">481</td><td class="n">1,120</td><td class="n neg">−639</td><td>互换余额回落</td></tr>
+    <tr><td>SOMA: Accrued interest receivable</td><td class="n">30,677</td><td class="n">29,941</td><td class="n">+736</td><td>应计利息资产</td></tr>
+    <tr><td>Consolidated VIE: Assets held, net</td><td class="n">1,368</td><td class="n">7,996</td><td class="n neg">−6,628</td><td>并表 VIE 资产收缩</td></tr>
+    <tr><td><strong>Deferred asset—remittances to the Treasury</strong></td><td class="n"><strong>243,481</strong></td><td class="n"><strong>215,955</strong></td><td class="n"><strong>+27,526</strong></td><td><strong>关键构造</strong>：暂停上缴累计缺口再增约 275 亿（§5）</td></tr>
+    <tr><td>Premises / pension / other（合计小数）</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>房屋设备等；制度图可折叠为「运营支撑」</td></tr>
+    <tr><td><strong>Total assets</strong></td><td class="n"><strong>6,883,891</strong></td><td class="n"><strong>7,068,713</strong></td><td class="n neg"><strong>−184,822</strong></td><td></td></tr>
+  </tbody>
+</table>
+<p><strong>资产侧叙事主线。</strong>缩表几乎全部由 SOMA 证券（国债 −83B + MBS −200B）驱动；同时有三项「反向/结构」：DI 贷款升、正回购买入从零跃升、递延上缴资产继续累积。Other loans 与 VIE 资产大幅回落，支持「应急设施退出」叙述，但不应写成「全部贷款都在降」——DI 贷款在升。</p>
+
+<h3>2.3 负债明细与 Δ</h3>
+<table class="s">
+  <thead>
+    <tr><th>报表行</th><th class="n">2025</th><th class="n">2024</th><th class="n">Δ</th><th>读法</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Federal Reserve notes outstanding, net</td><td class="n">2,394,465</td><td class="n">2,322,532</td><td class="n">+71,933</td><td>流通中联储券净增约 719 亿——发钞是负债，不是「印钱资产」</td></tr>
+    <tr><td><strong>SOMA: Securities sold under agreements to repurchase</strong></td><td class="n"><strong>462,198</strong></td><td class="n"><strong>888,395</strong></td><td class="n neg"><strong>−426,197</strong></td><td><strong>最大单笔负债 Δ</strong>：ON RRP / FIMA 等逆回购负债收缩约 4,262 亿</td></tr>
+    <tr><td>Deposits: Depository institutions</td><td class="n">2,853,441</td><td class="n">2,892,363</td><td class="n neg">−38,922</td><td>准备金略降；与 QT 及 TGA/ON RRP 重配共同作用</td></tr>
+    <tr><td><strong>Deposits: Treasury, general account (TGA)</strong></td><td class="n"><strong>872,853</strong></td><td class="n"><strong>721,892</strong></td><td class="n"><strong>+150,961</strong></td><td>财政部一般账户大增约 1,510 亿——吸收流动性的关键负债</td></tr>
+    <tr><td>Deposits: Other deposits</td><td class="n">246,378</td><td class="n">188,599</td><td class="n">+57,779</td><td>其他存款升（含外国官方等；细项见 Note）</td></tr>
+    <tr><td>Interest payable to DI and others</td><td class="n">2,259</td><td class="n">2,416</td><td class="n neg">−157</td><td>应付利息（IORB/ON RRP 等流量的应计）</td></tr>
+    <tr><td>Other liabilities（含 VIE、递延贷项等）</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>体量相对小，制度图可折叠</td></tr>
+    <tr><td><strong>Total liabilities</strong></td><td class="n"><strong>6,836,642</strong></td><td class="n"><strong>7,020,391</strong></td><td class="n neg"><strong>−183,749</strong></td><td></td></tr>
+  </tbody>
+</table>
+<p><strong>负债侧叙事主线。</strong>总负债下降，但不是「各行同比例缩」：ON RRP 类回购负债暴减释放空间，TGA 与 FR notes 上升「接住」部分结构。理解 2025 表，必须同时画三条箭头：QT（资产↓）、ON RRP↓、TGA↑——而非单一「缩表」口号。</p>
+
+<div class="fig">
+<svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" aria-label="2025 资产负债结构示意">
+  <text x="12" y="18" font-size="11" fill="#1a1f26" font-family="Palatino, Songti SC, serif">示意：2025 年末主要存量（百万 USD，非比例精确）</text>
+  <!-- Assets bar -->
+  <text x="12" y="48" font-size="10" fill="#4a5560">资产</text>
+  <rect x="60" y="36" width="280" height="22" fill="#c8e6c9" stroke="#c5ccd4"/>
+  <text x="68" y="51" font-size="9" fill="#1a1f26">Treasury 4.39T</text>
+  <rect x="340" y="36" width="132" height="22" fill="#a5d6a7" stroke="#c5ccd4"/>
+  <text x="346" y="51" font-size="9" fill="#1a1f26">MBS 2.08T</text>
+  <rect x="472" y="36" width="28" height="22" fill="#81c784" stroke="#c5ccd4"/>
+  <text x="504" y="51" font-size="8" fill="#4a5560">其他</text>
+  <rect x="505" y="36" width="18" height="22" fill="#fff59d" stroke="#c5ccd4" stroke-dasharray="2 2"/>
+  <text x="528" y="51" font-size="8" fill="#4a5560">递延</text>
+  <!-- Liab bar -->
+  <text x="12" y="98" font-size="10" fill="#4a5560">负债</text>
+  <rect x="60" y="86" width="152" height="22" fill="#ffcdd2" stroke="#c5ccd4"/>
+  <text x="68" y="101" font-size="9" fill="#1a1f26">FR notes 2.39T</text>
+  <rect x="212" y="86" width="180" height="22" fill="#ef9a9a" stroke="#c5ccd4"/>
+  <text x="220" y="101" font-size="9" fill="#1a1f26">DI deposits 2.85T</text>
+  <rect x="392" y="86" width="55" height="22" fill="#e57373" stroke="#c5ccd4"/>
+  <text x="396" y="101" font-size="8" fill="#1a1f26">TGA</text>
+  <rect x="447" y="86" width="30" height="22" fill="#ef5350" stroke="#c5ccd4"/>
+  <text x="450" y="101" font-size="8" fill="#fff">RRP</text>
+  <rect x="477" y="86" width="20" height="22" fill="#ffcdd2" stroke="#c5ccd4"/>
+  <!-- Delta arrows -->
+  <text x="12" y="145" font-size="10" fill="#4a5560">关键 Δ（2024→2025）</text>
+  <text x="60" y="168" font-size="9" fill="#6b2a2a">MBS −200B · Treasury −83B · 总资产 −185B</text>
+  <text x="60" y="188" font-size="9" fill="#6b2a2a">回购负债 −426B</text>
+  <text x="220" y="188" font-size="9" fill="#1a1f26">TGA +151B · FR notes +72B · 递延资产 +28B</text>
+  <text x="12" y="212" font-size="8" fill="#4a5560">黄斜线块 = Deferred remittance（特殊资产，勿当「真资产」叙事）</text>
+</svg>
+<p class="fig-cap">图 1 · 存量结构与关键 Δ 示意（内阁自绘；非 PDF 复制）。递延上缴用虚线/斜纹标记。</p>
+</div>
+
+<h3>2.4 资本</h3>
+<table class="nobreak">
+  <thead>
+    <tr><th>项目</th><th class="n">2025</th><th class="n">2024</th><th class="n">Δ</th><th>读法</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Capital paid-in</td><td class="n">39,152</td><td class="n">37,182</td><td class="n">+1,970</td><td>会员银行实缴随其资本变动；对手方 MEMBER-BANKS</td></tr>
+    <tr><td>Surplus</td><td class="n">6,785</td><td class="n">6,785</td><td class="n">0</td><td>FRA 合计盈余上限仍钉 <strong>$6.785B</strong></td></tr>
+    <tr><td>Total Reserve Bank capital</td><td class="n">45,937</td><td class="n">43,967</td><td class="n">+1,970</td><td></td></tr>
+    <tr><td>VIE non-controlling interest</td><td class="n">1,312</td><td class="n">4,355</td><td class="n neg">−3,043</td><td>并表 VIE NCI 下降</td></tr>
+    <tr><td>Total capital and NCI</td><td class="n">47,249</td><td class="n">48,322</td><td class="n neg">−1,073</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3">3. 运营与上缴：流量侧要点</h2>
+<table class="nobreak">
+  <thead>
+    <tr><th>项目（百万 USD）</th><th class="n">2025</th><th class="n">2024</th><th>读法</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Interest income</td><td class="n">155,299</td><td class="n">158,756</td><td>利息收入略降（证券存量下降与票息结构）</td></tr>
+    <tr><td>Interest expense</td><td class="n">167,381</td><td class="n">226,766</td><td>利息支出大降（准备金付息与回购付息随余额/利率）</td></tr>
+    <tr><td>Net interest expense</td><td class="n">(12,082)</td><td class="n">(68,010)</td><td>净利息支出<strong>收窄</strong>约 560 亿——亏损压力缓解但仍为负</td></tr>
+    <tr><td>Reserve Bank net loss from operations</td><td class="n">(18,747)</td><td class="n">(77,606)</td><td>运营净亏损大幅收窄</td></tr>
+    <tr><td>Earnings remittances to the Treasury, net</td><td class="n">(21,245)</td><td class="n">(79,104)</td><td>递延资产会计下的净额列示（Note 12）；勿当成「正向上缴现金」</td></tr>
+    <tr><td>Comprehensive income</td><td class="n">1,688</td><td class="n">1,623</td><td>综合收益为正（含其他综合损益）</td></tr>
+  </tbody>
+</table>
+<p class="note">Note 摘录逻辑（FAM）：盈余超上限上缴；当盈利不足以覆盖运营/股息/维持盈余上限时，<strong>暂停周度上缴</strong>并记 Deferred asset—remittances to the Treasury；该资产表示「未来需先实现的净超额收益」缺口，定期测减值。全年超额收益与成本超额的净额在运营表列示为 Earnings remittances to the Treasury, net。</p>
+<p><strong>与制度图 fund_flow 的关系。</strong>F01（证券利息）、F03（上缴）、F05（IORB）、F08（ON RRP 付息）、F09（贴现贷款）等描述的是<strong>义务/权利方向的现金流机制</strong>，不是 2025-12-31 的存量金额。2025 数字应进入新建「BS 层」或侧栏，而不是改写 F0x 边权重冒充存量。</p>
+
+<h2 id="s4">4. 会计恒等式与扩表/缩表机制</h2>
+<pre>Assets = Liabilities + Capital (+ VIE NCI)
+
+典型扩表（示意）：买入证券（资产↑） ↔ 准备金或回购负债↑
+典型缩表/QT：证券到期/减持（资产↓） ↔ 准备金或其它负债↓
+结构重配（2025 突出）：资产↓ 的同时，ON RRP↓ 与 TGA↑ 可同时发生——
+  总负债仍可下降，但「谁持有对联储的索取权」已换手。</pre>
+<p>商业银行直觉常把「准备金」当资产；在联储表上，存款机构准备金是联储的<strong>负债</strong>。发钞同理。制度图若只画「钱从谁到谁」的 fund_flow，而不画「谁欠联储 / 联储欠谁」的存量索取权，用户会把流量边误当成资产负债表。</p>
+
+<h2 id="s5">5. 递延上缴资产：构造、误读与着色规则</h2>
+<table class="nobreak">
+  <thead>
+    <tr><th>问题</th><th>澄清</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>是不是「联储对财政部的债权」？</td><td><strong>不是传统债权叙事。</strong>它是暂停上缴后的累计缺口记账：未来需先赚回该金额，上缴才恢复。</td></tr>
+    <tr><td>为何出现在资产方？</td><td>FAM 下把「尚未赚回的、本应可上缴的净超额」记为 deferred asset，使状况表在亏损周期仍可自洽；并定期测减值。</td></tr>
+    <tr><td>2025 数字</td><td>243,481（较 2024 的 215,955 再增 27,526）——与持续净利息支出、运营亏损收窄但仍暂停正常上缴的路径一致。</td></tr>
+    <tr><td>绿着色风险</td><td>若与国债/MBS 同色同权，观众会读成「联储又多了一块真资产」。必须：特殊标记（斜纹/虚线描边/「待核」徽章）、图例单独一行、tooltip 强制短文。</td></tr>
+    <tr><td>与 F03 的关系</td><td>F03 是「上缴义务/机制」边；递延资产是存量会计结果。两者可交叉引用，不可合并为一条边。</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s6">6. 报表行 → 制度图节点映射表</h2>
+<p>约定：<strong>来源</strong> = 该存量从何产生/对手方是谁；<strong>方向</strong> = 资产＝联储对谁的索取权（或证书权利）；负债＝联储欠谁。</p>
+<table class="s">
+  <thead>
+    <tr><th>报表行</th><th>侧</th><th>制度图节点（建议）</th><th>来源 / 方向（一句）</th><th>Δ 含义（与叙事对齐）</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Gold / SDR certs</td><td>A</td><td>TREASURY（证书语境）</td><td>财政相关证书权利；非市场交易主驱动</td><td>Δ≈0；展示为稳定锚</td></tr>
+    <tr><td>Loans to DI</td><td>A</td><td>DEP-INST ← RB-ALL/FRBNY</td><td>联储对存款机构的贷款债权</td><td>+6.4B；贴现等使用上升</td></tr>
+    <tr><td>Other loans</td><td>A</td><td>DEP-INST / 专项对手（若图有）</td><td>应急/特殊贷款债权</td><td>−6.3B；设施收缩</td></tr>
+    <tr><td>SOMA resell agreements</td><td>A</td><td>DESK → PRIM-DEALERS 等</td><td>正回购：联储借出资金、取得证券抵押</td><td>+74.6B；年末流动性操作跃升</td></tr>
+    <tr><td>SOMA Treasury net</td><td>A</td><td>DESK / SOMA 语境 → TREASURY</td><td>持有国债：对财政证券的索取权（本息）</td><td>−82.8B；QT</td></tr>
+    <tr><td>SOMA agency/GSE MBS</td><td>A</td><td>DESK → 市场/机构证券发行人语境</td><td>持有机构/GSE MBS</td><td>−199.5B；QT 主因</td></tr>
+    <tr><td>FX / swaps</td><td>A</td><td>DESK / 外国央行（若有节点）</td><td>外币投资与流动性互换</td><td>FX +1.8B；swaps −0.6B</td></tr>
+    <tr><td>Deferred remittance asset</td><td>A*</td><td>RB-ALL ↔ TREASURY（特殊）</td><td>暂停上缴累计缺口；非传统债权</td><td>+27.5B；须特殊标记</td></tr>
+    <tr><td>VIE assets</td><td>A</td><td>（可新增 VIE 折叠节点或挂 RB-ALL）</td><td>并表 VIE 持有资产</td><td>−6.6B</td></tr>
+    <tr><td>FR notes outstanding</td><td>L</td><td>PUBLIC ← RB-ALL</td><td>公众持有联储券＝对联储的索取权</td><td>+71.9B</td></tr>
+    <tr><td>Securities sold under repo</td><td>L</td><td>DESK → NONBANK-CP / 外国官方等</td><td>逆回购：联储吸收现金、融出证券</td><td>−426.2B；ON RRP/FIMA 等收缩</td></tr>
+    <tr><td>Deposits: DI</td><td>L</td><td>DEP-INST ← RB-ALL</td><td>准备金余额＝联储欠存款机构</td><td>−38.9B</td></tr>
+    <tr><td>TGA</td><td>L</td><td>TGA / TREASURY</td><td>财政部一般账户＝联储欠财政部</td><td>+151.0B；关键重配</td></tr>
+    <tr><td>Other deposits</td><td>L</td><td>（细分节点或 OTHER-DEP）</td><td>其他存款人</td><td>+57.8B</td></tr>
+    <tr><td>Interest payable</td><td>L</td><td>DEP-INST / NONBANK-CP</td><td>IORB/ON RRP 等应计利息负债</td><td>−0.2B</td></tr>
+    <tr><td>Capital paid-in</td><td>C</td><td>MEMBER-BANKS → RB-ALL</td><td>会员银行实缴股本</td><td>+2.0B</td></tr>
+    <tr><td>Surplus</td><td>C</td><td>RB-ALL（钉住上限）</td><td>法定盈余上限 6.785B</td><td>0</td></tr>
+  </tbody>
+</table>
+<p class="note">A* = 特殊资产。现有图已有 TREASURY、TGA、DEP-INST、DESK、PRIM-DEALERS、NONBANK-CP、RB-ALL、FRBNY、PUBLIC、MEMBER-BANKS、FOMC、BOG 等；缺省的细项（如单独「VIE」「外国官方存款」）建议在 W1 映射表中标 <code>gap</code>，由业主决定是否增节点，而非 silently 捏造。</p>
+
+<h2 id="s7">7. 与现行 fund_flow / 部门色的冲突处理</h2>
+<table class="nobreak">
+  <thead>
+    <tr><th>现行</th><th>冲突</th><th>方案裁决</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>部门六色占节点 fill</td><td>业主要资产绿/负债红</td><td><strong>不能覆盖 fill</strong>。独立「资产负债模式」：切换后用描边+底纹或侧栏着色；默认模式保留部门色</td></tr>
+    <tr><td>fund_flow F01–F09</td><td>易被当成 BS 边</td><td>保留为「现金流义务层」；新建 <code>bs_claim</code>（名可议）边类型或侧栏条带表达存量索取权；金额不进 F0x</td></tr>
+    <tr><td>环投影</td><td>再塞一层易糊</td><td>推荐：模式切换 + 侧栏桑基/条带；次选：第二环仅在 BS 模式显示粗细=存量</td></tr>
+    <tr><td>情景回放（S1 等）</td><td>与 Δ 箭头混淆</td><td>情景仍讲机制；Δ2024→2025 用 BS 层的厚度/箭头，标注 asOf=年报日</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s8">8. 可视化方案：资产负债层</h2>
+<h3>8.1 推荐架构（三选一中的首选）</h3>
+<ol>
+  <li><strong>首选：模式切换「制度 / 资产负债」</strong> — 同一环图；BS 模式节点保留部门色 fill，资产相关节点加绿描边/浅绿底纹，负债加红描边/浅红底纹；资本中性描边。侧栏列出当年存量条与 Δ。</li>
+  <li><strong>次选：第二环（仅 BS 模式）</strong> — 内环制度、外环 BS 条带；条带厚度∝存量，颜色绿/红；点击条带高亮对手方。</li>
+  <li><strong>并行：侧栏桑基</strong> — 左资产绿、右负债红，中间枢纽 RB-ALL/DESK；适合讲解扩表缩表，不挤占环图。</li>
+</ol>
+<p>颜色 token（美工后做，本方案只命名）：</p>
+<ul>
+  <li><span class="swatch g"></span><code>--fed-bs-asset</code> 绿系（描边/底纹，非强制替换 fill）</li>
+  <li><span class="swatch r"></span><code>--fed-bs-liab</code> 红系</li>
+  <li><span class="swatch n"></span>资本中性</li>
+  <li><span class="swatch x"></span>递延上缴：绿系 + 斜纹/虚线 + 「待核」徽章</li>
+</ul>
+
+<div class="fig">
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+  <text x="12" y="18" font-size="11" fill="#1a1f26" font-family="Palatino, Songti SC, serif">分层示意（概念）</text>
+  <rect x="40" y="40" width="160" height="120" fill="#faf8f4" stroke="#c5ccd4"/>
+  <text x="55" y="70" font-size="10" fill="#1a1f26">L0 部门/治理</text>
+  <text x="55" y="90" font-size="9" fill="#4a5560">六色 fill · 环投影</text>
+  <text x="55" y="110" font-size="9" fill="#4a5560">BOG FOMC RB…</text>
+  <rect x="230" y="40" width="160" height="120" fill="#faf8f4" stroke="#c5ccd4"/>
+  <text x="245" y="70" font-size="10" fill="#1a1f26">L1 现金流义务</text>
+  <text x="245" y="90" font-size="9" fill="#4a5560">fund_flow F01–F09</text>
+  <text x="245" y="110" font-size="9" fill="#4a5560">IORB · ON RRP · 上缴</text>
+  <rect x="420" y="40" width="180" height="120" fill="#e8f5e9" stroke="#81c784" stroke-width="2"/>
+  <text x="435" y="70" font-size="10" fill="#1a1f26">L2 资产负债层（新）</text>
+  <text x="435" y="90" font-size="9" fill="#4a5560">存量 · 来源 · 方向 · Δ</text>
+  <text x="435" y="110" font-size="9" fill="#c62828">绿资产 / 红负债</text>
+  <text x="435" y="130" font-size="9" fill="#4a5560">禁止写入 F0x</text>
+  <path d="M200 100 H230" stroke="#c5ccd4" stroke-width="1.5" marker-end="none"/>
+  <path d="M390 100 H420" stroke="#c5ccd4" stroke-width="1.5"/>
+</svg>
+<p class="fig-cap">图 2 · 三层互不覆盖：部门色、现金流义务、资产负债存量。</p>
+</div>
+
+<h3>8.2 交互最小集（方案级）</h3>
+<ul>
+  <li>开关：制度色 / 资产负债层 /（可选）叠加 Δ 箭头。</li>
+  <li>悬停：报表行名、2025 存量、Δ、对手方、一句来源/方向。</li>
+  <li>递延资产：强制展开短说明，不可仅显示数字。</li>
+  <li>数据 asOf：2025-12-31；审计意见日 2026-03-12 作元数据，不作交易日。</li>
+</ul>
+
+<h2 id="s9">9. 分波建议 W0–W3（非令）</h2>
+<table class="nobreak">
+  <thead>
+    <tr><th>波次</th><th>内容</th><th>产出落点（建议）</th><th>本轮</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>W0</strong> 数据模型</td><td>年报 Condition 行 → JSON schema（side, amount_2025/2024, delta, special_flag）；inbox CSV 升格为可校验表</td><td><code>cabinet/</code> 或日后 <code>data/fed/</code>（开工后由总参定）</td><td>仅建议</td></tr>
+    <tr><td><strong>W1</strong> 映射表</td><td>§6 机器可读映射；标 gap 节点；禁止改 F0x 语义</td><td>映射表 + 校验脚本</td><td>仅建议</td></tr>
+    <tr><td><strong>W2</strong> UI 层</td><td>模式切换 + 描边/底纹 + 侧栏；美工定 <code>--fed-bs-*</code></td><td>FE-FED-DRAW / FE-AESTHETIC</td><td>仅建议</td></tr>
+    <tr><td><strong>W3</strong> 情景</td><td>用 BS 层演示 QT + TGA + ON RRP 同屏；与现有 S1/S2 机制情景分流</td><td>情景包</td><td>仅建议</td></tr>
+  </tbody>
+</table>
+<p class="callout warn"><strong>本轮明确：不签发 order，不令总参开工。</strong>业主若裁断开工，再另开 <code>mode=order</code> 窗口。</p>
+
+<h2 id="s10">10. 待业主裁断的开放题</h2>
+<ol>
+  <li><strong>是否开工？</strong>本报告仅为分析+方案；开工需另令总参（并指定从 W0 还是 W1）。</li>
+  <li><strong>绿红是否仅模式层？</strong>内阁倾向：是（保留部门六色 fill）；备选为第二环或侧栏桑基。</li>
+  <li><strong>是否展示递延上缴资产？</strong>若展示，必须特殊标记；若隐藏，需在图例说明「状况表资产含递延项未投影」。</li>
+  <li><strong>是否增节点？</strong>VIE、外国官方存款、正回购对手方细分等：增节点 vs 折叠到现有节点。</li>
+  <li><strong>金额进环还是只进侧栏？</strong>环上厚度易误读为「权力大小」；侧栏更安全。</li>
+  <li><strong>年报更新节奏？</strong>每年审计后替换 Condition CSV，还是季度 H.4.1 另轨（H.4.1 口径不同，勿混）。</li>
+</ol>
+
+<h2 id="s11">11. 模块清单与关系（汇报义务）</h2>
+<p>真源：仓根 <code>modules/graph.json</code>（updated 2026-10-22）；静态投影 <code>modules/index.html</code>。当前 <strong>38</strong> 模块、<strong>55</strong> 边。与本方案直接相关的 FED 簇：</p>
+<table class="nobreak">
+  <thead>
+    <tr><th>模块</th><th>中文</th><th>侧</th><th>角色</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>FE-HUB</td><td>个人主页</td><td>FE / fe-fed</td><td><code>/</code> 格阵入口</td></tr>
+    <tr><td>FE-FED-MODEL</td><td>制度图数据</td><td>FE / fe-fed</td><td>索引制度图</td></tr>
+    <tr><td>FE-FED-DRAW</td><td>制度图</td><td>FE / fe-fed</td><td>环绘制、FOMC、情景</td></tr>
+    <tr><td>BE-FED-GRAPH</td><td>制度图库</td><td>BE</td><td>加载校验 <code>fed-graph.json</code></td></tr>
+    <tr><td>FE-AESTHETIC</td><td>前端设计</td><td>FE</td><td>日后 <code>--fed-bs-*</code> token</td></tr>
+  </tbody>
+</table>
+<pre>FE-HUB → FE-NAV
+FE-FED-DRAW → FE-FED-MODEL → FE-API → BE-HTTP → BE-FED-GRAPH
+FE-FED-DRAW → FE-NAV
+（本方案若开工：BS 层数据进 BE-FED-GRAPH / 新表；绘制进 FE-FED-DRAW；色 token 进 FE-AESTHETIC——均待令）</pre>
+<p>全量模块表（id · 中文 · side · region）：</p>
+<table class="s">
+  <thead><tr><th>id</th><th>zh</th><th>side</th><th>region</th></tr></thead>
+  <tbody>
+    <tr><td>FE-NAV</td><td>导航</td><td>FE</td><td>fe-decision</td></tr>
+    <tr><td>FE-BOARD</td><td>展板</td><td>FE</td><td>fe-decision</td></tr>
+    <tr><td>FE-LIST</td><td>列表</td><td>FE</td><td>fe-decision</td></tr>
+    <tr><td>FE-OPENCUBE</td><td>跳转制图台</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-LISTAREA</td><td>列表属地</td><td>FE</td><td>fe-decision</td></tr>
+    <tr><td>FE-ACTION</td><td>操作</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-COORDONE</td><td>摆放坐标</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-SCENE</td><td>场景</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-PANEL</td><td>面板</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-FOCUS</td><td>聚焦</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-API</td><td>接口</td><td>FE</td><td>fe-api</td></tr>
+    <tr><td>FE-AESTHETIC</td><td>前端设计</td><td>FE</td><td>fe-cube</td></tr>
+    <tr><td>FE-MAPPROJ</td><td>映射投影</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>FE-MAPDRAW</td><td>映射绘制</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>FE-MAPREG</td><td>映射注册</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>FE-MAPDOCK</td><td>映射台</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>FE-MAPOUT</td><td>映射导出</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>FE-CMD</td><td>命令栏</td><td>FE</td><td>fe-map</td></tr>
+    <tr><td>SHELL-WINDOW</td><td>壳窗口</td><td>SHELL</td><td>shell</td></tr>
+    <tr><td>SHELL-PROC</td><td>内嵌后端</td><td>SHELL</td><td>shell</td></tr>
+    <tr><td>SHELL-PACK</td><td>打包</td><td>SHELL</td><td>shell</td></tr>
+    <tr><td>BE-HTTP</td><td>（HTTP）</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-BUNDLE</td><td>捆绑编排</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-DB-DEMO</td><td>演示集</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-DB-SHADOW</td><td>影集</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-CHARTSPEC</td><td>图方案</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-NVDA-LAYOUT</td><td>N布局规划</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-NVDA-LINKS</td><td>N关系集</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-DEBT</td><td>偿债窄口</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-BICS-HIER</td><td>BICS分类树</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-BICS-ENTITY</td><td>BICS公司树</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-BICS-AREA</td><td>BICS地区映射</td><td>BE</td><td>be</td></tr>
+    <tr><td>BE-BICS-INGEST</td><td>BICS导入</td><td>BE</td><td>be</td></tr>
+    <tr><td>MODULES-TRACK</td><td>静态模块跟踪</td><td>other</td><td>be</td></tr>
+    <tr><td>FE-HUB</td><td>个人主页</td><td>FE</td><td>fe-fed</td></tr>
+    <tr><td>FE-FED-MODEL</td><td>制度图数据</td><td>FE</td><td>fe-fed</td></tr>
+    <tr><td>FE-FED-DRAW</td><td>制度图</td><td>FE</td><td>fe-fed</td></tr>
+    <tr><td>BE-FED-GRAPH</td><td>制度图库</td><td>BE</td><td>be</td></tr>
+  </tbody>
+</table>
+
+<h2 id="app">附录 · 一页纸摘要（交父代理）</h2>
+<div class="callout">
+<p><strong>报告路径：</strong><code>cabinet/reports/SFC-fed-2025-combined-statements-bs-layer-20261022.html</code></p>
+<p><strong>事实。</strong>2025 年末合并总资产 6,883,891（−184,822）；负债 6,836,642（−183,749）；资本+NCI 47,249。缩表主因 SOMA 国债−82.8B、MBS−199.5B。负债结构：回购负债−426.2B，TGA+151.0B，FR notes+71.9B。递延上缴资产 243.5B（+27.5B）。净利息支出 −12.1B（较 2024 的 −68.0B 收窄）。主体=12 家 Reserve Banks；FAM 非 GAAP。</p>
+<p><strong>方案。</strong>新增独立资产负债层（模式切换首选）：资产绿描边/底纹、负债红、资本中性；不覆盖部门六色；存量不进 fund_flow。递延资产必须特殊标记。映射表见 §6。分波 W0 数据 → W1 映射 → W2 UI → W3 情景。</p>
+<p><strong>状态。</strong>分析+方案已落盘；<strong>未 order 总参</strong>；开放题见 §10。</p>
+</div>
+
+<p class="muted" style="margin-top:2em;font-size:9.5pt;">— 内阁 · mode=write · 2026-10-22 · 非令 —</p>
+</body>
+</html>

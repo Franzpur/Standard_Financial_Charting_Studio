@@ -31,7 +31,7 @@ BAR_W = 30               # hub bars (BE-HTTP, FE-API)
 TIP = 1.5                # arrow tip stops this far outside the target box
 CH_X = 450               # (documentation only)
 
-VB_W, VB_H = 858, 650
+VB_W, VB_H = 1120, 960
 
 # column centres
 XC_C, XC_B = 69, 203               # BE: leaf column, mid column
@@ -44,24 +44,28 @@ R_NAV, R_GATE, R_LIST = 56, 106, 156
 R_LUI = (R_GATE + R_LIST) // 2     # 131
 R1, R2, R3, R4 = 234, 284, 334, 384  # cube rows
 BE_DEMO, BE_SHELL, BE_CHAIN, BE_NVDA = 230, 280, 330, 380
-R_SHELL = 462                      # shell-layer row
+BE_CHART = 430                     # ChartSpec row (below NVDA / MODULES)
+R5 = 430                           # BE-CHARTSPEC row (FE-CMD sits at y=455 in map column)
+R_SHELL = 640
 BE_BUNDLE = (BE_SHELL + BE_CHAIN) // 2   # 305
 
 NODES: dict[str, tuple[float, float, float, float]] = {
     # id: (cx, cy, w, h)
-    "BE-HTTP": (X_HTTP, 221, BAR_W, 354),
+    "BE-HTTP": (X_HTTP, 240, BAR_W, 400),
     "BE-DEBT": (XC_B, BE_DEMO, NW, NHF),
     "BE-BICS-HIER": (XC_B, R_NAV, NW, NHF),
     "BE-BICS-ENTITY": (XC_B, R_GATE, NW, NHF),
     "BE-BICS-INGEST": (XC_C, R_GATE, NW, NHF),
     "BE-BICS-AREA": (XC_B, R_LIST, NW, NHF),
     "BE-BUNDLE": (XC_B, BE_BUNDLE, NW, NHF),
+    "BE-CHARTSPEC": (XC_C, BE_CHART, NW, NHF),
     "BE-DB-DEMO": (XC_C, BE_DEMO, NW, NHF),
     "BE-DB-SHADOW": (XC_C, BE_SHELL, NW, NHF),
     "BE-NVDA-LAYOUT": (XC_C, BE_CHAIN, NW, NHF),
     "BE-NVDA-LINKS": (XC_C, BE_NVDA, NW, NHF),
     "MODULES-TRACK": (XC_B, BE_NVDA, NW, NHF),
-    "FE-API": (X_API, 166, BAR_W, 156),
+    # Tall API bar: tipR from FE-CMD at y=480 (below CMD box bottom ~473).
+    "FE-API": (X_API, 260, BAR_W, 440),
     "FE-NAV": (XC_L, R_NAV, NW, NHF),
     "FE-BOARD": (XC_L, R_GATE, NW, NHF),
     "FE-LIST": (XC_L, R_LIST, NW, NHF),
@@ -79,10 +83,17 @@ NODES: dict[str, tuple[float, float, float, float]] = {
     "FE-MAPDOCK": (X_MAP, R2, NW, NHF),
     "FE-MAPREG": (X_MAP, R3, NW, NHF),
     "FE-MAPPROJ": (X_MAP, R4, NW, NHF),
+    # Command bar under MAPPROJ in the map column (keeps cube-gap polylines free of CMD).
+    "FE-CMD": (X_MAP, 455, NW, NHF),
     # shell layer (own zone below FE/BE)
     "SHELL-WINDOW": (XC_L, R_SHELL, NW, NHF),
     "SHELL-PROC": (X_HTTP, R_SHELL, NW, NHF),
     "SHELL-PACK": (XC_C, R_SHELL, NW, NHF),
+    # Personal home + Fed institutional chart (right of the map column).
+    "FE-HUB": (964, 236, NW, NHF),
+    "FE-FED-MODEL": (964, 296, NW, NHF),
+    "FE-FED-DRAW": (964, 356, NW, NHF),
+    "BE-FED-GRAPH": (XC_B, 510, NW, NHF),
 }
 
 HUBS = {"BE-HTTP", "FE-API"}
@@ -94,28 +105,31 @@ REGION_FALLBACK = {
     "FE-SCENE": "fe-cube", "FE-PANEL": "fe-cube", "FE-FOCUS": "fe-cube",
     "FE-AESTHETIC": "fe-cube",
     "FE-MAPPROJ": "fe-map", "FE-MAPDRAW": "fe-map", "FE-MAPREG": "fe-map", "FE-MAPDOCK": "fe-map",
-    "FE-MAPOUT": "fe-map",
+    "FE-MAPOUT": "fe-map", "FE-CMD": "fe-map",
     "FE-API": "fe-api",
     "SHELL-WINDOW": "shell", "SHELL-PROC": "shell", "SHELL-PACK": "shell",
-    "BE-HTTP": "be", "BE-BUNDLE": "be", "BE-DB-DEMO": "be", "BE-DB-SHADOW": "be",
+    "BE-HTTP": "be", "BE-BUNDLE": "be", "BE-CHARTSPEC": "be", "BE-DB-DEMO": "be", "BE-DB-SHADOW": "be",
     "BE-NVDA-LAYOUT": "be", "BE-NVDA-LINKS": "be", "BE-BICS-HIER": "be",
     "BE-BICS-ENTITY": "be", "BE-BICS-AREA": "be", "BE-BICS-INGEST": "be", "MODULES-TRACK": "be",
-    "BE-DEBT": "be",
+    "BE-DEBT": "be", "BE-FED-GRAPH": "be",
+    "FE-HUB": "fe-fed", "FE-FED-MODEL": "fe-fed", "FE-FED-DRAW": "fe-fed",
 }
 
 # zone frames: id -> (x0, y0, x1, y1)
 ZONES = {
-    "be": (8, 22, 320, 412),
+    "be": (8, 22, 320, 560),
     "fe-decision": (388, 22, 682, 184),
-    "fe-cube": (388, 200, 682, 412),
-    "fe-map": (716, 155, 842, 412),
-    "shell": (8, 428, 682, 502),
+    "fe-cube": (388, 200, 682, 460),
+    "fe-map": (716, 155, 842, 490),
+    "fe-fed": (880, 188, 1020, 420),
+    "shell": (8, 590, 682, 710),
 }
 ZONE_STYLE = {
     "be": dict(fill="#fbf4dd", stroke="#c2a557", node="#8c7326", chip="后端"),
     "fe-decision": dict(fill="#e9f5ec", stroke="#6fa77c", node="#3f7a4d", chip="决策路径"),
     "fe-cube": dict(fill="#e7f0f9", stroke="#6f94bb", node="#3d6896", chip="立方体面"),
     "fe-map": dict(fill="#f0e9f5", stroke="#9b7bb8", node="#6b4a8a", chip="平面映射"),
+    "fe-fed": dict(fill="#f4efe6", stroke="#a89878", node="#6e5c3e", chip="制度图"),
     "shell": dict(fill="#eeede8", stroke="#9a968a", node="#5b574c", chip="壳层"),
 }
 CHIP_W, CHIP_H = 56, 16   # tab straddling the top border, left aligned at +10
@@ -183,7 +197,7 @@ def build_routes() -> dict[str, list[tuple[float, float]]]:
     for fe in ("FE-BOARD", "FE-LIST"):
         add(fe, "FE-API", "calls", [L(fe), tipR(R_pt_api(fe))])
     add("FE-OPENCUBE", "FE-API", "calls",
-        [L("FE-OPENCUBE", -12), tipR((box("FE-API")[2], NODES["FE-OPENCUBE"][1] - 12))])
+        [L("FE-OPENCUBE", -16), tipR((box("FE-API")[2], NODES["FE-OPENCUBE"][1] - 16))])
 
     # ── contract: API bar → HTTP bar ──
     y_c = (R_GATE + R_LIST) // 2
@@ -243,9 +257,16 @@ def build_routes() -> dict[str, list[tuple[float, float]]]:
     add("FE-OPENCUBE", "FE-MAPDOCK", "depends",
         [L("FE-OPENCUBE"), (x_out, R1), (x_out, y_below), (lane_o, y_below), (lane_o, R2 + 12),
          tipL(L("FE-MAPDOCK", 12))])
+    # OPENCUBE→CMD: between OPENCUBE→API (y=218) and MAPDOCK takeoff (y=234); left of x_out; under-band.
+    add("FE-OPENCUBE", "FE-CMD", "depends",
+        [L("FE-OPENCUBE", -8), (382, R1 - 8), (382, 418), (X_MAP, 418), tipT(T("FE-CMD"))])
     lane_r = ZONES["fe-map"][2] + 10  # right gutter outside the fe-map frame (x1=842 -> 852), clear of MAPDOCK→MAPOUT
     add("FE-MAPDOCK", "FE-API", "calls",
-        [R("FE-MAPDOCK", 10), (lane_r, R2 + 10), (lane_r, 8), (X_API, 8), tipT(T("FE-API"))])
+        [R("FE-MAPDOCK", 10), (884, R2 + 10), (884, 496), (X_API, 496), tipB(B("FE-API"))])
+    # CMD→API: outer lane to y=480 (below CMD + under-band), tipR into tall API bar.
+    lane_cmd = lane_r + 16  # 868
+    add("FE-CMD", "FE-API", "calls",
+        [R("FE-CMD"), (lane_cmd, 455), (lane_cmd, 480), tipR((box("FE-API")[2], 480))])
 
     # ── BE: HTTP bar → children, all horizontal ──
     hx = box("BE-HTTP")[0]
@@ -254,36 +275,62 @@ def build_routes() -> dict[str, list[tuple[float, float]]]:
         add("BE-HTTP", child, "calls", [(hx, y), tipR(R(child))])
     add("BE-HTTP", "MODULES-TRACK", "contract", [(hx, BE_NVDA), tipR(R("MODULES-TRACK"))])
     add("BE-HTTP", "BE-DEBT", "calls", [(hx, BE_DEMO), tipR(R("BE-DEBT"))])
+    add("BE-HTTP", "BE-CHARTSPEC", "calls",
+        [(hx, BE_CHART + 6), (144, BE_CHART + 6), tipR(R("BE-CHARTSPEC", 6))])
 
     add("BE-BICS-ENTITY", "BE-BICS-AREA", "depends", [B("BE-BICS-ENTITY"), tipT(T("BE-BICS-AREA"))])
     add("BE-BICS-INGEST", "BE-BICS-ENTITY", "depends", [R("BE-BICS-INGEST"), tipL(L("BE-BICS-ENTITY"))])
 
-    # ── BE: BUNDLE → four leaves via two nested gap channels (x=144 inner, 132 outer) ──
+    # ── BE: BUNDLE → leaves; ChartSpec under leaf column (XC_C, BE_CHART) ──
     add("BE-BUNDLE", "BE-DB-DEMO", "calls",
         [L("BE-BUNDLE", -9), (144, BE_BUNDLE - 9), (144, BE_DEMO), tipR(R("BE-DB-DEMO"))])
     add("BE-BUNDLE", "BE-DB-SHADOW", "calls",
         [L("BE-BUNDLE", -3), (132, BE_BUNDLE - 3), (132, BE_SHELL), tipR(R("BE-DB-SHADOW"))])
-    add("BE-BUNDLE", "BE-NVDA-LAYOUT", "calls",
-        [L("BE-BUNDLE", 3), (132, BE_BUNDLE + 3), (132, BE_CHAIN), tipR(R("BE-NVDA-LAYOUT"))])
     add("BE-BUNDLE", "BE-NVDA-LINKS", "calls",
         [L("BE-BUNDLE", 9), (144, BE_BUNDLE + 9), (144, BE_NVDA), tipR(R("BE-NVDA-LINKS"))])
+    add("BE-BUNDLE", "BE-NVDA-LAYOUT", "calls",
+        [L("BE-BUNDLE", 3), (132, BE_BUNDLE + 3), (132, BE_CHAIN), tipR(R("BE-NVDA-LAYOUT"))])
     add("BE-NVDA-LAYOUT", "BE-NVDA-LINKS", "depends",
         [B("BE-NVDA-LAYOUT"), tipT(T("BE-NVDA-LINKS"))])
+    add("BE-NVDA-LINKS", "BE-CHARTSPEC", "calls",
+        [B("BE-NVDA-LINKS"), tipT(T("BE-CHARTSPEC"))])
+    add("BE-CHARTSPEC", "BE-NVDA-LAYOUT", "calls",
+        [L("BE-CHARTSPEC"), (18, BE_CHART), (18, BE_CHAIN), tipL(L("BE-NVDA-LAYOUT"))])
+
     # ── shell layer: window depends on proc; proc calls HTTP; window's contract rides the gap band ──
     add("SHELL-WINDOW", "SHELL-PROC", "depends", [L("SHELL-WINDOW"), tipR(R("SHELL-PROC"))])
     add("SHELL-PROC", "BE-HTTP", "calls", [T("SHELL-PROC"), tipB(B("BE-HTTP"))])
-    gap_y = 420                   # between BE/FE zones (bottom 412) and shell zone (top 428)
+    gap_y = 575
     add("SHELL-WINDOW", "BE-HTTP", "contract",
         [T("SHELL-WINDOW"), (NODES["SHELL-WINDOW"][0], gap_y), (X_HTTP + 10, gap_y),
          tipB(B("BE-HTTP", 10))])
-    # build-time packaging: PACK → BE-HTTP rides the gap band left of the PROC line; PACK → WINDOW under PROC
-    pack_gap = 416
+    pack_gap = 568
     add("SHELL-PACK", "BE-HTTP", "depends",
         [T("SHELL-PACK", 26), (NODES["SHELL-PACK"][0] + 26, pack_gap), (X_HTTP - 10, pack_gap), tipB(B("BE-HTTP", -10))])
-    low_y = 494
+    low_y = 678
     add("SHELL-PACK", "SHELL-WINDOW", "depends",
         [B("SHELL-PACK"), (NODES["SHELL-PACK"][0], low_y), (NODES["SHELL-WINDOW"][0], low_y),
          tipB(B("SHELL-WINDOW"))])
+
+    # Hub / Fed chart: far-right lanes, then a top band into NAV and the API bar.
+    add("FE-FED-DRAW", "FE-FED-MODEL", "depends",
+        [T("FE-FED-DRAW"), tipB(B("FE-FED-MODEL"))])
+    # MODEL drops left of its column and enters the API bar from below.
+    # DRAW (higher band) drops further left than HUB so their top lines do not cross.
+    add("FE-FED-MODEL", "FE-API", "calls",
+        [L("FE-FED-MODEL"), (900, NODES["FE-FED-MODEL"][1]), (900, 504),
+         (X_API - 8, 504), tipB(B("FE-API", -8))])
+    add("FE-FED-DRAW", "FE-NAV", "depends",
+        [R("FE-FED-DRAW"), (1048, NODES["FE-FED-DRAW"][1]), (1048, 4), (530, 4),
+         (530, 48), tipR(R("FE-NAV", -8))])
+    add("FE-HUB", "FE-NAV", "depends",
+        [R("FE-HUB"), (1024, NODES["FE-HUB"][1]), (1024, 20), (600, 20),
+         (600, 56), tipR(R("FE-NAV"))])
+    add("BE-HTTP", "BE-FED-GRAPH", "calls",
+        [(box("BE-HTTP")[0], box("BE-HTTP")[3]),
+         (box("BE-HTTP")[0], 470),
+         (NODES["BE-FED-GRAPH"][0], 470),
+         tipT(T("BE-FED-GRAPH"))])
     return r
 
 
@@ -599,7 +646,7 @@ def _svg_edges(data: dict, mods: dict) -> list[str]:
 
 def _svg_legend() -> list[str]:
     out: list[str] = []
-    ly = 518
+    ly = 800
     out.append(f'<line x1="8" y1="{ly - 10}" x2="{VB_W - 8}" y2="{ly - 10}" stroke="#c5ccd4" stroke-width="0.8"/>')
 
     def head(x, t):
@@ -612,14 +659,15 @@ def _svg_legend() -> list[str]:
     out.append(head(16, "分区"))
     zone_items = [("fe-decision", "决策路径 · NAV → LIST"), ("fe-cube", "立方体面 · OPENCUBE → AESTHETIC"),
                   ("fe-map", "平面映射 · MAPDRAW / MAPDOCK / MAPREG / MAPPROJ（第二重映射）"),
-                  ("be", "后端 · BE-HTTP 起"), ("shell", "壳层 · SHELL-WINDOW / SHELL-PROC / SHELL-PACK（本地应用）")]
+                  ("be", "后端 · BE-HTTP 起"), ("fe-fed", "制度图 · HUB / FED"),
+                  ("shell", "壳层 · SHELL-WINDOW / SHELL-PROC / SHELL-PACK（本地应用）")]
     for i, (zid, label) in enumerate(zone_items):
         st = ZONE_STYLE[zid]
         y = item_y(i)
         out.append(f'<rect x="16" y="{y - 9}" width="20" height="11" rx="2.5" fill="{st["fill"]}" '
                    f'stroke="{st["stroke"]}" stroke-width="1.2"/>'
                    f'<text x="44" y="{y}" font-size="9.4" fill="{MUTED}">{esc(label)}</text>')
-    y = item_y(5)
+    y = item_y(6)
     out.append(f'<rect x="16" y="{y - 9}" width="20" height="11" rx="2.5" fill="#e3e8ee" stroke="#3a4552" '
                f'stroke-width="1.5"/><text x="44" y="{y}" font-size="9.4" fill="{MUTED}">枢纽条 · FE-API / BE-HTTP（框外 / 框缘）</text>')
 
@@ -755,7 +803,7 @@ __GRAPH_JSON__
   const edgeBody = document.querySelector("#edge-table tbody");
   const data = JSON.parse(document.getElementById("graph-data").textContent);
   const REGION_FALLBACK = __REGION_FALLBACK_JSON__;
-  const REGION_LABEL = { "fe-decision": "决策路径", "fe-cube": "立方体面", "fe-api": "API 枢纽（框外）", "fe-map": "平面映射", "be": "后端", "shell": "壳层" };
+  const REGION_LABEL = { "fe-decision": "决策路径", "fe-cube": "立方体面", "fe-api": "API 枢纽（框外）", "fe-map": "平面映射", "fe-fed": "制度图", "be": "后端", "shell": "壳层" };
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }

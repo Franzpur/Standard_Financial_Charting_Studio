@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SFC — Industry gate</title>
-<link rel="stylesheet" href="/css/app.css?v=43" />
+<title>SFC — Home</title>
+<link rel="stylesheet" href="/css/app.css?v=44" />
 <link rel="preload" href="/vendor/fonts/jost/Jost-300-Light-caps.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body class="home-body">
@@ -32,39 +32,22 @@
     </defs>
   </svg>
 
-  <!-- [C-SPLASH] On C-HOME only; hold ~2s then fade ~4s -->
+  <!-- [C-SPLASH] 开屏挂在 / 个人主页；hold ~2s then fade ~4s -->
   <div id="splash" class="splash" aria-hidden="true">
     <div class="splash-mark">
       <svg class="splash-logo" viewBox="0 6 229 80" width="300" height="105" aria-hidden="true"><use href="#sfc-lockup"/></svg>
     </div>
   </div>
 
-  <nav class="home-trail-fixed" id="homeTrail" aria-label="Coordinate path"></nav>
-
-  <main class="home home-pending" id="home" hidden>
+  <main class="hub" id="hub" hidden>
     <header class="home-brand">
-      <a href="/" class="home-logo-link" aria-label="SFC industry gate">
+      <a href="/" class="home-logo-link" aria-label="Home">
       <svg class="splash-logo home-logo" viewBox="0 6 229 61" width="130" height="35" aria-hidden="true"><use href="#sfc-mark"/></svg>
       </a>
-      <p class="home-lede" id="homeLede">BICS industry coordinates · a level-4 cell opens the company list.</p>
-      <div class="home-locate">
-        <label class="list-filter-wrap" for="homeLocate">
-          <span class="visually-hidden">Search name or ticker</span>
-          <input class="list-filter" id="homeLocate" type="search" placeholder="Name or ticker" autocomplete="off" />
-        </label>
-        <div id="homeLocateResults" class="home-locate-results" hidden>
-          <p class="home-locate-empty">No matching company.</p>
-        </div>
-      </div>
+      <p class="hub-lede">Choose a system.</p>
     </header>
-
-    <nav class="home-nations" id="nationList" aria-label="Listing country"></nav>
-    <p class="home-total" id="homeTotal"></p>
-
-    <nav class="home-sectors" id="sectorList" aria-label="BICS industry coordinates"></nav>
-
-    <p class="home-note">Class-3 industry coordinates · Equity Hierarchy 2024 · L1–L3 board · L4 → company list</p>
+    <nav class="hub-grid" id="hubGrid" aria-label="Systems"></nav>
   </main>
-  <script type="module" src="/js/home.js?v=46"></script>
+  <script type="module" src="/js/hub.js?v=2"></script>
 </body>
 </html>

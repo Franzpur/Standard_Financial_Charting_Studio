@@ -4,7 +4,7 @@
 
 与 [`PUBLIC-PRIVATE.md`](./PUBLIC-PRIVATE.md) 并列公开：队员与各自 agent 可读本条款。本文件废止 worklog **#124** 中「唯父代理可写全部产品实现」的解释；改为**专知内写码 + 父代理跨域写码 + 交叉整合部在调度且 mode=implement 时的合并写码 + 监理部三监报告终裁**。
 
-原则：**专有什么知识，就专有什么权力；专有什么权力，就专有什么知识。** 无对应真源专知，则无该域改码权；有改码权，则须维护对应公开真源与实现一致。美工、信息的公开真源仍是 `AESTHETIC.md` / `INFORMATION.md`。交叉整合部不另建公开专知文件；合并成功标准写在下一节写码口，操作步骤在本机私有 `agent_tasklist/cross-integration.md`（不进仓）。
+原则：**专有什么知识，就专有什么权力；专有什么权力，就专有什么知识。** 无对应真源专知，则无该域改码权；有改码权，则须维护对应公开真源与实现一致。美工、信息的公开真源仍是 `AESTHETIC.md` / `INFORMATION.md`。交叉整合部不另建公开专知文件；合并成功标准写在下一节写码口，操作步骤在本机私有 `agents/cross-integration.md`（不进仓）。
 
 ---
 
@@ -53,4 +53,4 @@
 
 ## 5. 上传
 
-可与工程一并 `git add`：`POWER-KNOWLEDGE.md`、本条款所要求的公开真源措辞（`AESTHETIC.md` / `INFORMATION.md`）、`PUBLIC-PRIVATE.md`、根 `README.md`、`.gitignore`。不要把 `agents/`、`.cursor/`、`cross-integration/`（队员下载件与功能对比报告）或私有 `RULE`、`agent_tasklist/cross-integration.md` 当作必须上传项。
+可与工程一并 `git add`：`POWER-KNOWLEDGE.md`、本条款所要求的公开真源措辞（`AESTHETIC.md` / `INFORMATION.md`）、`PUBLIC-PRIVATE.md`、根 `README.md`、`.gitignore`。不要把 `agents/`、`.cursor/`、`cross-integration/`（队员下载件与功能对比报告）或私有 `agent_tasklist/RULE.md` 当作必须上传项。

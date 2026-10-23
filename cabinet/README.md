@@ -12,63 +12,9 @@
 
 总参指令落盘：`orders/`。多期规划总览落盘：`plans/`（如本地化改革 `plans/SFC-localization-plan.md`，令文 `orders/GS-20261014-LOCAL-P*.md`）。
 
-## 全局改名对照（2026-10-14 业主令；旧文档不改写史实，读旧文请按此对照）
+## 改名对照
 
-| 旧 | 新 |
-|----|----|
-| `ind-chain/` | `Ind-Chain/` |
-| `class-3-coords/` | `BE-CLASS/` |
-| `DATA-SPACE/` | `BE-DATA/` |
-| `Standard-Cube`（含 `Standard-Cube.app`） | `Standard-Financial-Charting`（含 `Standard-Financial-Charting.app`） |
-
-不改：`ind_chain.db`（库文件名）、`Partner Work/`、历史 worklog / 已发布报告正文。令文：`orders/GS-20261014-global-rename.md`。
-
-## FE 模块改名对照（2026-10-14 第二轮；令文 `orders/GS-20261014-sfc-rename-r2.md`）
-
-只改模块图 / 文档里的模块 id；JS 文件名、函数名不改；`BE-*` 与 `MODULES-TRACK` 不改。旧令文、笔记、报告不改写史实，读旧文按下表翻译。
-
-| 旧 id | 新 id | 中文名 |
-|-------|-------|--------|
-| `FE-NAV` | `FE-NAV` | 导航 |
-| `FE-GATE` | `FE-BOARD` | 展板 |
-| `FE-LIST` | `FE-LIST` | 列表 |
-| `FE-LISTING-UI` | `FE-LISTAREA` | 列表属地 |
-| `FE-CUBE-BOOT` | `FE-OPENCUBE` | 跳转制图台 |
-| `FE-COORD` | `FE-COORDONE` | 摆放坐标 |
-| `FE-STATE` | `FE-ACTION` | 操作 |
-| `FE-SCENE` | `FE-SCENE` | 场景 |
-| `FE-CHROME` | `FE-PANEL` | 面板 |
-| `FE-FOCUS-STAGE` | `FE-FOCUS` | 聚焦 |
-| `FE-API` | `FE-API` | 接口 |
-| `FE-AESTHETIC` | `FE-AESTHETIC` | 前端设计 |
-
-## BE 模块改名对照（2026-10-15 第三轮；取代上节「`BE-*` 与 `MODULES-TRACK` 不改」）
-
-只改模块图 / 文档 / 注释里的模块 id；Python 文件名、函数名、bundle 的 `meta.mode`（`demo` / `shell` / `chain`）不改。`BE-HTTP` 不改；`BE-BUNDLE` id 不改，第四轮（同日）加中文名「捆绑编排」。旧令文、笔记、报告不改写史实，读旧文按下表翻译。
-
-| 旧 id | 新 id | 中文名 |
-|-------|-------|--------|
-| `BE-BICS-HIER` | `BE-BICS-HIER` | BICS分类树 |
-| `BE-ENTITY` | `BE-BICS-ENTITY` | BICS公司树 |
-| `BE-LISTING` | `BE-BICS-AREA` | BICS地区映射 |
-| `BE-INGEST` | `BE-BICS-INGEST` | BICS导入 |
-| `BE-DEMO-DB` | `BE-DB-DEMO` | 演示集 |
-| `BE-SHELL` | `BE-DB-SHADOW` | 影集 |
-| `BE-CHAIN-LAYOUT` | `BE-NVDA-LAYOUT` | N布局规划 |
-| `BE-NVDA-LINKS` | `BE-NVDA-LINKS` | N关系集 |
-| `MODULES-TRACK` | `MODULES-TRACK` | 静态模块跟踪 |
-| `BE-BUNDLE` | `BE-BUNDLE` | 捆绑编排（第四轮） |
-
-品牌字样：冷启动页与页眉 logo 的 `FIDV` 改 `SFC`。
-
-## 总项目名称改名对照（2026-10-15；令文 `orders/GS-20261015-RENAME-FIDV-SFC.md`）
-
-| 旧称呼 | 新称呼 |
-|--------|--------|
-| `Financial Information To Decision Visualization (FIDV)` | `Standard-Financial-Charting (SFC)` |
-| `FIDV`（总项目简称） | `SFC` |
-
-不改：本机磁盘目录 `/Volumes/DATA/FIDV` 与 GitHub 远端 URL（交业主自行操作）、两份改名令文件名中的 `RENAME-FIDV-SFC`、以及历史档案正文中的史实叙述（指向现存且已改名的报告/图标/手册的路径已同步更新为 `SFC-*` / `sfc-launcher*`；当年旧位置的路径如 `library/FIDV-*.html`、PDF 题名等史实描述保留原文）。第二轮令文：`orders/GS-20261015-RENAME-FIDV-SFC-R2.md`。
+全局、FE / BE 模块、总项目名（FIDV → SFC）的历次改名对照见 [`RENAMES.md`](RENAMES.md)。读旧文按它翻译。
 
 ## 模块跟踪（静态）
 

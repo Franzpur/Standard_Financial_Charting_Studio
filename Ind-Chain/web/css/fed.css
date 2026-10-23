@@ -1,0 +1,1393 @@
+/* [C-FED] Institutional diagram. Shared tokens + six page-scoped --fed-dept-* ;
+   BS mode (GS-20261022-FED-BS-LAYER / FED-BS-DIM / FED-BS-INEXT-AUDIT) adds --fed-bs-* only while those classes are on — see AESTHETIC.md C-FED.
+   Marker ids below must exist in the page SVG (#fedSvg defs); legend samples reference the same ids.
+   BS hatch: #fed-bs-hatch pattern must exist in #fedSvg defs when .is-bs-special is used.
+   Out-of-map: .fed-svg.is-bs-mode .fed-node.is-bs-out + --fed-bs-dim (solid fill, not opacity).
+   Dual-channel fill (B5): .is-bs-internal / .is-bs-external + --fed-bs-internal / --fed-bs-external; stroke stays asset|liab|capital.
+   Legend BS right band: .fed-legend-bs + .fed-legend-swatch.is-* (internal / external-bs / out / asset / liab / capital);
+   institutional .fed-legend-depts / .fed-dept-swatch unchanged. */
+
+.fed-page {
+  --fed-dept-board: #7da6e3;
+  --fed-dept-fomc: #d684a9;
+  --fed-dept-banks: #efa189;
+  --fed-dept-advisory: #e1d195;
+  --fed-dept-government: #cbabe8;
+  --fed-dept-markets: #889b64;
+  /* Shell inline inset — legend / mode-pick / stage share one left edge (GS-20261023-FED-UI-API-LINKS A).
+     Box-model only; no translateX. */
+  --fed-shell-inline: 16px;
+  /* BS mode tokens — institutional mode never paints with these (classes absent). */
+  --fed-bs-asset: #5ecf8a;
+  --fed-bs-liab: #e07070;
+  --fed-bs-capital: #9aa6b5;
+  --fed-bs-asset-wash: rgba(94, 207, 138, 0.16);
+  --fed-bs-liab-wash: rgba(224, 112, 112, 0.16);
+  /* BS dual-channel fill (GS-20261023-FED-BS-INEXT-AUDIT B5): Fed-internal orange / external cyan;
+     hue-distinct from asset green / liab red strokes; not --us / --intl / official Fed blue. */
+  --fed-bs-internal: #e8994a;
+  --fed-bs-external: #45b8c9;
+  /* BS mode: nodes outside the condition map — solid grey fill (GS-20261022-FED-BS-DIM). */
+  --fed-bs-dim: #6e7681;
+  --fed-bs-dim-stroke: #8b939e;
+  /* BS panel chrome (collapse rail) — not paint tokens; does not touch six dept / internal / external. */
+  --fed-bs-panel-rail: 28px;
+  --fed-bs-panel-pad: 12px;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+.fed-page > main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 44px;
+}
+.fed-page .home-brand {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  margin: 0;
+  z-index: 7;
+}
+.fed-page .home-logo { margin: 0; }
+
+.fed-trail {
+  position: fixed;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  z-index: 8;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  pointer-events: none;
+}
+.fed-trail a,
+.fed-trail span {
+  pointer-events: auto;
+}
+.fed-trail a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.fed-trail a:hover,
+.fed-trail a:focus-visible {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+
+.fed-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 8px var(--fed-shell-inline) 4px;
+}
+
+.fed-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* —— nodes: department colour on the outline (seat bars are filled) —— */
+.fed-svg .fed-node {
+  color: var(--text);
+}
+.fed-svg .fed-node text {
+  fill: var(--text);
+  stroke: none;
+  font-size: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.fed-svg .fed-node rect,
+.fed-svg .fed-node circle {
+  fill: var(--glass);
+  stroke: var(--text);
+  stroke-width: 1.25;
+  rx: 0;
+  ry: 0;
+  pointer-events: all;
+}
+.fed-svg .fed-node.fed-shape-seat rect {
+  fill: var(--text);
+  stroke-width: 0;
+}
+.fed-svg .fed-node.fed-shape-band rect {
+  stroke-width: 1;
+}
+.fed-svg .fed-node.fed-shape-ring circle {
+  fill: none;
+}
+
+.fed-svg .fed-node[data-dept="board"] rect,
+.fed-svg .fed-node[data-dept="board"] circle {
+  stroke: var(--fed-dept-board);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="board"] rect {
+  fill: var(--fed-dept-board);
+}
+.fed-svg .fed-node[data-dept="fomc"] rect,
+.fed-svg .fed-node[data-dept="fomc"] circle {
+  stroke: var(--fed-dept-fomc);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="fomc"] rect {
+  fill: var(--fed-dept-fomc);
+}
+.fed-svg .fed-node[data-dept="banks"] rect,
+.fed-svg .fed-node[data-dept="banks"] circle {
+  stroke: var(--fed-dept-banks);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="banks"] rect {
+  fill: var(--fed-dept-banks);
+}
+.fed-svg .fed-node[data-dept="advisory"] rect,
+.fed-svg .fed-node[data-dept="advisory"] circle {
+  stroke: var(--fed-dept-advisory);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="advisory"] rect {
+  fill: var(--fed-dept-advisory);
+}
+.fed-svg .fed-node[data-dept="government"] rect,
+.fed-svg .fed-node[data-dept="government"] circle {
+  stroke: var(--fed-dept-government);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="government"] rect {
+  fill: var(--fed-dept-government);
+}
+.fed-svg .fed-node[data-dept="markets"] rect,
+.fed-svg .fed-node[data-dept="markets"] circle {
+  stroke: var(--fed-dept-markets);
+}
+.fed-svg .fed-node.fed-shape-seat[data-dept="markets"] rect {
+  fill: var(--fed-dept-markets);
+}
+
+/* External: hollow, dashed in the department colour. Seat bars get an outline so they stay visible. */
+.fed-svg .fed-node.is-external rect,
+.fed-svg .fed-node.is-external circle,
+.fed-svg .fed-node.fed-shape-seat.is-external rect {
+  fill: none;
+  stroke-dasharray: 3 2;
+}
+.fed-svg .fed-node.fed-shape-seat.is-external rect {
+  stroke-width: 1.25;
+}
+
+.fed-badge-pending,
+.fed-svg .fed-node text.fed-badge-pending {
+  fill: var(--muted);
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+.fed-badge-pending:empty::before {
+  content: "待核";
+}
+
+/* —— BS mode: out-of-map nodes solid grey (must beat [data-dept] + seat fill; not opacity) —— */
+.fed-svg.is-bs-mode .fed-node.is-bs-out rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-out circle,
+.fed-svg.is-bs-mode .fed-node.is-bs-out.fed-shape-seat rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-out.fed-shape-seat[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-out[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-out[data-dept] circle {
+  fill: var(--fed-bs-dim);
+  stroke: var(--fed-bs-dim-stroke);
+  stroke-width: 1.25;
+  stroke-dasharray: none;
+}
+.fed-svg.is-bs-mode .fed-node.is-bs-out.is-external rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-out.is-external circle {
+  fill: var(--fed-bs-dim);
+  stroke: var(--fed-bs-dim-stroke);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 2;
+}
+
+/* —— BS mode in-map overlays: stroke = asset|liab|capital; fill = internal|external (B5) —— */
+.fed-svg .fed-node.is-bs-asset rect,
+.fed-svg .fed-node.is-bs-asset circle {
+  stroke: var(--fed-bs-asset);
+}
+.fed-svg .fed-node.is-bs-liab rect,
+.fed-svg .fed-node.is-bs-liab circle {
+  stroke: var(--fed-bs-liab);
+}
+.fed-svg .fed-node.is-bs-capital rect,
+.fed-svg .fed-node.is-bs-capital circle {
+  stroke: var(--fed-bs-capital);
+}
+.fed-svg .fed-node.fed-shape-seat.is-bs-asset rect,
+.fed-svg .fed-node.fed-shape-seat.is-bs-liab rect,
+.fed-svg .fed-node.fed-shape-seat.is-bs-capital rect {
+  stroke-width: 1.25;
+}
+/* Dual-channel fill (GS-20261023-FED-BS-INEXT-AUDIT B2/B5): internal orange / external cyan.
+   Beats [data-dept] + seat fill; does not touch stroke (asset|liab|capital) or .is-bs-out.
+   Rings stay hollow. Class .is-bs-external ≠ institutional evidence .is-external. */
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out):not(.fed-shape-ring) rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out):not(.fed-shape-ring) circle,
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out).fed-shape-seat rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out).fed-shape-seat[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out)[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-internal:not(.is-bs-out)[data-dept] circle {
+  fill: var(--fed-bs-internal);
+}
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out):not(.fed-shape-ring) rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out):not(.fed-shape-ring) circle,
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out).fed-shape-seat rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out).fed-shape-seat[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out)[data-dept] rect,
+.fed-svg.is-bs-mode .fed-node.is-bs-external:not(.is-bs-out)[data-dept] circle {
+  fill: var(--fed-bs-external);
+}
+/* Legacy wash only when dual-channel fill class is absent (fallback before parent hangs in/ext). */
+.fed-svg .fed-node.is-bs-asset:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) rect,
+.fed-svg .fed-node.is-bs-asset:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) circle {
+  fill: var(--fed-bs-asset-wash);
+}
+.fed-svg .fed-node.is-bs-liab:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) rect,
+.fed-svg .fed-node.is-bs-liab:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) circle {
+  fill: var(--fed-bs-liab-wash);
+}
+.fed-svg .fed-node.is-bs-capital:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) rect,
+.fed-svg .fed-node.is-bs-capital:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external):not(.is-bs-internal):not(.is-bs-external) circle {
+  fill: color-mix(in srgb, var(--fed-bs-capital) 14%, transparent);
+}
+/* Deferred / special: dashed stroke + hatch (defs #fed-bs-hatch) + pending badge; hatch beats dual fill. */
+.fed-svg .fed-node.is-bs-special rect,
+.fed-svg .fed-node.is-bs-special circle {
+  stroke-dasharray: 4 2.5;
+}
+.fed-svg .fed-node.is-bs-special:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external) rect,
+.fed-svg .fed-node.is-bs-special:not(.fed-shape-seat):not(.fed-shape-ring):not(.is-external) circle {
+  fill: url(#fed-bs-hatch);
+}
+.fed-svg .fed-node.is-bs-special text.fed-badge-pending,
+.fed-svg .fed-node.is-bs-special .fed-badge-pending {
+  fill: var(--muted);
+  color: var(--muted);
+}
+
+.fed-node.is-dim,
+.fed-edge.is-dim {
+  opacity: 0.25;
+}
+
+.fed-node.is-hot,
+.fed-edge.is-hot {
+  opacity: 1;
+}
+.fed-svg .fed-node.is-hot rect,
+.fed-svg .fed-node.is-hot circle {
+  transform: scale(1.06);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.fed-edge.is-hot {
+  stroke: var(--text);
+}
+
+/* Selection outranks every department colour (id-level on purpose). */
+.fed-node.is-selected {
+  opacity: 1;
+}
+#fedSvg .fed-node.is-selected rect,
+#fedSvg .fed-node.is-selected circle {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+.fed-edge.is-selected {
+  stroke: var(--accent);
+  opacity: 1;
+}
+
+/* —— hit layer: transparent, untouched by shape / state rules —— */
+.fed-hits .fed-hit {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+
+/* —— edges: dash + marker, never hue; never take the pointer —— */
+.fed-edge {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.fed-edge-appoint {
+  stroke-width: 1.7;
+  stroke-dasharray: none;
+  marker-end: url(#fed-mk-appoint);
+}
+.fed-edge-oversee {
+  stroke-width: 1.1;
+  stroke-dasharray: 7 3;
+  marker-end: url(#fed-mk-oversee);
+}
+.fed-edge-report {
+  stroke-width: 1.1;
+  stroke-dasharray: 2 3;
+  marker-end: url(#fed-mk-report);
+}
+.fed-edge-vote {
+  stroke-width: 1;
+  stroke-dasharray: none;
+  marker-end: url(#fed-mk-vote);
+}
+.fed-edge-transmit {
+  stroke-width: 2.2;
+  stroke-dasharray: none;
+  marker-end: url(#fed-mk-transmit);
+}
+.fed-edge-fund_flow {
+  stroke-width: 1.4;
+  stroke-dasharray: 10 3 2 3;
+  marker-end: url(#fed-mk-fund_flow);
+}
+.fed-edge-regulate {
+  stroke-width: 1.1;
+  stroke-dasharray: 4 2;
+  marker-end: url(#fed-mk-regulate);
+}
+.fed-edge-advise {
+  stroke-width: 1;
+  stroke-dasharray: 1 3;
+  marker-end: url(#fed-mk-advise);
+}
+.fed-edge-service {
+  stroke-width: 1;
+  stroke-dasharray: 12 2;
+  marker-end: url(#fed-mk-service);
+}
+.fed-edge-delegate {
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  marker-end: url(#fed-mk-delegate);
+}
+.fed-edge-inform {
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  marker-end: url(#fed-mk-inform);
+}
+.fed-edge-coordinate {
+  stroke-width: 1;
+  stroke-dasharray: 5 1.5 1 1.5;
+  marker-start: url(#fed-mk-coordinate);
+  marker-end: url(#fed-mk-coordinate);
+}
+/* Arrow bodies stay --text so they stay visible on --bg. Selection recolors the stroke only. */
+#fed-mk-appoint path,
+#fed-mk-report path,
+#fed-mk-vote path,
+#fed-mk-transmit path,
+#fed-mk-regulate path,
+#fed-mk-service path,
+#fed-mk-inform path,
+#fed-mk-advise circle {
+  fill: var(--text);
+  stroke: none;
+}
+#fed-mk-oversee path,
+#fed-mk-fund_flow path,
+#fed-mk-delegate path,
+#fed-mk-coordinate path {
+  fill: none;
+  stroke: var(--text);
+}
+.fed-svg .fed-edge.is-hidden { display: none; }
+.fed-svg .fed-edge.is-external { stroke-dasharray: 2 3; }
+.fed-pages { color: var(--muted); }
+.fed-svg .fed-edge.is-skeleton:not(.is-hot):not(.is-selected) {
+  stroke: var(--stroke);
+  stroke-width: 0.75;
+  stroke-dasharray: none;
+  marker-end: none;
+  marker-start: none;
+}
+
+/* —— legend band: in flow under the 44px header, edges | departments ——
+   Left content edge = --fed-shell-inline, co-linear with .fed-mode-pick and #fedStage. */
+.fed-legend {
+  position: relative;
+  z-index: 5;
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  box-sizing: border-box;
+  margin: 4px var(--fed-shell-inline) 0;
+  padding: 0;
+}
+.fed-legend-edges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  background: var(--glass);
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+  border-radius: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.fed-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 4px 8px;
+  border: 0;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+.fed-legend-item.is-on {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-legend-item:hover,
+.fed-legend-item:focus-visible {
+  color: var(--text);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-legend-more[aria-expanded="true"] {
+  color: var(--text);
+}
+.fed-legend-sample {
+  display: block;
+  flex: none;
+  width: 28px;
+  height: 10px;
+  overflow: visible;
+  opacity: 0.4;
+}
+.fed-legend-item.is-on .fed-legend-sample {
+  opacity: 1;
+}
+.fed-legend-depts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 12px;
+  min-height: 25px;
+  padding-left: 12px;
+  border-left: 1px solid var(--stroke);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 16px;
+}
+.fed-legend-dept {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.fed-dept-swatch {
+  display: block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--muted);
+  border-radius: 0;
+  background: var(--glass);
+}
+.fed-legend-dept[data-dept="board"] .fed-dept-swatch { border-color: var(--fed-dept-board); }
+.fed-legend-dept[data-dept="fomc"] .fed-dept-swatch { border-color: var(--fed-dept-fomc); }
+.fed-legend-dept[data-dept="banks"] .fed-dept-swatch { border-color: var(--fed-dept-banks); }
+.fed-legend-dept[data-dept="advisory"] .fed-dept-swatch { border-color: var(--fed-dept-advisory); }
+.fed-legend-dept[data-dept="government"] .fed-dept-swatch { border-color: var(--fed-dept-government); }
+.fed-legend-dept[data-dept="markets"] .fed-dept-swatch { border-color: var(--fed-dept-markets); }
+
+/* —— BS legend right band (C10 + GS-20261023-FED-BS-INEXT-AUDIT B5): six short samples.
+   Readable: 内橙 · 外青 · 域外灰 · 资产绿描边 · 负债红描边 · 资本.
+   Swatch .is-external-bs ≠ institutional evidence .is-external. Parent paintLegend owns labels.
+   Institutional mode keeps .fed-legend-depts / .fed-dept-swatch above — zero regression. —— */
+.fed-legend-bs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 12px;
+  min-height: 25px;
+  padding-left: 12px;
+  border-left: 1px solid var(--stroke);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 16px;
+}
+.fed-legend-bs-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.fed-legend-swatch {
+  display: block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--muted);
+  border-radius: 0;
+  background: var(--glass);
+}
+/* Fill channel samples */
+.fed-legend-swatch.is-internal {
+  border-color: var(--fed-bs-internal);
+  background: var(--fed-bs-internal);
+}
+.fed-legend-swatch.is-external-bs {
+  border-color: var(--fed-bs-external);
+  background: var(--fed-bs-external);
+}
+.fed-legend-swatch.is-out {
+  border-color: var(--fed-bs-dim-stroke);
+  background: var(--fed-bs-dim);
+}
+/* Stroke channel samples (glass fill so border reads as the signal) */
+.fed-legend-swatch.is-asset {
+  border-color: var(--fed-bs-asset);
+  background: var(--glass);
+}
+.fed-legend-swatch.is-liab {
+  border-color: var(--fed-bs-liab);
+  background: var(--glass);
+}
+.fed-legend-swatch.is-capital {
+  border-color: var(--fed-bs-capital);
+  background: color-mix(in srgb, var(--fed-bs-capital) 14%, transparent);
+}
+/* Pending / deferred kept for paintLegend if still emitted (CSS stand-in for #fed-bs-hatch). */
+.fed-legend-swatch.is-pending {
+  border-color: var(--fed-bs-asset);
+  border-style: dashed;
+  border-width: 1.5px;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      var(--fed-bs-asset) 2px,
+      var(--fed-bs-asset) 3px
+    ),
+    var(--fed-bs-asset-wash);
+}
+
+/* —— hover card, detail, HUD, FOMC veil —— */
+.fed-float {
+  position: absolute;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none;
+  box-sizing: border-box;
+  max-width: 260px;
+  max-height: min(42vh, 300px);
+  overflow: hidden;
+  padding: 8px 10px;
+  background: var(--glass-strong);
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.4;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.fed-float[hidden] { display: none !important; }
+.fed-float > strong {
+  flex: none;
+  font-weight: 600;
+}
+.fed-float > span {
+  flex: none;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.fed-float p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+/* Cash ops list inside hover float (GS-20261022-FED-FUND-FLOW). */
+.fed-page .fed-cash-ops {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: min(28vh, 200px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--stroke);
+  pointer-events: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.fed-page .fed-cash-ops li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--stroke);
+}
+.fed-page .fed-cash-ops li:last-child {
+  border-bottom: 0;
+}
+.fed-page .fed-cash-op {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 6px;
+  row-gap: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 5px 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 11.5px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.fed-page .fed-cash-dir {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  color: var(--muted);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.fed-page .fed-cash-op[data-dir="in"] .fed-cash-dir {
+  font-weight: 600;
+}
+.fed-page .fed-cash-op[data-dir="out"] .fed-cash-dir {
+  font-weight: 400;
+}
+.fed-page .fed-cash-label {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--text);
+  font-weight: 500;
+}
+.fed-page .fed-cash-account {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 400;
+}
+.fed-page .fed-cash-op:hover,
+.fed-page .fed-cash-op:focus-visible {
+  background: var(--glass);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-page .fed-cash-op.is-on {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-page .fed-cash-op.is-on .fed-cash-dir,
+.fed-page .fed-cash-op.is-on .fed-cash-account {
+  color: var(--muted);
+}
+.fed-page .fed-cash-op.is-on .fed-cash-label {
+  color: var(--text);
+}
+
+/* Contained by #fedStage (position: relative). */
+.fed-card {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  width: min(300px, calc(100% - 28px));
+  max-height: calc(100% - 16px);
+  overflow: auto;
+  margin: 0;
+  padding: 14px 14px 16px;
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.fed-card[hidden] { display: none !important; }
+.fed-card h2,
+.fed-card h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.fed-card p,
+.fed-card li {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* BS side panel — stage-scoped like .fed-card; stock bars + Δ + unprojected.
+   Collapse skin (GS-20261023-FED-UI-API-LINKS B): .is-collapsed → right rail; parent wires toggle. */
+.fed-bs-panel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-sizing: border-box;
+  width: min(280px, calc(100% - 28px));
+  max-height: calc(100% - 16px);
+  overflow: auto;
+  margin: 0;
+  padding: var(--fed-bs-panel-pad) var(--fed-bs-panel-pad) 14px;
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+.fed-bs-panel[hidden] { display: none !important; }
+.fed-bs-panel h2,
+.fed-bs-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.fed-bs-head > strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  font-weight: 600;
+}
+.fed-bs-toggle {
+  flex: none;
+  margin: 0;
+  margin-left: auto;
+  padding: 3px 8px;
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+  background: var(--glass);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.fed-bs-toggle:hover,
+.fed-bs-toggle:focus-visible {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-bs-meta {
+  flex: 1 1 100%;
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+.fed-bs-head .fed-bs-meta {
+  margin: 0;
+}
+/* Collapsed: thin right rail — does not cover stage hit targets; expand via .fed-bs-toggle. */
+.fed-bs-panel.is-collapsed {
+  top: 8px;
+  right: 0;
+  bottom: auto;
+  left: auto;
+  width: var(--fed-bs-panel-rail);
+  max-width: var(--fed-bs-panel-rail);
+  max-height: calc(100% - 16px);
+  min-height: 9em;
+  padding: 6px 0;
+  overflow: hidden;
+  border-right: 0;
+}
+.fed-bs-panel.is-collapsed > :not(.fed-bs-head) {
+  display: none !important;
+}
+.fed-bs-panel.is-collapsed .fed-bs-head {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  height: 100%;
+  min-height: inherit;
+}
+.fed-bs-panel.is-collapsed .fed-bs-head > strong,
+.fed-bs-panel.is-collapsed .fed-bs-meta {
+  display: none;
+}
+.fed-bs-panel.is-collapsed .fed-bs-toggle {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 10px 4px;
+  border: 0;
+  border-left: 1px solid var(--stroke);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.fed-bs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--stroke);
+}
+.fed-bs-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  column-gap: 8px;
+  row-gap: 2px;
+  margin: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--stroke);
+}
+.fed-bs-row:last-child { border-bottom: 0; }
+.fed-bs-label {
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--text);
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+.fed-bs-amt {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--text);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  text-align: right;
+  white-space: nowrap;
+}
+.fed-bs-bar-track {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  height: 6px;
+  margin: 2px 0 0;
+  background: var(--glass-strong);
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+  overflow: hidden;
+}
+.fed-bs-bar {
+  display: block;
+  height: 100%;
+  width: var(--fed-bs-pct, 0%);
+  max-width: 100%;
+  background: var(--fed-bs-capital);
+  border-radius: 0;
+}
+.fed-bs-row.is-asset .fed-bs-bar { background: var(--fed-bs-asset); }
+.fed-bs-row.is-liab .fed-bs-bar { background: var(--fed-bs-liab); }
+.fed-bs-row.is-capital .fed-bs-bar { background: var(--fed-bs-capital); }
+.fed-bs-row.is-special .fed-bs-bar {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--fed-bs-asset) 0 2px,
+    transparent 2px 5px
+  );
+}
+.fed-bs-delta {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+.fed-bs-delta.is-pos { color: var(--fed-bs-asset); }
+.fed-bs-delta.is-neg { color: var(--fed-bs-liab); }
+.fed-bs-panel h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  margin: 10px 0 4px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+.fed-bs-share-tag {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 400;
+}
+.fed-bs-shared-tag {
+  margin-left: 0.35em;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 400;
+}
+.fed-bs-row.fed-bs-share .fed-bs-amt {
+  font-variant-numeric: tabular-nums;
+}
+.fed-bs-row.fed-bs-share:not(.is-held) .fed-bs-amt {
+  color: var(--muted);
+}
+.fed-bs-row.is-special .fed-bs-label::after {
+  content: " · 待核";
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.fed-bs-gap {
+  margin: 10px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--stroke);
+}
+.fed-bs-gap > strong,
+.fed-bs-gap-title {
+  display: block;
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.fed-bs-gap p,
+.fed-bs-gap li {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+.fed-bs-gap ul {
+  margin: 4px 0 0;
+  padding: 0 0 0 1.1em;
+}
+.fed-bs-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+
+/* Dock: scene pick + HUD left, footer right, one row that may wrap. */
+.fed-dock {
+  position: relative;
+  z-index: 5;
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin: 0 16px 6px;
+}
+.fed-scene-pick {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  background: var(--glass);
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+  border-radius: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.fed-scene-btn {
+  margin: 0;
+  padding: 5px 10px;
+  border: 0;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.fed-scene-btn:hover,
+.fed-scene-btn:focus-visible {
+  color: var(--text);
+  background: var(--glass);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-scene-btn.is-on {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+/* Mode pick: institutional / balance-sheet — same strip language as scene pick.
+   Horizontal inset = --fed-shell-inline (co-linear with .fed-legend / #fedStage; no translateX). */
+.fed-mode-pick {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  box-sizing: border-box;
+  gap: 0;
+  margin: 4px var(--fed-shell-inline) 0;
+  padding: 0;
+  background: var(--glass);
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+  border-radius: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Quiet external links (Fed + BLS) — muted text row; does not compete with legend. */
+.fed-ext-links {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+  box-sizing: border-box;
+  margin: 2px var(--fed-shell-inline) 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+.fed-ext-links a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.fed-ext-links a:hover,
+.fed-ext-links a:focus-visible {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+.fed-data-btn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.fed-data-btn:hover,
+.fed-data-btn:focus-visible {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+.fed-data-panel {
+  box-sizing: border-box;
+  margin: 4px var(--fed-shell-inline) 0;
+  padding: 8px 10px;
+  max-height: 9.5em;
+  overflow: auto;
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+.fed-data-panel[hidden] { display: none !important; }
+.fed-data-panel h3 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.fed-data-panel ul {
+  margin: 0 0 8px;
+  padding: 0 0 0 1.1em;
+}
+.fed-data-panel li { margin: 0 0 2px; }
+.fed-data-panel a { color: var(--text); }
+.fed-mode-btn {
+  margin: 0;
+  padding: 5px 10px;
+  border: 0;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.fed-mode-btn:hover,
+.fed-mode-btn:focus-visible {
+  color: var(--text);
+  background: var(--glass);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-mode-btn.is-on {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.fed-hud {
+  position: static;
+  z-index: 5;
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--glass);
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+  border-radius: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.fed-hud button {
+  margin: 0;
+  padding: 5px 10px;
+  border: 0;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+}
+.fed-hud button:hover,
+.fed-hud button:focus-visible {
+  color: var(--text);
+  background: var(--glass-strong);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+.fed-hud p {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 18em;
+  margin: 0;
+  padding: 5px 10px;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 16px;
+}
+.fed-hud p:empty { display: none; }
+
+.fed-footer {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  max-width: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  overflow: visible;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: right;
+  white-space: normal;
+}
+
+.fed-fomc {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: var(--bg);
+  border: 1px solid var(--stroke);
+  border-radius: 0;
+}
+.fed-fomc[hidden] { display: none !important; }
+.fed-fomc-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.fed-fomc-svg text {
+  fill: var(--text);
+  stroke: none;
+  font-size: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.fed-fomc-svg text.fed-badge-pending {
+  fill: var(--muted);
+  font-size: 9px;
+}
+.fed-fomc-svg [data-seat] rect {
+  fill: var(--text);
+  stroke: none;
+  pointer-events: all;
+}
+.fed-fomc-svg [data-seat] text {
+  fill: var(--bg);
+}
+.fed-fomc-svg [data-seat][data-dept="board"] rect { fill: var(--fed-dept-board); stroke: var(--fed-dept-board); }
+.fed-fomc-svg [data-seat][data-dept="fomc"] rect { fill: var(--fed-dept-fomc); stroke: var(--fed-dept-fomc); }
+.fed-fomc-svg [data-seat].is-external rect {
+  fill: none;
+  stroke-width: 1.25;
+  stroke-dasharray: 3 2;
+}
+.fed-fomc-svg [data-seat].is-external text {
+  fill: var(--text);
+}
+.fed-fomc-svg rect[data-vote="false"],
+.fed-fomc-svg [data-vote="false"] rect {
+  fill: var(--text);
+  stroke: none;
+  opacity: 0.25;
+}
+
+.fed-node,
+.fed-edge,
+.fed-float,
+.fed-fomc,
+.fed-card,
+.fed-bs-panel,
+.fed-bs-toggle,
+.fed-hud button,
+.fed-legend-item,
+.fed-legend-sample,
+.fed-scene-btn,
+.fed-mode-btn,
+.fed-page .fed-cash-op {
+  transition: opacity .18s ease, transform .18s ease;
+}
+.fed-svg .fed-node rect,
+.fed-svg .fed-node circle {
+  transition: transform .18s ease;
+}
+
+@media (min-width: 1100px) {
+  .fed-hud p { max-width: 40em; }
+}
+
+@media (max-width: 960px) {
+  .fed-float {
+    max-width: 220px;
+    max-height: min(42vh, 260px);
+  }
+  .fed-page .fed-cash-ops {
+    max-height: min(28vh, 160px);
+  }
+  .fed-card,
+  .fed-bs-panel {
+    top: auto;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-height: 40%;
+  }
+  /* Collapsed stays a right rail on narrow — not the bottom drawer (must not cover nodes). */
+  .fed-bs-panel.is-collapsed {
+    top: 8px;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    width: var(--fed-bs-panel-rail);
+    max-width: var(--fed-bs-panel-rail);
+    max-height: calc(100% - 16px);
+    min-height: 9em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fed-node,
+  .fed-svg .fed-node rect,
+  .fed-svg .fed-node circle,
+  .fed-edge,
+  .fed-float,
+  .fed-fomc,
+  .fed-card,
+  .fed-bs-panel,
+  .fed-bs-toggle,
+  .fed-hud button,
+  .fed-legend-item,
+  .fed-legend-sample,
+  .fed-scene-btn,
+  .fed-mode-btn,
+  .fed-page .fed-cash-op {
+    transition: none;
+    animation: none;
+  }
+}

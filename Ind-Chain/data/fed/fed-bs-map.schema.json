@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sfc-fed-bs-map",
+  "type": "object",
+  "required": ["version", "asOf", "entries"],
+  "properties": {
+    "version": { "type": "integer" },
+    "asOf": { "const": "2025-12-31" },
+    "claim_type": { "const": "bs_claim" },
+    "note_zh": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["line_id", "side", "node_ids", "gap", "special"],
+        "properties": {
+          "line_id": { "type": "string" },
+          "side": { "enum": ["asset", "liability", "capital"] },
+          "node_ids": { "type": "array", "items": { "type": "string" } },
+          "gap": { "type": "boolean" },
+          "special": { "type": "boolean" },
+          "gap_reason_zh": { "type": "string" }
+        }
+      }
+    }
+  }
+}
